@@ -5,7 +5,7 @@
 \EnableCrossrefs
 \CodelineIndex
 \begin{document}
-    \DocInput{lstdrvrs-1.3.dtx}
+    \DocInput{lstdrvrs.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -39,9 +39,9 @@
 % \begingroup
 %    \begin{macrocode}
 %% The listings package is copyright 1996--2004 Carsten Heinz, and 
-%% continued maintenance on the package is copyright 2006 Brooks Moses.
-%% The drivers are copyright 1997/1998/1999/2000/2001/2002/2003/2004 any
-%% individual author listed in this file.
+%% continued maintenance on the package is copyright 2006--2007 Brooks Moses.
+%% The drivers are copyright 1997/1998/1999/2000/2001/2002/2003/2004/2006/
+%% 2007 any individual author listed in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
@@ -70,9 +70,9 @@
 
 
 \generate{
-    \file{lstlang1.sty}{\from{lstdrvrs-1.3.dtx}{lang1}}
-    \file{lstlang2.sty}{\from{lstdrvrs-1.3.dtx}{lang2}}
-    \file{lstlang3.sty}{\from{lstdrvrs-1.3.dtx}{lang3}}
+    \file{lstlang1.sty}{\from{lstdrvrs.dtx}{lang1}}
+    \file{lstlang2.sty}{\from{lstdrvrs.dtx}{lang2}}
+    \file{lstlang3.sty}{\from{lstdrvrs.dtx}{lang3}}
 }
 
 
@@ -97,19 +97,20 @@
 % \endgroup
 % We mainly define default dialects.
 %    \begin{macrocode}
-\ProvidesFile{listings.cfg}[2004/09/05 1.3 listings configuration]
+\ProvidesFile{listings.cfg}[2007/02/22 1.4 listings configuration]
 \def\lstlanguagefiles
     {lstlang0.sty,lstlang1.sty,lstlang2.sty,lstlang3.sty}
 \lstset{defaultdialect=[R/3 6.10]ABAP,
-        defaultdialect=[95]Ada,
+        defaultdialect=[2005]Ada,
         defaultdialect=[68]Algol,
         defaultdialect=[gnu]Awk,
         defaultdialect=[ANSI]C,
         defaultdialect=[light]Caml,
         defaultdialect=[1985]Cobol,
+	defaultdialect=[WinXP]command.com,
         defaultdialect=[ISO]C++,
         defaultdialect=[95]Fortran,
-        defaultdialect=[3.0]Mathematica,
+        defaultdialect=[5.2]Mathematica,
         defaultdialect=[OMG]OCL,
         defaultdialect=[Standard]Pascal,
         defaultdialect=[67]Simula,
@@ -217,7 +218,7 @@
         transfer-dynpro,translate,type,unpack,update,user-command,%
         using,value,when,where,while,window,with,workfile,write,},%
    morecomment=[l]",%
-   morecomment=[f][0]*,%
+   morecomment=[f][commentstyle][0]*,%
    morestring=[d]'%
   }[keywords,comments,strings,procnames]
 %    \end{macrocode}
@@ -282,6 +283,13 @@
 %%
 %% Ada 95 definition (c) Torsten Neuer
 %%
+%% Ada 2005 definition (c) 2006 Santiago Urue\~{n}a Pascual
+%%                              <Santiago.Uruena@upm.es>
+%%
+\lst@definelanguage[2005]{Ada}[95]{Ada}%
+  {morekeywords={interface,overriding,synchronized}}%
+%    \end{macrocode}
+%    \begin{macrocode}
 \lst@definelanguage[95]{Ada}[83]{Ada}%
   {morekeywords={abstract,aliased,protected,requeue,tagged,until}}%
 %    \end{macrocode}
@@ -356,6 +364,29 @@
 %
 %
 % \subsection{Assembler}
+%
+% Credits go to \lstthanks{Michael~Franke}{-}{2006/05/13}.
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%%
+%% Motorola 68K definition (c) 2006 Michael Franke
+%%
+\lst@definelanguage[Motorola68k]{Assembler}%
+ {morekeywords={ABCD,ADD,%
+ADDA,ADDI,ADDQ,ADDX,AND,ANDI,ASL,ASR,BCC,BLS,BCS,BLT,BEQ,BMI,BF,BNE,BGE,BPL,%
+BGT,BT,BHI,BVC,BLE,BVS,BCHG,BCLR,BRA,BSET,BSR,BTST,CHK,CLR,CMP,CMPA,CMPI,CMPM,%
+DBCC,DBLS,DBCS,DBLT,DBEQ,DBMI,DBF,DBNE,DBGE,DBPL,DBGT,DBT,DBHI,DBVC,DBLE,DBVS,DIVS,%
+DIVU,EOR,EORI,EXG,EXT,ILLEGAL,JMP,JSR,LEA,LINK,LSL,LSR,MOVE,MOVEA,MOVEM,MOVEP,MOVEQ,%
+MULS,MULU,NBCD,NEG,NEGX,NOP,NOT,OR,ORI,PEA,RESET,ROL,ROR,ROXL,ROXR,RTE,RTR,RTS,SBCD,%
+SCC,SLS,SCS,SLT,SEQ,SMI,SF,SNE,SGE,SPL,SGT,ST,SHI,SVC,SLE,SVS,STOP,SUB,SUBA,SUBI,SUBQ,%
+SUBX,SWAP,TAS,TRAP,TRAPV,TST,UNLK},%
+   sensitive=false,%
+   morecomment=[l]*,%
+   morecomment=[l];%
+   }[keywords,comments,strings]
+%</lang3>
+%    \end{macrocode}
 %
 % Credits go to \lstthanks{Andrew~Zabolotny}{zap@cobra.ru}{2002/07/05}.
 % \begingroup
@@ -840,6 +871,62 @@
 % \endgroup
 %
 %
+% \subsection{Common Intermediate Language}
+%
+% This langauge definition for CIL (Common Intermediate Language, part 
+% of Microsoft's .NET interface) was provided by
+% \lsthelper{Olaf~Conradi}{-}{2006/08/23}.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lstdefinelanguage{CIL}%
+  {morekeywords=[1]{assembly,beforefieldinit,class,default,cdecl,cil,corflags,%
+                    culture,custom,data,entrypoint,fastcall,field,file,%
+                    hidebysig,hash,il,imagebase,locals,managed,marshall,%
+                    maxstack,mresource,method,module,namespace,publickey,%
+                    stdcall,subsystem,thiscall,unmanaged,vararg,ver,vtfixup,%
+                   % types
+                    bool,char,float32,float64,int,int8,int16,int32,%
+                    int64,method,native,object,string,modopt,modreq,pinned,%
+                    typedref,valuetype,unsigned,void,%
+                   % defining types
+                    abstract,ansi,auto,autochar,beforefieldinit,boxed,class,%
+                    explicit,extends,implements,interface,famandassem,family,%
+                    famorassem,inherits,nested,override,pack,private,property,%
+                    public,rtspecialname,sealed,sequential,serializable,size,%
+                    specialname,static,unicode,%
+                   % postfix
+                    algorithm,alignment,extern,init,from,nometadata,with},%
+  morekeywords=[2]{add,and,arglist,beq,bge,bgt,ble,blt,bne,br,break,brfalse,%
+                    brtrue,call,calli,ceq,cgt,ckfinite,clt,conv,cpblk,div,%
+                    dup,endfilter,endfinally,initblk,jmp,ldarg,ldarga,ldc,%
+                    ldftn,ldind,ldloc,ldloca,ldnull,leave,localloc,mul,neg,%
+                    nop,not,or,pop,rem,ret,shl,shr,starg,stind,stloc,sub,%
+                    switch,xor,%
+                   % prefix
+                    tail,unaligned,volatile,%
+                   % postfix
+                    un,s,ovf,%
+                   % object
+                    box,callvirt,castclass,cpobj,cctor,ctor,initobj,isinst,%
+                    ldelem,ldelema,ldfld,ldflda,ldlen,ldobj,ldsfld,ldsflda,%
+                    ldstr,ldtoken,ldvirtftn,mkrefany,newarr,newobj,refanytype,%
+                    refanyval,rethrow,sizeof,stelem,stfld,stobj,stsfld,throw,%
+                    unbox},%
+  sensitive=true,%
+  morecomment=[l]{//},%
+  morestring=[b]"%
+}[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Cobol}
 %
 % Keywords are not marked if their names are broken by EOL, for example DEBUG-
@@ -950,6 +1037,167 @@
    sensitive=f,% ???
    morecomment=[l]//,%
    morestring=[d]"%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{COMMAND.COM Batch Files}
+%
+% This definition for DOS and Windows batch files is from
+% \lstthanks{Stephan Hennig}{-}{2006/10/11}.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage[WinXP]{command.com}%
+  {morekeywords={assoc,at,attrib,bootcfg,break,cacls,call,cd,chcp,chdir,%
+      chkdsk,chkntfs,cls,cmd,cmdextversion,color,comp,compact,convert,copy,%
+      date,defined,del,dir,diskcomp,diskcopy,do,doskey,echo,else,endlocal,%
+      erase,errorlevel,exist,exit,fc,find,findstr,for,format,ftype,goto,%
+      graftabl,help,if,in,label,md,mkdir,mode,more,move,not,off,path,%
+      pause,popd,print,prompt,pushd,rd,recover,ren,rename,replace,rmdir,%
+      set,setlocal,shift,sort,start,subst,time,title,tree,type,ver,%
+      verify,vol,xcopy},%
+   sensitive=false,%
+   alsoother={@},%
+   alsoletter={\%~:-/},%
+   morecomment=[l]{rem},%
+   morecomment=[l]{reM},%
+   morecomment=[l]{rEm},%
+   morecomment=[l]{rEM},%
+   morecomment=[l]{Rem},%
+   morecomment=[l]{ReM},%
+   morecomment=[l]{REm},%
+   morecomment=[l]{REM},%
+   morestring=[d]"%
+}[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Comsol Multiphysics}
+%
+% Comsol Multiphysics (Prior to version 3.2 known as Femlab) can be used 
+% standalone or as an extension to MatLab.  This definition is due to
+% \lstthanks{Martin~Heller}{-}{2006/05/10}.
+%
+% Unfortunately, there is a conflict in that Comsol is case-insensitive,
+% whereas Matlab is case-sensitive; \textsf{listings} does not
+% currently support different case-sensitivities in the same listing.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{Comsol}%
+  {morekeywords={%
+      adaption,arc1,arc2,arrayr,assemble,asseminit,beziercurve2,block2,%
+      block3,bsplinecurve2,bsplinecurve3,bsplinesurf3,bypassplot,cardg,%
+      ccoeffgroup,chamfer,checkgeom,circ1,circ2,coeff2cell,comsol,%
+      cone2,cone3,Contents,createhexes,createprisms,createquads,csgbl2,%
+      csgbl3,csgcmpbz,csgimplbz,csginitaux,csginitnr,csgproputil,%
+      csgrbconv,csgunique3,csguniquep,csgversion,csgvvovl,curve2,%
+      curve3,cylinder2,cylinder3,dat2str,defastget,display,drawgetobj,%
+      drawreobj,drawsetobj,dst,duplicate,dxflayers,dxfread,dxfwrite,%
+      econe2,econe3,eigloop,elcconstr,elcplbnd,elcplextr,elcplproj,%
+      elcplscalar,elempty,elemreobj,eleqc,eleqw,elevate,elgeom,ellip1,%
+      ellip2,ellipsoid2,ellipsoid3,ellipsoidgen_fl23,elmat,elovar,%
+      elpconstr,elshape,elvar,elvarm,embed,extrude,face3,faceprim3,%
+      fastsetop,fem2jxfem,femblocksu,femdiff,femeig,femexport,femgui,%
+      femimport,femiter,femlab,femlin,femmesh,femmeshexp,femnlin,%
+      femplot,femsfun,femsim,femsimlowlevel,femsimserver,femsol,%
+      femsolver,femstate,femstruct,femtime,femwave,festyle,fieldnames,%
+      fillet,fl1d,fl2d,fl3d,flaction,flafun,flappconvert,flappobj,%
+      flaxisequal,flbase,flbinary,flc1hs,flc2hs,flcanpnt,flcell2draw,%
+      flclear,flcolorbar,flcompact,flconeplot,flcontour2mesh,%
+      flcontour2meshaux,flconvreact,flconvreact1d,flconvreact2d,%
+      flconvreact3d,flcyl,fldc1hs,fldc2hs,fldegree,fldegreer3,%
+      fldegreet3,fldimvarsget,fldisp,fldraw2cell,fldrawnow,fldsmhs,%
+      fldsmsign,flevalmat,flexch,flexchprop,flfastgeom,flform,flgc,%
+      flgcbo,flgdconv,flgeom2cellstr,flgeomadj,flgeomarcize,flgeomec,%
+      flgeomed,flgeomepol,flgeomes,flgeomfc,flgeomfd,flgeomfdp,%
+      flgeomff1,flgeomff2,flgeomfn,flgeomfs,flgeomgetlocalsys,%
+      flgeominit,flgeominitprop,flgeomitransform,flgeomloft,flgeommesh,%
+      flgeomnbs,flgeomnes,flgeomnmr,flgeomnv,flgeompsinv,flgeomrmsing,%
+      flgeomrotp,flgeomsd,flgeomsdim,flgeomse,flgeomsf2,flgeomspm,%
+      flgeomtransform,flgeomud,flgeomvtx,flgetdraw,flheat,flheat1d,%
+      flheat2d,flheat3d,flhelmholtz,flhelmholtz1d,flhelmholtz2d,%
+      flhelmholtz3d,flim2curve,flinterp1,fliscont,flismember,%
+      flisnumeric,fljaction,fllaplace,fllaplace1d,fllaplace2d,%
+      fllaplace3d,flload,flloadfl,flloadmatfile,flloadmfile,%
+      fllobj2cellstr,flmakeevalstr,flmapsoljac,flmat2str,flmatch,%
+      flmesh2spline,flmesh2splineaux,flml65setup,flngdof,flnull,%
+      flnullorth,flpde,flpdeac,flpdec,flpdec1d,flpdec2d,flpdec3d,%
+      flpdedc,flpdedc2d,flpdedc3d,flpdedf,flpdedf1d,flpdedf2d,%
+      flpdedf3d,flpdees,flpdees2d,flpdees3d,flpdeg,flpdeg1d,flpdeg2d,%
+      flpdeg3d,flpdeht,flpdeht1d,flpdeht2d,flpdeht3d,flpdems,flpdems2d,%
+      flpdems3d,flpdens,flpdens2d,flpdens3d,flpdepn,flpdeps,flpdesm3d,%
+      flpdew,flpdew1d,flpdew2d,flpdew3d,flpdewb,flpdewb1d,flpdewb2d,%
+      flpdewb3d,flpdewc,flpdewc1d,flpdewc2d,flpdewc3d,flpdewe,%
+      flpdewe3d,flpdewp,flpdewp2d,flpdewp3d,flplot,flpoisson,%
+      flpoisson1d,flpoisson2d,flpoisson3d,flpric2,flpric3,flreobj,%
+      flreport,flresolvepath,flsave,flschrodinger,flschrodinger1d,%
+      flschrodinger2d,flschrodinger3d,flsde,flsdp,flsdt,flsetalpha,%
+      flsetdraw,flsmhs,flsmsign,flspnull,fltherm_cond1,fltrg,flversion,%
+      flversions,flverver,flwave,flwave1d,flwave2d,flwave3d,%
+      flwriteghist,formstr,gdsread,gencyl2,gencyl3,genextrude,%
+      genextrudeaux,geom,geom0,geom0get,geom1,geom1get,geom2,geom2get,%
+      geom3,geom3get,geom3j2m,geom3m2j,geomaddlblmargin,geomanalyze,%
+      geomarrayr,geomassign,geomcoerce,geomcomp,geomconnect,geomcopy,%
+      geomcsg,geomdel,geomedit,geomexport,geomfile,geomget,%
+      geomgetlabels,geomgetwrkpln,geomimport,geominfo,geominfoaux,%
+      geomlblplot,geomload,geomnumparse,geomobject,geomparse,geomplot,%
+      geomplot1,geomplot2,geomplot3,geomposition,geomproputil,%
+      geomreconstruct,geomreobj,geomserver,geomspline,geomsurf,%
+      geomupdate,get,getfemgeom,getisocurve,getjptr,getmesh,getsdim,%
+      getvmatrixexch,handlesolnumstr,helix1,helix2,helix3,hexahedron2,%
+      hexahedron3,histfrommat,idst,igesread,importplotdata,isempty,%
+      isfield,isfunc,isscript,javaclass,jproputil,jptr2geom,jptrgeom1,%
+      jptrgeom1_fl23,jptrgeom2,jptrgeom2_fl23,jptrgeom3,jptrgeom3_fl23,%
+      keiter,line1,line2,loadobj,loft,matlabinterpdata,mesh2geom,%
+      meshassign,meshcaseadd,meshcasedel,meshcaseutil,meshcheck,%
+      meshembed,meshenrich,meshenrich1,meshenrich2,meshenrich3,%
+      meshexport,meshextend,meshextrude,meshget,meshimport,meshinit,%
+      meshintegrate,meshmap,meshoptim,meshparse,meshplot,meshplot1,%
+      meshplot2,meshplot3,meshplotproputil,meshpoi,meshproputil,%
+      meshptplot,meshqual,meshrefine,meshrevolve,meshsmooth,%
+      meshsmooth2,meshsweep,meshvolume,minus,mirror,mkreflparams,%
+      mmsolve,modetype,move,moveglobalfields,mphproputil,mtimes,%
+      multiphysics,mypostinterp,notscript,onlyelsconstr,outassign,%
+      paramgeom,pde2draw,pde2equ,pde2fem,pde2geom,pdeblxpd,plus,point1,%
+      point2,point3,poisson,poly1,poly2,postanim,postapplysettings,%
+      postarrow,postarrowbnd,postcolorbar,postcont,postcontdomind,%
+      postcoord,postcopyprop,postcrossplot,postdistrprops,posteval,%
+      postflow,postfnd,postgeomplot,postgetfem,postgetstylecolor,%
+      postglobaleval,postglobalplot,postgp,postinit,postint,postinterp,%
+      postiso,postlin,postmakecontcol,postmax,postmaxmin,postmin,%
+      postmkcontbar,postmknormexpr,postmovie,postnewplot,%
+      postoldmaxminprops,postpd2pm,postplot,postplotconstants,%
+      postpm2pd,postprinc,postprincbnd,postprocgui,postproputil,%
+      postslice,postsurf,posttet,posttitle,print2file,pyramid2,%
+      pyramid3,rect1,rect2,restorefields,revolve,rmfield,rotate,%
+      rotmatrix,scale,serialize,set,setmesh,sh2str,sharg_2_5,shbub,%
+      shdisc,shdiv,shherm,shlag,shvec,simplecoerce,simreobj,slblocks,%
+      solassign,solid0,solid1,solid2,solid3,solidprim3,solproputil,%
+      solsize,solveraddcases,sphere2,sphere3,spiceimport,splineaux,%
+      split,splittoprim,square1,square2,stlread,submode,submodes,%
+      subsasgn,subsref,tangent,taucs,tetrahedron2,tetrahedron3,%
+      tobsplines,torus2,torus3,transform,update,updateassoc,%
+      updateassocinfo,updatefem,updateguistruct,updateobj,vrmlread,%
+      xmeshinfo,xmeshinit},%
+   sensitive=false,%
+   morecomment=[l]\%,%
+   morestring=[m]'%
   }[keywords,comments,strings]%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1252,32 +1500,35 @@
       OUT,INTENT,INTERFACE,IOLENGTH,KIND,LEN,MODULE,NAME,NAMELIST,NMT,%
       NULLIFY,ONLY,OPERATOR,OPTIONAL,OUT,PAD,POINTER,POSITION,PRIVATE,%
       PUBLIC,READWRITE,RECURSIVE,RESULT,SELECT,SEQUENCE,SIZE,STAT,%
-      TARGET,USE,WHERE,WHILE,BLOCKDATA,DOUBLEPRECISION,ELSEIF,%
-      ENDBLOCKDATA,ENDDO,ENDFILE,ENDFUNCTION,ENDIF,ENDINTERFACE,%
+      TARGET,USE,WHERE,WHILE,BLOCKDATA,DOUBLEPRECISION,%
+      ENDBLOCKDATA,ENDFILE,ENDFUNCTION,ENDINTERFACE,%
       ENDMODULE,ENDPROGRAM,ENDSELECT,ENDSUBROUTINE,ENDTYPE,ENDWHERE,%
-      GOTO,INOUT,SELECTCASE},%
+      INOUT,SELECTCASE},%
    deletecomment=[f],% no fixed comment line: 1998 Magne Rudshaug
    morecomment=[l]!%
   }%
 %    \end{macrocode}
 % As proposed by \lsthelper{J\"orn Wilms}{wilms@rocinante.colorado.edu}
 % {1997/07/07}{Fortran with \lstsensitivefalse} keywords are \emph{not} case
-% sensitive.
+% sensitive.  Also, note that Fortran 77 (and fixed-format source in later
+% versions) allows space in keywords; thus, this list contains some of the
+% more common variants (e.g., `GO TO' and `GOTO').
 %    \begin{macrocode}
 \lst@definelanguage[77]{Fortran}%
   {morekeywords={ACCESS,ASSIGN,BACKSPACE,BLANK,BLOCK,CALL,CHARACTER,%
       CLOSE,COMMON,COMPLEX,CONTINUE,DATA,DIMENSION,DIRECT,DO,DOUBLE,%
-      ELSE,END,ENTRY,EOF,EQUIVALENCE,ERR,EXIST,EXTERNAL,FILE,FMT,FORM,%
-      FORMAT,FORMATTED,FUNCTION,GO,TO,IF,IMPLICIT,INQUIRE,INTEGER,%
-      INTRINSIC,IOSTAT,LOGICAL,NAMED,NEXTREC,NUMBER,OPEN,OPENED,%
-      PARAMETER,PAUSE,PRECISION,PRINT,PROGRAM,READ,REAL,REC,RECL,%
-      RETURN,REWIND,SEQUENTIAL,STATUS,STOP,SUBROUTINE,THEN,TYPE,%
-      UNFORMATTED,UNIT,WRITE,SAVE},%
-   sensitive=f,%% not Fortran standard %%
+      ELSE,ELSEIF,END,ENDIF,ENDDO,ENTRY,EOF,EQUIVALENCE,ERR,EXIST,EXTERNAL,%
+      FILE,FMT,FORM,FORMAT,FORMATTED,FUNCTION,GO,TO,GOTO,IF,IMPLICIT,%
+      INQUIRE,INTEGER,INTRINSIC,IOSTAT,LOGICAL,NAMED,NEXTREC,NUMBER,%
+      OPEN,OPENED,PARAMETER,PAUSE,PRECISION,PRINT,PROGRAM,READ,REAL,%
+      REC,RECL,RETURN,REWIND,SEQUENTIAL,STATUS,STOP,SUBROUTINE,THEN,%
+      TYPE,UNFORMATTED,UNIT,WRITE,SAVE},%
+   sensitive=f,%% not Fortran-77 standard, but allowed in Fortran-95 %%
    morecomment=[f]*,%
    morecomment=[f]C,%
    morecomment=[f]c,%
-   morestring=[d]"%
+   morestring=[d]",%% not Fortran-77 standard, but allowed in Fortran-95 %%
+   morestring=[d]'%
   }[keywords,comments,strings]%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1802,6 +2053,204 @@
 % \endgroup
 %
 %
+% \subsection{Lingo}
+%
+% Thanks to \lstthanks{Mark Schade}{-}{2006/07/26} for this language definition.
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{Lingo}
+  {morekeywords={abort,after,and,before,do,down,halt,me,new,not,of,%
+      on,or,otherwise,pass,put,result,return,set,tell,the,then,to,with,%
+      repeat,while,case,if,else,true,false,global,property,\_global,\_key,%
+      \_mouse,\_movie,\_player,\_sound,\_system,abbr,abbrev,abbreviated,abs,%
+      actionsenabled,activateapplication,activatewindow,active3drenderer,%
+      activecastlib,activewindow,actorlist,add,addat,addbackdrop,addcamera,%
+      addchild,addmodifier,addoverlay,addprop,addtoworld,addvertex,alert,%
+      alerthook,alignment,allowcustomcaching,allowgraphicmenu,allowsavelocal,%
+      allowtransportcontrol,allowvolumecontrol,allowzooming,alphathreshold,%
+      ambient,ambientcolor,ancestor,angle,anglebetween,animationenabled,%
+      antialias,antialiasthreshold,append,applicationname,applicationpath,%
+      appminimize,atan,attenuation,attributevalue,auto,autoblend,automask,%
+      autotab,axisangle,back,backcolor,backdrop,backgroundcolor,backspace,%
+      beep,beepon,beginrecording,beginsprite,beveldepth,beveltype,bgcolor,%
+      bias,bitand,bitmap,bitmapsizes,bitnot,bitor,bitrate,bitspersample,%
+      bitxor,blend,blendconstant,blendconstantlist,blendfactor,blendfunction,%
+      blendfunctionlist,blendlevel,blendrange,blendsource,blendsourcelist,%
+      blendtime,bone,bonesplayer,border,both,bottom,bottomcap,bottomradius,%
+      bottomspacing,boundary,boundingsphere,box,boxdropshadow,boxtype,%
+      breakconnection,breakloop,brightness,broadcastprops,browsername,%
+      buffersize,build,buttonsenabled,buttonstyle,buttontype,bytesstreamed,%
+      boolean,cachedocverify,cachesize,call,callancestor,camera,cameracount,%
+      cameraposition,camerarotation,cancelidleload,castlib,castlibnum,%
+      castmemberlist,center,centerregpoint,centerstage,changearea,channelcount,%
+      char,characterset,charpostoloc,chars,charspacing,chartonum,%
+      checkboxaccess,checkboxtype,checkmark,checknetmessages,child,chunksize,%
+      clearatrender,clearcache,clearerror,clearframe,clearglobals,clearvalue,%
+      clickloc,clickmode,clickon,clone,clonedeep,clonemodelfromcastmember,%
+      clonemotionfromcastmember,close,closed,closewindow,closexlib,collision,%
+      collisiondata,collisionnormal,color,world,colorbuffer,colorbufferdepth,%
+      colordepth,colorlist,colorrange,colors,colorsteps,commanddown,comments,%
+      compressed,connecttonetserver,constrainh,constraint,constrainv,,%
+      continue,controldown,controller,copypixels,copyrightinfo,copyto,%
+      copytoclipboard,cos,count,cpuhogticks,creaseangle,creases,[contains],%
+      createfolder,createmask,creatematte,creationdate,creator,crop,cross,%
+      crossproduct,cuepassed,cuepointnames,cuepointtimes,currentloopstate,%
+      currentspritenum,currenttime,cursor,cursorsize,curve,cylinder,ate,day,%
+      deactivateapplication,deactivatewindow,debug,debugplaybackenabled,%
+      decaymode,defaultrect,defaultrectmode,delay,delete,deleteall,deleteat,%
+      deletecamera,deletefolder,deleteframe,deletegroup,deletelight,%
+      deletemodel,deletemodelresource,deletemotion,deleteone,deleteprop,%
+      deleteshader,deletetexture,deletevertex,density,depth,depthbufferdepth,%
+      desktoprectlist,diffuse,diffusecolor,diffuselightmap,%
+      digitalvideotimescale,digitalvideotype,direction,directionalcolor,%
+      directionalpreset,directtostage,disableimagingtransformation,displayface,%
+      displaymode,distanceto,distribution,dither,done,doneparsing,dot,%
+      dotproduct,doubleclick,downloadnetthing,drag,draw,drawrect,dropshadow,%
+      duplicate,duplicateframe,duration,editable,editshortcutsenabled,%
+      elapsedtime,emissive,emitter,empty,emulatemultibuttonmouse,enabled,%
+      enablehotspot,end,endangle,endcolor,endframe,endrecording,endsprite,%
+      endtime,enter,enterframe,environment,erase,error,eventpassmode,%
+      exchange,exists,exit,exitframe,exitlock,exp,externalevent,%
+      externalparamcount,externalparamname,externalparamvalue,extractalpha,%
+      extrude3d,face,fadein,fadeout,fadeto,far,field,fieldofview,filename,%
+      fill,fillcolor,fillcycles,filldirection,filled,fillmode,filloffset,%
+      fillscale,findempty,findlabel,findpos,findposnear,finishidleload,%
+      firstindent,fixedlinespace,fixedrate,fixstagesize,flashrect,flashtostage,%
+      flat,fliph,flipv,float,floatp,floatprecision,flush,flushinputevents,%
+      fog,folderchar,font,fontsize,fontstyle,forecolor,forget,frame,%
+      framecount,framelabel,framepalette,framerate,frameready,framescript,%
+      framesound1,framesound2,framestohms,frametempo,frametransition,freeblock,%
+      freebytes,fromcastmember,fromimageobject,front,frontwindow,%
+      generatenormals,getaprop,getat,getbehaviordescription,getbehaviortooltip,%
+      getboneid,geterror,geterrorstring,gethardwareinfo,gethotspotrect,getlast,%
+      getlatestnetid,getnetaddresscookie,getneterrorstring,getnetmessage,%
+      getnetoutgoingbytes,getnettext,getnormalized,getnthfilenameinfolder,%
+      getnumberwaitingnetmessages,getone,getpeerconnectionlist,getpixel,%
+      getplaylist,getpos,getpref,getprop,getpropat,getpropertydescriptionlist,%
+      getrendererservices,getstreamstatus,gettemppath,getworldtransform,globals,%
+      glossmap,go,gotoframe,gotonetmovie,gotonetpage,gradienttype,gravity,%
+      group,handler,handlers,height,heightvertices,high,highlightpercentage,%
+      highlightstrength,hilite,hither,hittest,hmstoframes,hold,hotspot,html,%
+      hyperlink,hyperlinkclicked,hyperlinkrange,hyperlinks,hyperlinkstate,%
+      id3tags,identity,idle,idlehandlerperiod,idleloaddone,idleloadmode,%
+      idleloadperiod,idleloadtag,idlereadchunksize,ilk,image,imagecompression,%
+      imageenabled,imagequality,immovable,importfileinto,inflate,ink,inker,%
+      inlineimeenabled,insertbackdrop,insertframe,insertoverlay,inside,%
+      installmenu,instance,integer,integerp,interface,interpolate,%
+      interpolateto,intersect,index,interval,inverse,invert,invertmask,%
+      isbusy,isinworld,isoktoattach,ispastcuepoint,item,itemdelimiter,kerning,%
+      kerningthreshold,key,keyboardfocussprite,keycode,keydown,keydownscript,%
+      keyframeplayer,keypressed,keyup,keyupscript,label,labellist,last,%
+      lastchannel,lastclick,lastevent,lastframe,lastkey,lastroll,left,%
+      leftindent,length,lengthvertices,level,lifetime,light,line,linearlist,%
+      linecolor,linecount,linedirection,lineheight,lineoffset,linepostolocv,%
+      linesize,linkas,linked,list,listp,loaded,loadfile,loc,loch,locked,%
+      locktranslation,loctocharpos,locv,locvtolinepos,locz,lod,log,long,%
+      loop,loopcount,loopendtime,loopsremaining,loopstarttime,machinetype,%
+      magnitude,map,mapImageToStage,mapmembertostage,mapstagetomember,margin,%
+      marker,markerlist,mask,max,maxinteger,maxspeed,mci,media,mediaready,%
+      member,membernum,members,memorysize,menu,mesh,meshdeform,milliseconds,%
+      min,minspeed,modal,mode,model,modela,modelb,modelresource,%
+      modelsunderloc,modelsunderray,modelunderloc,modified,modifiedby,%
+      modifieddate,modifier,modifiers,month,mostrecentcuepoint,motion,%
+      mousechar,mousedown,mousedownscript,mouseenter,mouseh,mouseitem,%
+      mouseleave,mouselevel,mouseline,mouseloc,mousemember,mouseoverbutton,%
+      mouseup,mouseupoutside,mouseupscript,mousev,mousewithin,mouseword,move,%
+      moveablesprite,movetoback,movetofront,movevertex,movevertexhandle,%
+      movewindow,movie,movieaboutinfo,moviecopyrightinfo,moviefilefreesize,%
+      moviefilesize,moviefileversion,movieimagecompression,movieimagequality,%
+      moviename,moviepath,movierate,movietime,moviextralist,mpeglayer,%
+      multiply,multisound,name,near,nearfiltering,neighbor,netabort,netdone,%
+      neterror,netlastmoddate,netmime,netpresent,netstatus,nettextresult,%
+      netthrottleticks,newcamera,newcurve,newgroup,newlight,newmesh,newmodel,%
+      newmodelresource,newmotion,newshader,newtexture,next,none,normalize,%
+      normallist,normals,nothing,notify,nudge,number,numchannels,%
+      numparticles,numsegments,numtochar,objectp,offset,open,openresfile,%
+      openwindow,openxlib,optiondown,organizationname,originalfont,originh,%
+      originmode,originpoint,originv,orthoheight,overlay,pageheight,palette,%
+      palettemapping,paletteref,paletteindex,pan,paragraph,param,paramcount,%
+      parent,parsestring,particle,pasteclipboardinto,path,pathname,%
+      pathstrength,pattern,pause,pausedatstart,pausestate,percentplayed,%
+      percentstreamed,period,perpendicularto,persistent,pi,picture,picturep,%
+      plane,platform,play,playbackmode,playfile,playing,playlist,playnext,%
+      playrate,point,pointat,pointatorientation,pointinhyperlink,%
+      pointofcontact,pointtochar,pointtoitem,pointtoline,pointtoparagraph,%
+      pointtoword,position,positionreset,posterframe,postnettext,power,%
+      preferred3drenderer,preload,preloadbuffer,preloadeventabort,preloadmember,%
+      preloadmode,preloadmovie,preloadnetthing,preloadram,preloadtime,%
+      premultiply,prepareframe,preparemovie,prerotate,prescale,pretranslate,%
+      previous,primitives,printfrom,productversion,projection,projectionangle,%
+      propList,proxyserver,pttohotspotid,puppet,puppetpalette,puppetsound,%
+      puppetsprite,puppettempo,puppettransition,purgepriority,%
+      qtregisteraccesskey,qtunregisteraccesskey,quad,quality,queue,quit,quote,%
+      radius,ramneeded,random,randomseed,randomvector,rateshift,rawnew,read,%
+      readvalue,recordfont,rect,ref,reflectionmap,reflectivity,region,%
+      registerforevent,registerscript,regpoint,regpointvertex,removebackdrop,%
+      removefromworld,removelast,removemodifier,removeoverlay,rename,renderer,%
+      rendererdevicelist,renderformat,renderstyle,resetworld,resizewindow,%
+      resolution,resolve,resolvea,resolveb,resource,restart,resume,%
+      reverttoworlddefaults,rewind,rgb,rgba4444,rgba5550,rgba5551,rgba5650,%
+      rgba8880,rgba8888,right,rightindent,rightmousedown,rightmouseup,%
+      rollover,romanlingo,rootlock,rootnode,rotate,rotation,rotationreset,%
+      rtf,runmode,runpropertydialog,safeplayer,samplecount,samplerate,%
+      samplesize,save,savedlocal,savemovie,scale,scalemode,score,scorecolor,%
+      scoreselection,script,scriptexecutionstyle,scriptinstancelist,scriptlist,%
+      scriptnum,scriptsenabled,scripttext,scripttype,scrollbyline,scrollbypage,%
+      scrolltop,sds,searchcurrentfolder,searchpath,searchpaths,seconds,%
+      selectedtext,selection,selend,selstart,sendallsprites,sendevent,%
+      sendnetmessage,sendsprite,serialnumber,setalpha,setaprop,setat,%
+      setcollisioncallback,setflashproperty,setnetbufferlimits,%
+      setnetmessagehandler,setpixel,setplaylist,setpref,setprop,setscriptlist,%
+      settrackenabled,setvariable,shader,shaderlist,shadowpercentage,%
+      shadowstrength,shapetype,shiftdown,shininess,shockwave3d,short,%
+      showglobals,showlocals,showprops,showresfile,showxlib,shutdown,%
+      silhouettes,sin,size,sizerange,skew,sleep,smoothness,sort,sound,%
+      soundbusy,soundchannel,sounddevice,sounddevicelist,soundenabled,%
+      soundkeepdevice,soundlevel,soundmixmedia,source,sourcerect,space,%
+      specular,specularcolor,specularlightmap,sphere,spotangle,spotdecay,%
+      sprite,spritenum,spritespacetoworldspace,sqrt,stage,stagebottom,%
+      stagecolor,stageleft,stageright,stagetoflash,stagetop,standard,%
+      startangle,startframe,startmovie,starttime,starttimer,state,static,%
+      status,stepframe,stilldown,stop,stopevent,stopmovie,stoptime,stream,%
+      streammode,streamname,streamsize,streamstatus,string,stringp,%
+      strokecolor,strokewidth,style,subdivision,sweep,swing,switchcolordepth,%
+      symbol,symbolp,systemdate,tab,tabcount,tabs,tan,target,%
+      tellstreamstatus,tension,text,texture,texturecoordinatelist,%
+      texturecoordinates,texturelayer,texturelist,texturemember,texturemode,%
+      texturemodelist,texturerenderformat,texturerepeat,texturerepeatlist,%
+      texturetransform,texturetransformlist,texturetype,thumbnail,ticks,tilt,%
+      time,timeout,timeouthandler,timeoutkeydown,timeoutlapsed,timeoutlength,%
+      timeoutlist,timeoutmouse,timeoutplay,timeoutscript,timer,timescale,%
+      title,titlevisible,toon,top,topcap,topradius,topspacing,trace,%
+      traceload,tracelogfile,trackcount,trackenabled,tracknextkeytime,%
+      tracknextsampletime,trackpreviouskeytime,trackprevioussampletime,%
+      trackstarttime,trackstoptime,tracktext,tracktype,trails,transform,%
+      transitiontype,translate,triggercallback,trimwhitespace,tunneldepth,%
+      tweened,tweenmode,type,[transparent],union,unload,unloadmember,%
+      unloadmovie,unregisterallevents,update,updateframe,updatelock,%
+      updatemovieenabled,updatestage,url,usealpha,usediffusewithtexture,%
+      usefastquads,usehypertextstyles,uselineoffset,userdata,username,value,%
+      vector,version,vertex,vertexlist,vertices,video,videoforwindowspresent,%
+      viewh,viewpoint,viewscale,viewv,visibility,visible,void,voidp,volume,%
+      volumeinfo,wait,waitfornetconnection,warpmode,width,widthvertices,wind,%
+      window,windowlist,windowpresent,windowtype,word,wordwrap,world,%
+      worldposition,worldspacetospritespace,worldtransform,wraptransform,%
+      wraptransformlist,write,writevalue,,xaxis,xtra,xtralist,xtras,,yaxis,%
+      year,yon,zaxis,zoombox,zoomwindow,repeat,Conditional,Boolean,TypeDef,%
+      Statement,Operator,String,Comment,Identifier,Special,x,y,z}
+   sensitive=false,
+   morecomment=[l]{--},
+   morestring=[b]",
+  }[keywords,comments,strings]%
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Lisp, AutoLisp}
 %
 % Most data are from
@@ -2169,10 +2618,327 @@
 % \subsection{Mathematica}
 %
 % \lstthanks{Michael Wiese}{wiese@itwm.uni-kl.de}{1999/02/25} typed in all the
-% keywords!
+% keywords for the 1.0 and 3.0 versions.
+% \lstthanks{Oliver~Ruebenkoenig}{-}{2006/07/17} wrote a script to generate
+% the lists for the 5.2 version.
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage[5.2]{Mathematica}[3.0]{Mathematica}%%
+  {morekeywords={Above,AbsoluteOptions,AbsoluteTiming,AccountingForm,%
+      AccuracyGoal,Active,ActiveItem,AddOnHelpPath,%
+      AdjustmentBox,AdjustmentBoxOptions,After,AiryAiPrime,%
+      AlgebraicRulesData,Algebraics,Alias,AlignmentMarker,%
+      AllowInlineCells,AllowScriptLevelChange,Analytic,AnimationCycleOffset,%
+      AnimationCycleRepetitions,AnimationDirection,AnimationDisplayTime,ApartSquareFree,%
+      AppellF1,ArgumentCountQ,ArrayDepth,ArrayPlot,%
+      ArrayQ,ArrayRules,AspectRatioFixed,Assuming,%
+      Assumptions,AutoDelete,AutoEvaluateEvents,AutoGeneratedPackage,%
+      AutoIndent,AutoIndentSpacings,AutoItalicWords,AutoloadPath,%
+      AutoOpenNotebooks,AutoOpenPalettes,AutoScroll,AutoSpacing,%
+      AutoStyleOptions,Axis,BackgroundTasksSettings,Backsubstitution,%
+      Backward,Baseline,Before,BeginDialogPacket,%
+      BeginFrontEndInteractionPacket,Below,BezoutMatrix,BinaryFormat,%
+      BinaryGet,BinaryRead,BinaryReadList,BinaryWrite,%
+      BitAnd,BitNot,BitOr,BitXor,%
+      Black,BlankForm,Blue,Boole,%
+      Booleans,Bottom,Bounds,Box,%
+      BoxBaselineShift,BoxData,BoxDimensions,BoxFormFormatTypes,%
+      BoxFrame,BoxMargins,BoxRegion,Brown,%
+      Buchberger,Button,ButtonBox,ButtonBoxOptions,%
+      ButtonCell,ButtonContents,ButtonData,ButtonEvaluator,%
+      ButtonExpandable,ButtonFrame,ButtonFunction,ButtonMargins,%
+      ButtonMinHeight,ButtonNote,ButtonNotebook,ButtonSource,%
+      ButtonStyle,ButtonStyleMenuListing,ByteOrdering,CallPacket,%
+      CarmichaelLambda,Cell,CellAutoOverwrite,CellBaseline,%
+      CellBoundingBox,CellBracketOptions,CellContents,CellDingbat,%
+      CellEditDuplicate,CellElementsBoundingBox,CellElementSpacings,CellEvaluationDuplicate,%
+      CellFrame,CellFrameColor,CellFrameLabelMargins,CellFrameLabels,%
+      CellFrameMargins,CellGroup,CellGroupData,CellGrouping,%
+      CellGroupingRules,CellHorizontalScrolling,CellLabel,CellLabelAutoDelete,%
+      CellLabelMargins,CellLabelPositioning,CellMargins,CellObject,%
+      CellOpen,CellPasswords,CellPrint,CellSize,%
+      CellStyle,CellTags,CellularAutomaton,Center,%
+      CharacterEncoding,CharacterEncodingsPath,CharacteristicPolynomial,CharacterRange,%
+      CheckAll,CholeskyDecomposition,Clip,ClipboardNotebook,%
+      Closed,ClosingAutoSave,CoefficientArrays,CoefficientDomain,%
+      CofactorExpansion,ColonForm,ColorFunctionScaling,ColorRules,%
+      ColorSelectorSettings,Column,ColumnAlignments,ColumnLines,%
+      ColumnsEqual,ColumnSpacings,ColumnWidths,CommonDefaultFormatTypes,%
+      CompileOptimizations,CompletionsListPacket,Complexes,ComplexityFunction,%
+      Compose,ComposeSeries,ConfigurationPath,ConjugateTranspose,%
+      Connect,ConsoleMessage,ConsoleMessagePacket,ConsolePrint,%
+      ContentsBoundingBox,ContextToFileName,ContinuedFraction,ConversionOptions,%
+      ConversionRules,ConvertToBitmapPacket,ConvertToPostScript,ConvertToPostScriptPacket,%
+      Copyable,CoshIntegral,CounterAssignments,CounterBox,%
+      CounterBoxOptions,CounterEvaluator,CounterFunction,CounterIncrements,%
+      CounterStyle,CounterStyleMenuListing,CreatePalettePacket,Cross,%
+      CurrentlySpeakingPacket,Cyan,CylindricalDecomposition,DampingFactor,%
+      DataRange,Debug,DebugTag,Decimal,%
+      DedekindEta,DefaultDuplicateCellStyle,DefaultFontProperties,DefaultFormatType,%
+      DefaultFormatTypeForStyle,DefaultInlineFormatType,DefaultInputFormatType,
+      DefaultNaturalLanguage,%
+      DefaultNewCellStyle,DefaultNewInlineCellStyle,DefaultNotebook,DefaultOutputFormatType,%
+      DefaultStyleDefinitions,DefaultTextFormatType,DefaultTextInlineFormatType,DefaultValues,%
+      DefineExternal,DegreeLexicographic,DegreeReverseLexicographic,Deletable,%
+      DeleteContents,DeletionWarning,DelimiterFlashTime,DelimiterMatching,%
+      Delimiters,DependentVariables,DiacriticalPositioning,DialogLevel,%
+      DifferenceOrder,DigitCharacter,DigitCount,DiracDelta,%
+      Direction,DirectoryName,DisableConsolePrintPacket,DiscreteDelta,%
+      DisplayAnimation,DisplayEndPacket,DisplayFlushImagePacket,DisplayForm,%
+      DisplayPacket,DisplayRules,DisplaySetSizePacket,DisplayString,%
+      DivisionFreeRowReduction,DOSTextFormat,DoubleExponential,DoublyInfinite,%
+      Down,DragAndDrop,DrawHighlighted,DualLinearProgramming,%
+      DumpGet,DumpSave,Edit,Editable,%
+      EditButtonSettings,EditCellTagsSettings,EditDefinition,EditIn,%
+      Element,EliminationOrder,EllipticExpPrime,EllipticNomeQ,%
+      EllipticReducedHalfPeriods,EllipticThetaPrime,Empty,EnableConsolePrintPacket,%
+      Encoding,EndAdd,EndDialogPacket,EndFrontEndInteractionPacket,%
+      EndOfLine,EndOfString,Enter,EnterExpressionPacket,%
+      EnterTextPacket,EqualColumns,EqualRows,EquatedTo,%
+      Erfi,ErrorBox,ErrorBoxOptions,ErrorNorm,%
+      ErrorPacket,ErrorsDialogSettings,Evaluatable,EvaluatePacket,%
+      EvaluationCell,EvaluationCompletionAction,EvaluationMonitor,EvaluationNotebook,%
+      Evaluator,EvaluatorNames,EventEvaluator,ExactNumberQ,%
+      ExactRootIsolation,Except,ExcludedForms,Exists,%
+      ExitDialog,ExponentPosition,ExponentStep,Export,%
+      ExportAutoReplacements,ExportPacket,ExportString,ExpressionPacket,%
+      ExpToTrig,Extension,ExternalCall,ExternalDataCharacterEncoding,%
+      Extract,Fail,FEDisableConsolePrintPacket,FEEnableConsolePrintPacket,%
+      Fibonacci,File,FileFormat,FileInformation,%
+      FileName,FileNameDialogSettings,FindFit,FindInstance,%
+      FindMaximum,FindSettings,FitAll,FlushPrintOutputPacket,%
+      Font,FontColor,FontFamily,FontName,%
+      FontPostScriptName,FontProperties,FontReencoding,FontSize,%
+      FontSlant,FontSubstitutions,FontTracking,FontVariations,%
+      FontWeight,ForAll,FormatRules,FormatTypeAutoConvert,%
+      FormatValues,FormBox,FormBoxOptions,Forward,%
+      ForwardBackward,FourierCosTransform,FourierParameters,FourierSinTransform,%
+      FourierTransform,FractionalPart,FractionBox,FractionBoxOptions,%
+      FractionLine,FrameBox,FrameBoxOptions,FresnelC,%
+      FresnelS,FromContinuedFraction,FromDigits,FrontEndExecute,%
+      FrontEndObject,FrontEndStackSize,FrontEndToken,FrontEndTokenExecute,%
+      FrontEndVersion,Full,FullAxes,FullSimplify,%
+      FunctionExpand,FunctionInterpolation,GaussKronrod,GaussPoints,%
+      GenerateBitmapCaches,GenerateConditions,GeneratedCell,GeneratedParameters,%
+      Generic,GetBoundingBoxSizePacket,GetContext,GetFileName,%
+      GetFrontEndOptionsDataPacket,GetLinebreakInformationPacket,%
+      GetMenusPacket,GetPageBreakInformationPacket,%
+      Glaisher,GlobalPreferences,GlobalSession,Gradient,%
+      GraphicsData,GraphicsGrouping,Gray,Green,%
+      Grid,GridBaseline,GridBox,GridBoxOptions,%
+      GridCreationSettings,GridDefaultElement,GridFrame,GridFrameMargins,%
+      GroupPageBreakWithin,HarmonicNumber,Hash,HashTable,%
+      HeadCompose,HelpBrowserLookup,HelpBrowserNotebook,HelpBrowserSettings,%
+      HessenbergDecomposition,Hessian,HoldAllComplete,HoldComplete,%
+      HoldPattern,Horizontal,HorizontalForm,HorizontalScrollPosition,%
+      HTMLSave,Hypergeometric0F1Regularized,Hypergeometric1F1Regularized,%
+      Hypergeometric2F1Regularized,%
+      HypergeometricPFQ,HypergeometricPFQRegularized,HyperlinkCreationSettings,Hyphenation,%
+      HyphenationOptions,IgnoreCase,ImageCache,ImageCacheValid,%
+      ImageMargins,ImageOffset,ImageRangeCache,ImageRegion,%
+      ImageResolution,ImageRotated,ImageSize,Import,%
+      ImportAutoReplacements,ImportString,IncludeFileExtension,IncludeSingularTerm,%
+      IndentingNewlineSpacings,IndentMaxFraction,IndexCreationOptions,Inequality,%
+      InexactNumberQ,InexactNumbers,Inherited,InitializationCell,%
+      InitializationCellEvaluation,InitializationCellWarning,%
+      InlineCounterAssignments,InlineCounterIncrements,%
+      InlineRules,InputAliases,InputAutoFormat,InputAutoReplacements,%
+      InputGrouping,InputNamePacket,InputNotebook,InputPacket,%
+      InputSettings,InputStringPacket,InputToBoxFormPacket,InputToInputForm,%
+      InputToStandardForm,InsertionPointObject,IntegerExponent,IntegerPart,%
+      Integers,Interactive,Interlaced,InterpolationOrder,%
+      InterpolationPoints,InterpolationPrecision,InterpretationBox,%
+      InterpretationBoxOptions,%
+      InterpretTemplate,InterruptSettings,Interval,IntervalIntersection,%
+      IntervalMemberQ,IntervalUnion,InverseBetaRegularized,InverseEllipticNomeQ,%
+      InverseErf,InverseErfc,InverseFourierCosTransform,
+      InverseFourierSinTransform,%
+      InverseFourierTransform,InverseGammaRegularized,InverseJacobiCD,%
+      InverseJacobiCN,%
+      InverseJacobiCS,InverseJacobiDC,InverseJacobiDN,InverseJacobiDS,%
+      InverseJacobiNC,InverseJacobiND,InverseJacobiNS,InverseJacobiSC,%
+      InverseJacobiSD,InverseLaplaceTransform,InverseWeierstrassP,InverseZTransform,%
+      Jacobian,JacobiCD,JacobiCN,JacobiCS,%
+      JacobiDC,JacobiDN,JacobiDS,JacobiNC,%
+      JacobiND,JacobiNS,JacobiSC,JacobiSD,%
+      JordanDecomposition,K,Khinchin,KleinInvariantJ,%
+      KroneckerDelta,Language,LanguageCategory,LaplaceTransform,%
+      Larger,Launch,LayoutInformation,Left,%
+      LetterCharacter,Lexicographic,LicenseID,LimitsPositioning,%
+      LimitsPositioningTokens,LinearSolveFunction,LinebreakAdjustments,LineBreakWithin,%
+      LineForm,LineIndent,LineSpacing,LineWrapParts,%
+      LinkActivate,LinkClose,LinkConnect,LinkConnectedQ,%
+      LinkCreate,LinkError,LinkFlush,LinkHost,%
+      LinkInterrupt,LinkLaunch,LinkMode,LinkObject,%
+      LinkOpen,LinkOptions,LinkPatterns,LinkProtocol,%
+      LinkRead,LinkReadHeld,LinkReadyQ,Links,%
+      LinkWrite,LinkWriteHeld,ListConvolve,ListCorrelate,%
+      Listen,ListInterpolation,ListQ,LiteralSearch,%
+      LongestMatch,LongForm,Loopback,LUBackSubstitution,%
+      LUDecomposition,MachineID,MachineName,MachinePrecision,%
+      MacintoshSystemPageSetup,Magenta,Magnification,MakeBoxes,%
+      MakeExpression,MakeRules,Manual,MatchLocalNameQ,%
+      MathematicaNotation,MathieuC,MathieuCharacteristicA,MathieuCharacteristicB,%
+      MathieuCharacteristicExponent,MathieuCPrime,MathieuS,MathieuSPrime,%
+      MathMLForm,MathMLText,MatrixRank,Maximize,%
+      MaxIterations,MaxPlotPoints,MaxPoints,MaxRecursion,%
+      MaxStepFraction,MaxSteps,MaxStepSize,Mean,%
+      Median,MeijerG,MenuPacket,MessageOptions,%
+      MessagePacket,MessagesNotebook,MetaCharacters,Method,%
+      MethodOptions,Minimize,MinRecursion,MinSize,%
+      Mode,ModularLambda,MonomialOrder,MonteCarlo,%
+      Most,MousePointerNote,MultiDimensional,MultilaunchWarning,%
+      MultilineFunction,MultiplicativeOrder,Multiplicity,Nand,%
+      NeedCurrentFrontEndPackagePacket,NeedCurrentFrontEndSymbolsPacket,%
+      NestedScriptRules,NestWhile,%
+      NestWhileList,NevilleThetaC,NevilleThetaD,NevilleThetaN,%
+      NevilleThetaS,Newton,Next,NHoldAll,%
+      NHoldFirst,NHoldRest,NMaximize,NMinimize,%
+      NonAssociative,NonPositive,Nor,Norm,%
+      NormalGrouping,NormalSelection,NormFunction,Notebook,%
+      NotebookApply,NotebookAutoSave,NotebookClose,NotebookConvert,%
+      NotebookConvertSettings,NotebookCreate,NotebookCreateReturnObject,NotebookDefault,%
+      NotebookDelete,NotebookDirectory,NotebookFind,NotebookFindReturnObject,%
+      NotebookGet,NotebookGetLayoutInformationPacket,NotebookGetMisspellingsPacket,%
+      NotebookInformation,%
+      NotebookLocate,NotebookObject,NotebookOpen,NotebookOpenReturnObject,%
+      NotebookPath,NotebookPrint,NotebookPut,NotebookPutReturnObject,%
+      NotebookRead,NotebookResetGeneratedCells,Notebooks,NotebookSave,%
+      NotebookSaveAs,NotebookSelection,NotebookSetupLayoutInformationPacket,%
+      NotebooksMenu,%
+      NotebookWrite,NotElement,NProductExtraFactors,NProductFactors,%
+      NRoots,NSumExtraTerms,NSumTerms,NumberMarks,%
+      NumberMultiplier,NumberString,NumericFunction,NumericQ,%
+      NValues,Offset,OLEData,OneStepRowReduction,%
+      Open,OpenFunctionInspectorPacket,OpenSpecialOptions,OptimizationLevel,%
+      OptionInspectorSettings,OptionQ,OptionsPacket,OptionValueBox,%
+      OptionValueBoxOptions,Orange,Ordering,Oscillatory,%
+      OutputAutoOverwrite,OutputFormData,OutputGrouping,OutputMathEditExpression,%
+      OutputNamePacket,OutputToOutputForm,OutputToStandardForm,Over,%
+      Overflow,Overlaps,Overscript,OverscriptBox,%
+      OverscriptBoxOptions,OwnValues,PadLeft,PadRight,%
+      PageBreakAbove,PageBreakBelow,PageBreakWithin,PageFooterLines,%
+      PageFooters,PageHeaderLines,PageHeaders,PalettePath,%
+      PaperWidth,ParagraphIndent,ParagraphSpacing,ParameterVariables,%
+      ParentConnect,ParentForm,Parenthesize,PasteBoxFormInlineCells,%
+      Path,PatternTest,PeriodicInterpolation,Pick,%
+      Piecewise,PiecewiseExpand,Pink,Pivoting,%
+      PixelConstrained,Placeholder,Plain,Plot3Matrix,%
+      PointForm,PolynomialForm,PolynomialReduce,Polynomials,%
+      PowerModList,Precedence,PreferencesPath,PreserveStyleSheet,%
+      Previous,PrimaryPlaceholder,Primes,PrincipalValue,%
+      PrintAction,PrintingCopies,PrintingOptions,PrintingPageRange,%
+      PrintingStartingPageNumber,PrintingStyleEnvironment,PrintPrecision,%
+      PrivateCellOptions,%
+      PrivateEvaluationOptions,PrivateFontOptions,PrivateNotebookOptions,PrivatePaths,%
+      ProductLog,PromptForm,Purple,Quantile,%
+      QuasiMonteCarlo,QuasiNewton,RadicalBox,RadicalBoxOptions,%
+      RandomSeed,RationalFunctions,Rationals,RawData,%
+      RawMedium,RealBlockForm,Reals,Reap,%
+      Red,Refine,Refresh,RegularExpression,%
+      Reinstall,Release,Removed,RenderingOptions,%
+      RepeatedString,ReplaceList,Rescale,ResetMenusPacket,%
+      Resolve,ResumePacket,ReturnExpressionPacket,ReturnInputFormPacket,%
+      ReturnPacket,ReturnTextPacket,Right,Root,%
+      RootReduce,RootSum,Row,RowAlignments,%
+      RowBox,RowLines,RowMinHeight,RowsEqual,%
+      RowSpacings,RSolve,RuleCondition,RuleForm,%
+      RulerUnits,Saveable,SaveAutoDelete,ScreenRectangle,%
+      ScreenStyleEnvironment,ScriptBaselineShifts,ScriptLevel,ScriptMinSize,%
+      ScriptRules,ScriptSizeMultipliers,ScrollingOptions,ScrollPosition,%
+      Second,SectionGrouping,Selectable,SelectedNotebook,%
+      Selection,SelectionAnimate,SelectionCell,SelectionCellCreateCell,%
+      SelectionCellDefaultStyle,SelectionCellParentStyle,SelectionCreateCell,%
+      SelectionDuplicateCell,%
+      SelectionEvaluate,SelectionEvaluateCreateCell,SelectionMove,SelectionSetStyle,%
+      SelectionStrategy,SendFontInformationToKernel,SequenceHold,SequenceLimit,%
+      SeriesCoefficient,SetBoxFormNamesPacket,SetEvaluationNotebook,%
+      SetFileLoadingContext,%
+      SetNotebookStatusLine,SetOptionsPacket,SetSelectedNotebook,%
+      SetSpeechParametersPacket,%
+      SetValue,ShortestMatch,ShowAutoStyles,ShowCellBracket,%
+      ShowCellLabel,ShowCellTags,ShowClosedCellArea,ShowContents,%
+      ShowCursorTracker,ShowGroupOpenCloseIcon,ShowPageBreaks,ShowSelection,%
+      ShowShortBoxForm,ShowSpecialCharacters,ShowStringCharacters,%
+      ShrinkWrapBoundingBox,%
+      SingleLetterItalics,SingularityDepth,SingularValueDecomposition,%
+      SingularValueList,%
+      SinhIntegral,Smaller,Socket,SolveDelayed,%
+      SoundAndGraphics,Sow,Space,SpaceForm,%
+      SpanAdjustments,SpanCharacterRounding,SpanLineThickness,SpanMaxSize,%
+      SpanMinSize,SpanningCharacters,SpanSymmetric,Sparse,%
+      SparseArray,SpeakTextPacket,SpellingDictionaries,SpellingDictionariesPath,%
+      SpellingOptions,SpellingSuggestionsPacket,Spherical,Split,%
+      SqrtBox,SqrtBoxOptions,StandardDeviation,StandardForm,%
+      StartingStepSize,StartOfLine,StartOfString,StartupSound,%
+      StepMonitor,StieltjesGamma,StoppingTest,StringCases,%
+      StringCount,StringExpression,StringFreeQ,StringQ,%
+      StringReplaceList,StringReplacePart,StringSplit,StripBoxes,%
+      StripWrapperBoxes,StructuredSelection,StruveH,StruveL,%
+      StyleBox,StyleBoxAutoDelete,StyleBoxOptions,StyleData,%
+      StyleDefinitions,StyleForm,StyleMenuListing,StyleNameDialogSettings,%
+      StylePrint,StyleSheetPath,Subresultants,SubscriptBox,%
+      SubscriptBoxOptions,Subsets,Subsuperscript,SubsuperscriptBox,%
+      SubsuperscriptBoxOptions,SubtractFrom,SubValues,SugarCube,%
+      SuperscriptBox,SuperscriptBoxOptions,SuspendPacket,SylvesterMatrix,%
+      SymbolName,Syntax,SyntaxForm,SyntaxPacket,%
+      SystemException,SystemHelpPath,SystemStub,Tab,%
+      TabFilling,TabSpacings,TagBox,TagBoxOptions,%
+      TaggingRules,TagStyle,TargetFunctions,TemporaryVariable,%
+      TensorQ,TeXSave,TextAlignment,TextBoundingBox,%
+      TextData,TextJustification,TextLine,TextPacket,%
+      TextParagraph,TextRendering,TextStyle,ThisLink,%
+      TimeConstraint,TimeVariable,TitleGrouping,ToBoxes,%
+      ToColor,ToFileName,Toggle,ToggleFalse,%
+      Tolerance,TooBig,Top,ToRadicals,%
+      Total,Tr,TraceAction,TraceInternal,%
+      TraceLevel,TraditionalForm,TraditionalFunctionNotation,TraditionalNotation,%
+      TraditionalOrder,TransformationFunctions,TransparentColor,Trapezoidal,%
+      TrigExpand,TrigFactor,TrigFactorList,TrigReduce,%
+      TrigToExp,Tuples,UnAlias,Underflow,%
+      Underoverscript,UnderoverscriptBox,UnderoverscriptBoxOptions,Underscript,%
+      UnderscriptBox,UnderscriptBoxOptions,UndocumentedTestFEParserPacket,%
+      UndocumentedTestGetSelectionPacket,%
+      UnitStep,Up,URL,Using,%
+      V2Get,Value,ValueBox,ValueBoxOptions,%
+      ValueForm,Variance,Verbatim,Verbose,%
+      VerboseConvertToPostScriptPacket,VerifyConvergence,VerifySolutions,Version,%
+      VersionNumber,Vertical,VerticalForm,ViewPointSelectorSettings,%
+      Visible,VisibleCell,WeierstrassHalfPeriods,WeierstrassInvariants,%
+      WeierstrassSigma,WeierstrassZeta,White,Whitespace,%
+      WhitespaceCharacter,WindowClickSelect,WindowElements,WindowFloating,%
+      WindowFrame,WindowFrameElements,WindowMargins,WindowMovable,%
+      WindowSize,WindowTitle,WindowToolbars,WindowWidth,%
+      WordBoundary,WordCharacter,WynnDegree,XMLElement},%
+   morendkeywords={$,$AddOnsDirectory,$AnimationDisplayFunction,%
+      $AnimationFunction,%
+      $Assumptions,$BaseDirectory,$BoxForms,$ByteOrdering,%
+      $CharacterEncoding,$ConditionHold,$CurrentLink,$DefaultPath,%
+      $ExportEncodings,$ExportFormats,$FormatType,$FrontEnd,%
+      $HistoryLength,$HomeDirectory,$ImportEncodings,$ImportFormats,%
+      $InitialDirectory,$InstallationDate,$InstallationDirectory,%
+      $InterfaceEnvironment,%
+      $LaunchDirectory,$LicenseExpirationDate,$LicenseID,$LicenseProcesses,%
+      $LicenseServer,$MachineDomain,$MaxExtraPrecision,$MaxLicenseProcesses,%
+      $MaxNumber,$MaxPiecewiseCases,$MaxPrecision,$MaxRootDegree,%
+      $MinNumber,$MinPrecision,$NetworkLicense,$NumberMarks,%
+      $Off,$OutputForms,$ParentLink,$ParentProcessID,%
+      $PasswordFile,$PathnameSeparator,$PreferencesDirectory,$PrintForms,%
+      $PrintLiteral,$ProcessID,$ProcessorType,$ProductInformation,%
+      $ProgramName,$PSDirectDisplay,$RandomState,$RasterFunction,%
+      $RootDirectory,$SetParentLink,$SoundDisplay,$SuppressInputFormHeads,%
+      $SystemCharacterEncoding,$SystemID,$TemporaryPrefix,$TextStyle,%
+      $TopDirectory,$TraceOff,$TraceOn,$TracePattern,%
+      $TracePostAction,$TracePreAction,$UserAddOnsDirectory,$UserBaseDirectory,%
+      $UserName,Constant,Flat,HoldAll,%
+      HoldAllComplete,HoldFirst,HoldRest,Listable,%
+      Locked,NHoldAll,NHoldFirst,NHoldRest,%
+      NumericFunction,OneIdentity,Orderless,Protected,%
+      ReadProtected,SequenceHold},%
+  }%
 %    \end{macrocode}
 %    \begin{macrocode}
 %%
@@ -2228,7 +2994,7 @@
       TraceOriginal,TracePrint,TraceScan,Trig,Unevaluated,Uninstall,%
       UnsameQ,UpperCaseQ,UpValues,ViewCenter,ViewVertical,With,Word,%
       WordSearch,WordSeparators},%
-    morendkeywords={Stub,Temporary,$Aborted,$BatchInput,$BatchOutput,%
+   morendkeywords={Stub,Temporary,$Aborted,$BatchInput,$BatchOutput,%
       $CreationDate,$DefaultFont,$DumpDates,$DumpSupported,$Failed,%
       $Input,$Inspector,$IterationLimit,$Language,$Letters,$Linked,%
       $LinkSupported,$MachineEpsilon,$MachineID,$MachineName,%
@@ -2271,7 +3037,7 @@
       FormatType,FortranForm,Fourier,FreeQ,FullDefinition,FullForm,%
       Function,Gamma,GCD,GegenbauerC,General,Get,Goto,Graphics,%
       Graphics3D,GrayLevel,Greater,GreaterEqual,Head,HermiteH,%
-      HiddenSurface,Hold,HoldForm,Hypergeometric0F1, Hypergeometric1F1,%
+      HiddenSurface,Hold,HoldForm,Hypergeometric0F1,Hypergeometric1F1,%
       Hypergeometric2F1,HypergeometricU,Identity,IdentityMatrix,If,Im,%
       Implies,In,Increment,Indent,Infix,Information,Inner,Input,%
       InputForm,InputString,Insert,Integer,IntegerQ,Integrate,%
@@ -2782,13 +3548,14 @@
 %<*lang1>
 %    \end{macrocode}
 % As you can read below the definition is due to \lstthanks{Ulrich~G.~Wortmann}
-% {uliw@erdw.ethz.ch}{2002/02/18}{}.
+% {uliw@erdw.ethz.ch}{2002/02/18}{}.  Additions due to \lstthanks{Sebastian~%
+% Schubert}{-}{2006/05/11}.
 %    \begin{macrocode}
 %%
 %% Octave definition (c) 2001,2002 Ulrich G. Wortmann
 %%
 \lst@definelanguage{Octave}%
-  {morekeywords={gt,lt,gt,lt,amp,abs,acos,acosh,acot,acoth,acsc,acsch,%
+  {morekeywords={gt,lt,amp,abs,acos,acosh,acot,acoth,acsc,acsch,%
       all,angle,ans,any,asec,asech,asin,asinh,atan,atan2,atanh,auread,%
       auwrite,axes,axis,balance,bar,bessel,besselk,bessely,beta,%
       betainc,betaln,blanks,bone,break,brighten,capture,cart2pol,%
@@ -2855,10 +3622,11 @@
       whatsnew,which,while,white,whitebg,who,whos,wilkinson,wk1read,%
       stderr,stdout,plot,set,endif,wk1write,xlabel,xor,ylabel,zeros,%
       zlabel,zoom,endwhile,endfunction,printf,case,switch,otherwise,%
-      system,lsode,endfor},%
-   sensitive=f,%
+      system,lsode,endfor,error,ones,oneplot,__gnuplot_set__,do,until},%
+   sensitive=t,%
    morecomment=[l]\#,%
    morecomment=[l]\#\#,%
+   morecomment=[l]\%,%
    morestring=[m]',%
    morestring=[m]"%
   }[keywords,comments,strings]%
@@ -3760,6 +4528,79 @@
 % \endgroup
 %
 %
+% \subsection{PostScript}
+%
+% Herbert Voss provided the following definition, written by
+% \lstthanks{Christophe~Jorssen}{}{2004/09/17} provided the following definition.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% PostScript language definition (c) 2005 Christophe Jorssen.
+%%
+\lst@definelanguage{PostScript}{%
+  morekeywords={abs,add,aload,anchorsearch,and,arc,arcn,arct,arcto,array,ashow,
+    astore,atan,awidthshow,begin,bind,bitshift,bytesavailable,cachestatus,
+    ceiling,charpath,clear,cleartomark,cleardictstack,clip,clippath,closefile,
+    closepath,colorimage,concat,concatmatrix,condition,copy,copypage,cos,count,
+    countdictstack,countexecstack,counttomark,cshow,currentblackgeneration,
+    currentcacheparams,currentcmykcolor,currentcolor,currentcolorrendering,
+    currentcolorscreen,currentcolorspace,currentcolortransfer,currentcontext,
+    currentdash,currentdevparams,currentdict,currentfile,currentflat,currentfont,
+    currentglobal,currentgray,currentgstate,currenthalftone,currenthalftonephase,
+    currenthsbcolor,currentlinecap,currentlinejoin,currentlinewidth,currentmatrix,
+    currentmiterlimit,currentobjectformat,currentpacking,currentpagedevice,
+    currentpoint,currentrgbcolor,currentscreen,currentshared,currentstrokeadjust,
+    currentsystemparams,currenttransfer,currentundercolorremoval,currentuserparams,
+    curveto,cvi,cvlit,cvn,cvr,cvrs,cvs,cvx,def,defaultmatrix,definefont,
+    defineresource,defineusername,defineuserobject,deletefile,detach,deviceinfo,
+    dict,dictstack,div,dtransform,dup,
+    echo,eexec,end,eoclip,eofill,eoviewclip,eq,erasepage,errordict,exch,exec,
+    execform,execstack,execuserobject,executeonly,executive,exit,
+    exp,false,file,filenameforall,fileposition,fill,filter,findencoding,findfont,
+    findresource,flattenpath,floor,flush,flushfile,FontDirectory,for,forall,fork,ge,
+    get,getinterval,globaldict,GlobalFontDirectory,glyphshow,grestore,grestoreall,
+    gsave,gstate,gt,identmatrix,idiv,idtransform,if,ifelse,image,
+    imagemask,index,ineofill,infill,initclip,initgraphics,initmatrix,initviewclip,
+    instroke,internaldict,inueofill,inufill,inustroke,
+    invertmatrix,ISOLatin1Encoding,itransform,join,kshow,
+    known,languagelevel,le,length,lineto,ln,load,lock,log,loop,lt,
+    makefont,makepattern,mark,matrix,maxlength,mod,monitor,moveto,mul,ne,neg,
+    newpath,noaccess,not,notify,null,nulldevice,or,packedarray,
+    pathbbox,pathforall,pop,print,printobject,product,prompt,pstack,put,putinterval,
+    quit,rand,rcurveto,read,readhexstring,readline,readonly,readstring,
+    realtime,rectclip,rectfill,rectstroke,rectviewclip,renamefile,repeat,resetfile,
+    resourceforall,resourcestatus,restore,reversepath,revision,rlineto,rmoveto,roll,
+    rootfont,rotate,round,rrand,run,save,scale,scalefont,scheck,search,selectfont,
+    serialnumber,setbbox,setblackgeneration,setcachedevice,setcachedevice2,
+    setcachelimit,setcacheparams,setcharwidth,setcmykcolor,setcolor,
+    setcolorrendering,setcolorscreen,setcolorspace,setcolortransfer,setdash,
+    setdevparams,setfileposition,setflat,setfont,setglobal,setgray,setgstate,
+    sethalftone,sethalftonephase,sethsbcolor,setlinecap,setlinejoin,setlinewidth,
+    setmatrix,setmiterlimit,setobjectformat,setoverprint,setpacking,setpagedevice,
+    setpattern,setrgbcolor,setscreen,setshared,setstrokeadjust,setsystemparams,
+    settransfer,setucacheparams,setundercolorremoval,setuserparams,setvmthreshold,
+    shareddict,show,showpage,sin,sqrt,srand,stack,
+    StandardEncoding,start,startjob,status,statusdict,stop,stopped,store,string,
+    stringwidth,stroke,strokepath,sub,systemdict,transform,
+    translate,true,truncate,type,token,uappend,ucache,ucachestatus,
+    ueofill,ufill,undef,
+    upath,userdict,UserObjects,
+    usertime,ustroke,ustrokepath,version,viewclip,viewclippath,vmreclaim,
+    vmstatus,wait,wcheck,where,widthshow,write,writehexstring,writeobject,
+    writestring,wtranslation,xcheck,xor,xshow,xyshow,yield,yshow},
+  sensitive,
+  morecomment=[l]\%}[keywords,comments]
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{POV-Ray}
 %
 % \lstthanks{Berthold~H\"ollmann}{bhoel@starship.python.net}{1999/04/15} sent
@@ -3904,11 +4745,157 @@
 % \endgroup
 %
 %
+% \subsection{PSTricks}
+%
+% PSTricks is a \TeX\ macro package bundle.  
+% \lstthanks{Herbert~Voss}{}{2004/09/17} provided the following definition.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% PSTricks definition (c) 2006 Herbert Voss
+%%
+\lst@definelanguage{PSTricks}%
+  {morekeywords={%
+    begin,end,definecolor,multido,%
+    KillGlue,DontKillGlue,pslbrace,bsrbrace,psscalebox,psset,pstVerb,pstverb,%
+    pst@def,,psframebox,psclip,endclip,endpspicture,psframe,
+%%    pspicture,%
+    multirput,multips,Rput,rput,uput,cput,lput,%
+    newrgbcolor,newgray,newcmykcolor,
+%%
+%% pstricks-add
+    psStep,psgraph,psbrace,psPrintValue,
+%%
+%% pst-plot
+    psvlabel,pshlabel,psplot,psline,pscustom,pscurve,psccurve,%
+    readdata,savedata,fileplot,dataplot,listplot,%
+    psecurce,psgraph,parametricplot,%
+    psellipse,psaxes,ncline,nccurve,psbezier,parabola,%
+    qdisk,qline,clipbox,endpsclip,%
+    psgrid,pscircle,pscirclebox,psdiabox,pstribox,%
+    newpsfontdot,psdot,psdots,%
+    pspolygon,psdiamond,psoval,pstriangle,%
+    psarc,psarcn,psellipticarc,psellipticarcn,pswedge,psellipticwedge,
+    pcline,pcdiag,pcdiagg,pccurve,pccurve,pcecurve,%
+    scalebox,scaleboxto,psmathboxtrue,everypsbox,psverbboxtrue,overlaybox,%
+    psoverlay,putoverlaybox,%
+    newpsstyle,newpsobject,%
+    moveto,newpath,closepath,stroke,fill,gsave,grestore,msave,mrestore,translate,scale,%
+    swapaxes,rotate,openshadow,closedshadow,movepath,lineto,rlineto,curveto,rcurveto,%
+    code,dim,coor,rcoor,file,arrows,setcolor,%
+    rotateleft,rotateright,rotatedown,%
+%%
+%% pst-node
+    nput,naput,nbput,ncput,%
+    ncarc,ncbox,ncangle,ncangles,ncloop,ncdiag,ncdiagg,ncarcbox,ncbar,%
+    cnodeput,nccircle,%
+    pnode,rnode,Rnode,Cnode,cnode,fnode,%
+    circlenode,ovalnode,trinode,dianode,%
+    psmatrix,endpsmatrix,psspan,%
+%%
+%% pst-tree
+    pstree,Tcircle,TCircle,Ttri,Tn,TC,Tc,Tfan,TR,Tr,Tdia,Toval,Tdot,Tp,Tf,%
+    skiplevel,skiplevels,endskiplevels,tspace,tlput,%
+%%
+%% pst-text
+    pscharpath,pstextpath,
+%%
+%% pst-barcode
+    psbarcode,
+%%
+%% pst-coil
+    psboxfill,pscoil,psCoil,pszigzag,nccoil,
+    psshadow,pstilt,psTilt,ThreeDput,
+%%
+%% pst-gr3d
+    PstGridThreeDNodeProcessor,%
+%%
+%% pst-vue3d
+    PstGridThreeD,
+    AxesThreeD,LineThreeD,DieThreeD,FrameThreeD,SphereCircleThreeD,SphereMeridienThreeD,
+    QuadrillageThreeD,TetraedreThreeD,PyramideThreeD,ConeThreeD,CylindreThreeD,
+    DodecahedronThreeD,ConeThreeD,SphereThreeD,SphereInverseThreeD,DemiSphereThreeD,
+    SphereCreuseThreeD,SphereCircledThreeD,PortionSphereThreeD,pNodeThreeD,CubeThreeD,%
+%%
+%% pst-3dplot
+    pstThreeDCoor,pstThreeDDot,pstThreeDTriangle,pstThreeDCircle,pstPlanePut,%
+    pstThreeDBox,pstThreeDEllipse,pstThreeDLine,pstThreeDPut,%
+    pstThreeDNode,pstThreeDSquare,psplotThreeD,parametricplotThreeD,fileplotThreeD,%
+    dataplotThreeD,pstScalePoints,%
+%%
+%% pst-circ
+    resistor,battery,Ucc,Icc,capacitor,coil,diode,Zener,LED,lamp,switch,wire,tension,
+    circledipole,multidipole,OA,transistor,Tswitch,potentiometer,transformer,
+    optoCoupler,logic,
+%%
+%% pst-eucl
+    pstTriangle,pstMediatorAB,pstInterLL,pstMiddleAB,pstProjection,pstCircleOA,pstLineAB,%
+%%
+%% pst-func
+    psBessel,psPolynomial,psFourier,psGaussI,psGauss,psSi,pssi,psCi,psci,%
+%%
+%% pst-infixplot
+    psPlot,
+%%
+%% pst-ob3d
+    PstDie,PstCube,
+%%
+%% pst-poly
+    PstPolygon,pspolygonbox,
+%%
+%% pst-bar
+    psbarchart,readpsbardata,psbarscale,newpsbarstyle,%
+%%
+%% pst-lens
+    PstLens,%
+%%
+%% pst-geo
+    WorldMap,WorldMapII,WorldMapThreeD,WorldMapThreeDII,pnodeMap,MapPut,%
+%%
+%% pst-autoseg
+    asr,firstnode,merge,massoc,labelmerge,%
+%%
+%% gastex
+    node,imark,fmark,rmark,drawqbpedge,drawedge,drawloop,%
+%%
+%% pst-labo
+    Distillation,Ballon,
+%%
+%% pst-optic
+    lens,Transform,%
+%%
+%% pst-light3d
+    PstLightThreeDText,%
+%%
+%% calendrier
+    Calendrier,%
+%%
+%% pst-osci
+    Oscillo%
+  },%
+   sensitive,%
+   alsoother={0123456789$_},%
+   morecomment=[l]\% %
+  }[keywords,comments]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Python}
 %
 % \lstthanks{Michael~Weber}{mweber@informatik.hu-berlin.de}{1998/12/21} sent me
 % the definition. He got data from \textsc{Mark Lutz}: \textbf{Programming
 % Python}; O'Reilly 1996; ISBN 1-56592-197-6.
+% \lstthanks{Stephen Kelly}{-}{2007/01/14} reported some problems that indicated
+% that the comment definitions needed to be moved after the string definitions
+% to work correctly.
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
@@ -3923,10 +4910,10 @@
       or,pass,print,raise,return,try,while},%
    sensitive=true,%
    morecomment=[l]\#,%
-   morecomment=[s]{'''}{'''},% used for documentation text
-   morecomment=[s]{"""}{"""},% added by Philipp Matthias Hahn
    morestring=[b]',% 
-   morestring=[b]"% 
+   morestring=[b]",% 
+   morecomment=[s]{'''}{'''},% used for documentation text
+   morecomment=[s]{"""}{"""}% added by Philipp Matthias Hahn
   }%
 %    \end{macrocode}
 % \lsthelper{Philipp Matthias Hahn}{pmhahn@titan.lahn.de}{2002/04/18}{}
@@ -4161,10 +5148,17 @@ literate=%
 %
 % \subsection{Ruby}
 %
-% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided this
+% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided the initial
 % definition. \lstthanks{Xavier~Noria}{fxn@hashref.com}{2004/01/11} replaced
 % the keywords with the keywords from the at the time of writing current
-% stable Ruby version.
+% stable Ruby version.  An erroneous string delimiter was removed following
+% a bug reported on comp.text.tex on 2006/09/01.
+%
+% Ruby supports string delimiters of the form \verb|%q!...!|, where \verb|!|
+% can be any character, or can be matched braces or parentheses or brackets.
+% The included string definitions include most of the common variants, but are
+% of course not comprehensive.
+%
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
@@ -4181,7 +5175,18 @@ literate=%
    morecomment=[s]{=BEGIN}{=END},%
    morestring=[b]',%
    morestring=[b]",%
-   morestring=[b]/%
+   morestring=[s]{\%q/}{/},%
+   morestring=[s]{\%q!}{!},%
+   morestring=[s]{\%q\{}{\}},%
+   morestring=[s]{\%q(}{)},%
+   morestring=[s]{\%q[}{]},%
+   morestring=[s]{\%q-}{-},%
+   morestring=[s]{\%Q/}{/},%
+   morestring=[s]{\%Q!}{!},%
+   morestring=[s]{\%Q\{}{\}},%
+   morestring=[s]{\%Q(}{)},%
+   morestring=[s]{\%Q[}{]},%
+   morestring=[s]{\%Q-}{-}%
   }[keywords,comments,strings]%
 %    \begin{macrocode}
 %</lang2>
@@ -4443,6 +5448,37 @@ literate=%
 % \endgroup
 %
 %
+% \subsection{SPARQL}
+%
+% This definition for the SPARQL query language (SPARQL Protocol and RDF
+% Query Language, \url{http://www.w3.org/TR/rdf-sparql-query/}) was provided
+% by \lstthanks{Christoph~Kiefer}{-}{2006/10/24}.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% SPARQL definition (c) 2006 Christoph Kiefer
+%%
+\lst@definelanguage{SPARQL}%
+  {morekeywords={BASE,PREFIX,SELECT,DISTINCT,CONSTRUCT,DESCRIBE,ASK,%
+        FROM,NAMED,WHERE,ORDER,BY,ASC,DESC,LIMIT,OFFSET,OPTIONAL,%
+        GRAPH,UNION,FILTER,a,STR,LANG,LANGMATCHES,DATATYPE,BOUND,%
+        isIRI,isURI,isBLANK,isLITERAL,REGEX,true,false},%
+   sensitive=false,%
+   morecomment=[l]\#,%
+   morestring=[d]',%
+   morestring=[d]"%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{SQL}
 %
 % Data come from \lstthanks{Christian~Haul}
@@ -4617,13 +5653,10 @@ literate=%
       hypot,log,log10,pow,sin,sinh,sqrt,tan,tanh,abs,double,int,round%
       },%
    morestring=[d]",%
-   MoreSelectCharTable=%
-      \lst@CArgX\#\relax\lst@DefDelimB{}{}%
-          {\ifx\lst@lastother\lstum@backslash
-               \expandafter\@gobblethree
-           \fi}%
-          \lst@BeginComment\lst@commentmode
-          {{\lst@commentstyle}\lst@Lmodetrue}%
+   morecomment=[f]\#,%
+   morecomment=[l]{;\#},%
+   morecomment=[l]{[\#},%
+   morecomment=[l]{\{\#}%
   }[keywords,comments,strings]%
 %    \end{macrocode}
 % And after receiving a bug report from \lsthelper{Vitaly A. Repin}
