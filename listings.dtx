@@ -13,30 +13,15 @@
 % or simply `the package'. A `driver' is generated from  lstdrvrs.dtx.
 %
 % Copyright.
-%   The listings package is copyright 1996--2002 Carsten Heinz.
-%   The language drivers are copyright 1997/1998/1999/2000/2001/2002 any
-%   individual author listed in the driver files.
+%   The listings package is copyright 1996--2003 Carsten Heinz. The
+%   language drivers are copyright 1997/1998/1999/2000/2001/2002/2003
+%   any individual author listed in the driver files.
 %
 % Distribution and warranty.
 %   The listings package as well as lstdrvrs.dtx and all drivers are
 %   distributed under the terms of the LaTeX Project Public License
 %   from CTAN archives in directory  macros/latex/base/lppl.txt.
 %   Either version 1.0 or, at your option, any later version.
-%
-% Use of the package.
-%   The listings package is free software. However, if you distribute the
-%   package as part of a commercial product or if you use the package to
-%   prepare a commercial document (books, journals, and so on), I'd like
-%   to encourage you to make a donation to the LaTeX3 fund. The size of
-%   this `license fee' should depend on the value of the package for your
-%   product. For more information about LaTeX see
-%      http://www.latex-project.org
-%
-%   No matter whether you use the package for a commercial or non-commercial
-%   document, please send me a copy of the document (.dvi, .ps, .pdf,
-%   hardcopy, etc.) to support further development---it is easier to
-%   introduce new features or simplify things if I see how the package is
-%   used by other people.
 %
 % Modification advice.
 %   Permission is granted to modify the listings package as well as
@@ -46,16 +31,22 @@
 %   address below; other users will welcome removed bugs, new features,
 %   and additional programming languages.
 %
+% At your option.
+%   To support further development, you might want to send me a copy of
+%   your documents, relevant parts of it, or the crucial LaTeX sources.
+%   Of course, I don't need examples of normal usage.
+%
+%   If you distribute the package as part of a commercial product or
+%   if you use the package to prepare a commercial document (books,
+%   journals, and so on), I'd like to encourage you to make a donation
+%   to the LaTeX3 fund. The size of this optional donation should depend
+%   on the value of the package for your product. For more information
+%   about LaTeX see
+%      http://www.latex-project.org
+%
 % Contacts.
 %   Send comments and ideas on the package, error reports and additional
 %   programming languages to
-%
-%       Carsten Heinz
-%       Tellweg 6
-%       42275 Wuppertal
-%       Germany
-%
-%   or preferably to
 %
 %       cheinz@gmx.de
 %
@@ -67,7 +58,7 @@
 \DisableCrossrefs
 \OnlyDescription
 
-\usepackage{lstdoc}
+\usepackage{lstdoc,textcomp}
 \makeindex
 
 \begin{document}
@@ -88,18 +79,18 @@
 %\lstisaspect[emph]{emph,moreemph,deleteemph,emphstyle}
 %\lstisaspect[tex]{texcs,moretexcs,deletetexcs,texcsstyle}
 %\lstisaspect[directives]{directives,moredirectives,deletedirectives,directivestyle}
-%\lstisaspect[html]{keywordsinside,usekeywordsinside}
+%\lstisaspect[html]{tag,usekeywordsintag,tagstyle,markfirstintag}
 %\lstisaspect[keywordcomments]{keywordcomment,morekeywordcomment,deletekeywordcomment,keywordcommentsemicolon}
 %\lstisaspect[index]{index,moreindex,deleteindex,indexstyle,\string\lstindexmacro}
 %\lstisaspect[procnames]{procnamestyle,indexprocnames,procnamekeys,moreprocnamekeys,deleteprocnamekeys}
 %\lstisaspect[style]{style,\string\lstdefinestyle,\string\lst@definestyle,\string\lststylefiles}
 %\lstisaspect[language]{language,alsolanguage,defaultdialect,\string\lstalias,\string\lstdefinelanguage,\string\lst@definelanguage,\string\lstloadlanguages,\string\lstlanguagefiles}
 %\lstisaspect[formats]{format,fmtindent,\string\lstdefineformat,\string\lst@defineformat,\string\lstformatfiles}
-%\lstisaspect[labels]{numbers,numberstyle,numbersep,stepnumber,numberblanklines,firstnumber,\string\thelstnumber}
+%\lstisaspect[labels]{numbers,numberstyle,numbersep,stepnumber,numberblanklines,firstnumber,\string\thelstnumber,numberfirstline}
 %\lstisaspect[lineshape]{xleftmargin,xrightmargin,resetmargins,linewidth,lineskip,breaklines,breakindent,breakautoindent,prebreak,postbreak}
 %\lstisaspect[frames]{framexleftmargin,framexrightmargin,framextopmargin,framexbottommargin,backgroundcolor,fillcolor,rulecolor,rulesepcolor,rulesep,framerule,framesep,frameshape,frameround,frame}
 %\lstisaspect[make]{makemacrouse}
-%\lstisaspect[fancyvrb]{fancyvrb}
+%\lstisaspect[fancyvrb]{fancyvrb,fvcmdparams,morefvcmdparams}
 %\lstisaspect[lgrind]{lgrindef,\string\lstlgrindeffile}
 %\lstisaspect[hyper]{hyperref,morehyperref,deletehyperref,hyperanchor,hyperlink}
 %\lstisaspect[kernel]{basewidth,fontadjust,columns,flexiblecolumns,identifierstyle,^^A
@@ -111,7 +102,7 @@
 %   \string\lstname,\string\lstlistlistingname,\string\lstlistoflistings,^^A
 %   \string\lstnewenvironment,\string\lstinline,\string\lstinputlisting,lstlisting,^^A
 %   \string\lstloadaspects,\string\lstset,\string\thelstlisting,\string\lstaspectfiles,^^A
-%   inputencoding,delim,moredelim,deletedelim}
+%   inputencoding,delim,moredelim,deletedelim,upquote}
 %\lstisaspect[doc]{lstsample,lstxsample}^^A environment
 %
 %^^A
@@ -129,9 +120,9 @@
 %   language isn't already supported, you can make your own definition.
 %	\end{abstract}}
 %
-% \title{The \textsf{Listings} Package}
-% \author{Copyright 1996--2002\\ Carsten Heinz \textless\lstemail\textgreater}
-% \date{2002/04/01\enspace Version 1.0\\ \box\abstractbox}
+% \title{\vspace*{-2\baselineskip}The \textsf{Listings} Package}
+% \author{Copyright 1996--2003\\ Carsten Heinz \textless\lstemail\textgreater}
+% \date{2003/06/21\enspace\enspace Version 1.1\\ \box\abstractbox}
 % \def\lstemail{\href{mailto:cheinz@gmx.de}{\texttt{cheinz@gmx.de}}}
 % \ifhyper
 %    \hypersetup{pdfsubject=Package guide,pdfauthor=Carsten Heinz <cheinz@gmx.de>}
@@ -139,6 +130,7 @@
 %
 % \csname @twocolumntrue\endcsname
 % \maketitle
+%^^A \enlargethispage{2\baselineskip}
 % \csname @starttoc\endcsname{toc}
 % \onecolumn
 %
@@ -147,22 +139,31 @@
 %
 % \paragraph{Reading this manual}
 % If you are experienced with the \packagename{listings} package, you should
-% read the paragraph ``\emph{News and changes}'' below. Otherwise read section
-% \lstref{uGettingStarted} step by step and then go on with
-% section \ref{uTheNextSteps}.
+% read the next paragraph ``\emph{News and changes}''. Otherwise read section
+% \lstref{uGettingStarted} step by step and go on with section
+% \ref{uTheNextSteps}.
 %
 % \paragraph{News and changes}
-% This is the first release of the package with a major version number unequal
-% to zero. And many changes have been made since version 0.21.
-% One main task was to synchronize the keys of \packagename{listings} and
-% \packagename{fancyvrb}. So user's of both packages can switch between them
-% without learning new keys---as long as the same functionality is provided.
-% The table lists (hopefully) all renamed keys and all removed keys.
+% This release mainly fixes bugs; only few keys have been added, refer the
+% table---some of them were already available to 1.0 via a patch file.
+% Please note that all experimental features and all \dag-marked keys might
+% change in future.
 % \begin{table}[hbp]
 % \footnotesize
 % \begin{center}
-% \begin{tabular}{rlrl}
-% \emph{0.21}&\emph{now}&\emph{0.21}&\emph{now}\\[1ex]
+% \begin{tabular}{@{}rlrl@{}}
+% \emph{1.0}&\emph{1.1}&\emph{1.0}&\emph{1.1}\\[1ex]
+%   \texttt{keywordsinside} & \texttt{tag} (page \pageref{uoption:tag})
+% & ---                     & \texttt{final}$^*$ (p.\,\pageref{uoption:final})\\
+%   ---                     & \texttt{tagstyle} (p.\,\pageref{uoption:tagstyle})
+% & ---                     & \texttt{numberfirstline} (p.\,\pageref{uoption:numberfirstline})\\
+%   ---                     & \texttt{markfirstintag} (p.\,\pageref{uoption:markfirstintag})
+% & ---                     & \texttt{upquote} (p.\,\pageref{uoption:upquote})\\
+% \texttt{usekeywordsinside}& \texttt{usekeywordsintag} (p.\,\pageref{uoption:usekeywordsintag})
+% & & \\
+% & & --- & \texttt{fvcmdparams} (p.\,\pageref{uoption:fvcmdparams})\\
+% & & --- & \texttt{morefvcmdparams} (p.\,\pageref{uoption:morefvcmdparams})\\[2ex]
+% \emph{0.21}&\emph{1.x}&\emph{0.21}&\emph{1.x}\\[1ex]
 % \texttt{first}          & \texttt{firstline}          & ---                     & \texttt{numbers}\\
 % \texttt{last}           & \texttt{lastline}           & \texttt{labelstep}      & \texttt{stepnumber}\\
 % \texttt{stringspaces}   & \texttt{showstringspaces}   & \texttt{labelstyle}     & \texttt{numberstyle}\\
@@ -181,31 +182,24 @@
 % \end{tabular}
 % \end{center}
 % \parindent=20pt\relax
+% \par\indent $^*$ This is an option for package loading only.
 % \par\indent $^1$ \emph{All} color-keys require now an explicit \cs{color} command in the value.
 % \par\indent $^2$ Please look at section \ref{uFixedAndFlexibleColumns}.
 % \par\indent $^3$ Now frames are also moved!
 % \end{table}
-% As stated in the footnote, some keys changed their behaviour, for example
-% you will have to write \keyname{backgroundcolor}|=\color|\marg{color}
-% instead of omitting the color command as in version 0.21. Another
-% modification is that the name argument of \texttt{lstlisting} has been
-% replaced by the key \keyname{name} and an addon to \keyname{firstnumber}.
-% But don't panic, you don't need to remove all empty name arguments in your
-% old sources, the argument is still allowed.
 %
-% The package documentation has also been revised. Please notice the new
-% sections \ref{uLanguageDefinitions} and \ref{uDelimiters}.
+% Since 2002/10/13 the following languages have been added: \texttt{erlang},
+% \texttt{GCL}, \texttt{[AspectJ]Java}, \texttt{MetaPost}, \texttt{Mizar},
+% \texttt{MuPAD}, \texttt{Reduce}, \texttt{Ruby}, \texttt{Scilab}, and
+% \texttt{Verilog}. Thanks go to the contributers.
 %
-% Eventually note that all experimental features and all \dag-marked keys might
-% change in future. All others are fixed!
-%
+% \vfill
 % \paragraph{Thanks}
 % There are many people I have to thank for fruitful communication, posting
 % their ideas, giving error reports, adding programming languages to
 % \texttt{lstdrvrs.dtx}, and so on. Their names are listed in section
 % \ref{uClosingAndCredits}.
 %
-% \vfill
 % \paragraph{Trademarks}
 % Trademarks appear throughout this documentation without any trademark
 % symbol; they are the property of their respective trademark owner.
@@ -230,9 +224,12 @@
 % \begin{verbatim}
 %    \documentclass{article}
 %    \usepackage{listings}
+%
 %    \begin{document}
-%      \lstset{language=Pascal}
+%    \lstset{language=Pascal}
+%
 %      % Insert Pascal examples here.
+%
 %    \end{document}\end{verbatim}
 % Now type in this first example and run it through \LaTeX.
 % \begin{advise}
@@ -252,12 +249,13 @@
 % \item The example doesn't work.
 %       \advisespace
 %       Are the two packages \packagename{listings} and \packagename{keyval}
-%       installed on your system? Read section \ref{rInstallation} on the
-%       installation process. If this doesn't help, you should consult your
-%       system administrator, the local \TeX\ and \LaTeX\ guides, or a \TeX\ 
-%       FAQ. And after you checked \emph{all} these sources, you might want to
-%       write a post to a \TeX\ newsgroup like \texttt{comp.text.tex}.
-% \item Should I read the software license before using this package?
+%       installed on your system? Consult the administration tool of your
+%       \TeX\ distribution, your system administrator, the local \TeX\ and
+%       \LaTeX\ guides, a \TeX\ FAQ, and section \ref{rInstallation}---in
+%       the given order. If you've checked \emph{all} these sources and are
+%       still helpless, you might want to write a post to a \TeX\ newsgroup
+%       like \texttt{comp.text.tex}.
+% \item Should I read the software license before using the package?
 %       \advisespace
 %       Yes, but read this \emph{Getting started} section first to decide
 %       whether you are willing to use the package.^^A ;-)
@@ -267,9 +265,9 @@
 % \subsection{Typesetting listings}
 %
 % Three types of source codes are supported: code snippets, code segments, and
-% listings of stand alone files; the first inside paragraphs and the others as
-% separate paragraphs---the difference is the same as between text style and
-% display style formulas.
+% listings of stand alone files; snippets are placed inside paragraphs and the
+% others as separate paragraphs---the difference is the same as between text
+% style and display style formulas.
 % \begin{advise}
 % \item No matter what kind of source you have, if a listing contains national
 %       characters like \'e, \L, \"a, or whatever, you must tell it the
@@ -323,8 +321,7 @@
 %    \end{lstlisting}
 % \end{lstsample}
 % \begin{advise}
-% \item Hold on! I've several questions.
-%       Where comes the frame from and what is it good for?
+% \item Hold on! Where comes the frame from and what is it good for?
 %       \advisespace
 %       You can put frames around all listings except code snippets.
 %       You will learn it later. The frame shows that empty lines at the end
@@ -342,8 +339,8 @@
 % \end{advise}
 %
 % \paragraph{Stand alone files}
-% Finally we come to |\lstinputlisting|, the command to pretty-print stand
-% alone files. It has one optional and one file name argument.
+% Finally we come to |\lstinputlisting|, the command used to pretty-print
+% stand alone files. It has one optional and one file name argument.
 % Note that you possibly need to specify the relative path to the file.
 % Here now the result is printed below the verbatim code since both together
 % don't fit the text width.
@@ -356,8 +353,8 @@
 %       Yes. The two previous examples have aligned columns, i.e.~columns with
 %       identical numbers have the same horizontal position---this package
 %       makes small adjustments only. The columns in the example here are not
-%       aligned. This is explained elsewhere (keyword: full flexible column
-%       format).
+%       aligned. This is explained in section \ref{uFixedAndFlexibleColumns}
+%       (keyword: full flexible column format).
 % \end{advise}
 %
 % Now you know all pretty-printing commands and environments. It remains
@@ -429,15 +426,16 @@
 % \item `|basicstyle=\small|' looks fine, but comments look really bad with
 %       `|commentstyle=\tiny|' and empty basic style, say.
 %       \advisespace
-%       Don't change the font size inside listings.
+%       Don't use different font sizes in a single listing.
 % \item But I really want it!
 %       \advisespace
-%       The package adjusts internal data after selecting the basic style at
-%       the beginning of each listing. This is a problem if you change the
-%       font size for comments or strings, for example.
-%       Section \ref{rColumnAlignment} shows how to overcome this.
-%       But once again: Don't change the font size inside listings unless you
-%       really know what you are doing.
+%       No, you don't.
+%^^A       The package adjusts internal data after selecting the basic style at
+%^^A       the beginning of each listing. This is a problem if you change the
+%^^A       font size for comments or strings, for example.
+%^^A       Section \ref{rColumnAlignment} shows how to overcome this.
+%^^A       But once again: Don't use different font sizes in a single listing
+%^^A       unless you really know what you are doing.
 % \end{advise}
 %
 % \paragraph{Warning}\label{wStrikingStyles}
@@ -476,7 +474,7 @@
 % \item I can't get rid of line numbers in subsequent listings.
 %       \advisespace
 %       `|numbers=none|' turns them off.
-% \item Can I use these parameters in the optional arguments?
+% \item Can I use these keys in the optional arguments?
 %       \advisespace
 %       Of course. Note that optional arguments modify values for one
 %       particular listing only: you change the appearance, step or distance
@@ -490,7 +488,7 @@
 %
 % \paragraph{Floating listings}
 % Displayed listings may float:
-% \begin{lstsample}[float]{\lstset{frame=tb}}{}
+% \begin{lstsample}{\lstset{frame=tb}}{}
 %    \begin{lstlisting}[float,caption=A floating example]
 %    for i:=maxint to 0 do
 %    begin
@@ -541,7 +539,7 @@
 %       other programs?
 %       \advisespace
 %       Firstly, the descriptions give a taste and not a complete overview,
-%       secondly, \packagename{listings} lacks some properties, and eventually,
+%       secondly, \packagename{listings} lacks some properties, and, eventually,
 %       you should use the program matching your needs most precisely.
 % \end{advise}
 % This package is certainly not the final utility for typesetting source code.
@@ -570,6 +568,53 @@
 % Visit the home page at
 % \href{http://www.infres.enst.fr/~demaille/a2ps}^^A
 %      {http://www.infres.enst.fr/\textasciitilde demaille/a2ps}.
+%
+% \paragraph{\packagename{LGrind}}
+% is a cross compiler and comes with many predefined programming languages.
+% For example, you can put the code on the right in your document, invoke
+% \packagename{LGrind} with \texttt{-e} option (and file names), and run the
+% created file through \LaTeX. You should get a result similar to the
+% left-hand side:
+% \begin{center}
+% \begin{minipage}{0.45\linewidth}
+%\iflgrind
+%    \LGindent=0pt
+%    \LGinlinefalse\LGbegin\lgrinde
+%    \L{\LB{\K{for}_\V{i}:=\V{maxint}_\K{to}_\N{0}_\K{do}}}
+%    \L{\LB{\K{begin}}}
+%    \L{\LB{____\C{}\{_do_nothing_\}\CE{}}}
+%    \L{\LB{\K{end};}}
+%    \L{\LB{}}
+%    \L{\LB{\V{Write}(\S{}{'}Case_insensitive_{'}\SE{});}}
+%    \L{\LB{\V{WritE}(\S{}{'}Pascal_keywords.{'}\SE{});}}
+%    \endlgrinde\LGend
+%\else
+%    \packagename{LGrind} not installed.
+%\fi
+% \end{minipage}
+% \begin{minipage}{0.45\linewidth}
+% \begin{verbatim}
+% %[
+% for i:=maxint to 0 do
+% begin
+%     { do nothing }
+% end;
+%
+% Write('Case insensitive ');
+% WritE('Pascal keywords.');
+% %]\end{verbatim}
+% \end{minipage}
+% \end{center}
+% If you use |%(| and |%)| instead of |%[| and |%]|, you get a code snippet
+% instead of a displayed listing. Moreover you can get line numbers to the
+% left or right, use arbitrary \LaTeX\ code in the source code, print symbols
+% instead of verbose names, make font setup, and more. You will (have to)
+% like it (if you don't like \packagename{listings}).
+%
+% Note that \packagename{LGrind} contains code with a no-sell license and is
+% thus nonfree software. It is available via ftp from
+% \href{ftp://ftp.dante.de/tex-archive/nonfree/support/lgrind}
+%      {\textrm{CTAN}/nonfree/support/lgrind}.
 %
 % \paragraph{\packagename{cvt2ltx}}
 % is a family of `source code to \LaTeX' converters for C, Objective C, \Cpp,
@@ -624,19 +669,6 @@
 % Available via ftp from
 % \href{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/other/misc}^^A
 %      {\textrm{CTAN}/macros/latex/contrib/other/misc}.
-%
-% \begin{advise}
-% \item Why don't you list \packagename{LGrind}?
-%       \advisespace
-%       \packagename{LGrind} contains nonfree code and became nonfree software.
-%       It is a cross compiler and comes with many predefined programming
-%       languages. It supports code snippets, displayed listings, line numbers
-%       to the left or right, arbitrary \LaTeX\ code in the source code,
-%       printing symbols instead of verbose names, font setup, and more.
-%       It is available via ftp from
-%       \href{ftp://ftp.dante.de/tex-archive/nonfree/support/lgrind}
-%            {\textrm{CTAN}/nonfree/support/lgrind}.
-% \end{advise}
 %
 % \paragraph{\packagename{alg}}
 % provides essentially the same functionality as \packagename{algorithms}.
@@ -748,31 +780,14 @@
 % is generated from \texttt{lstdrvrs.dtx}.
 %
 % \paragraph{Copyright}
-%   The \packagename{listings} package is copyright 1996--2002 Carsten Heinz.
-%   The drivers are copyright 1997/1998/1999/2000/2001/2002 any individual
-%   author listed in the driver files.
+%   The \packagename{listings} package is copyright 1996--2003 Carsten Heinz.
+%   The drivers are copyright any individual author listed in the driver files.
 %
-% \paragraph{Distribution and warranty}
+% \paragraph{Distribution}
 %   The \packagename{listings} package as well as \texttt{lstdrvrs.dtx} and all
 %   drivers are distributed under the terms of the \LaTeX\ Project Public
 %   License from CTAN archives in directory |macros/latex/base/lppl.txt|,
 %   either version 1.0 or any later version.
-%
-% \paragraph{Use of the package}
-%   The \packagename{listings} package is \emph{free} software. However, if you
-%   distribute the package as part of a commercial product or if you use the
-%   package to prepare a commercial document (books, journals, and so on),
-%   I'd like to encourage you to make a donation to the \LaTeX3 fund.
-%   The size of this `license fee' should depend on the value of the package
-%   for your product. For more information about \LaTeX3 see
-% \href{http://www.latex-project.org}^^A
-%      {http://www.latex-project.org}.
-%
-%   No matter whether you use the package for a commercial or non-commercial
-%   document, please send me a copy of the document (\texttt{.dvi},
-%   \texttt{.ps}, \texttt{.pdf}, hardcopy, etc.) to support further
-%   development---it is easier to introduce new features or simplify things
-%   if I see how the package is used by other people.
 %
 % \paragraph{Modification advice}
 %   Permission is granted to modify the \packagename{listings} package as well
@@ -782,11 +797,25 @@
 %   In any case it is better to contact the address below; other users will
 %   welcome removed bugs, new features, and additional programming languages.
 %
+% \paragraph{At your option}
+%   To support further development, you might want to send me a copy of
+%   your documents, relevant parts of it, or the crucial \LaTeX{} sources.
+%   Of course, I don't need examples of normal usage.
+%
+%   If you distribute the package as part of a commercial product or
+%   if you use the package to prepare a commercial document (books,
+%   journals, and so on), I'd like to encourage you to make a donation
+%   to the \LaTeX3 fund. The size of this optional donation should depend
+%   on the value of the package for your product. For more information
+%   about \LaTeX3 see
+% \href{http://www.latex-project.org}^^A
+%      {http://www.latex-project.org}.
+%
 % \paragraph{Contacts}
 %   Read section \lstref{uTroubleshooting} on how to submit a bug report.
 %   Send all other comments, ideas, and additional programming languages to
 %   \emph{Carsten Heinz, Tellweg 6, 42275 Wuppertal, Germany} or preferably to
-%   \lstemail\ using \texttt{listings} in the subject.
+%   \lstemail\ using \texttt{listings} as part of the subject.
 %
 % \paragraph{Mailing list}
 %   This is mainly an announcement list regarding new versions, bugs, patches,
@@ -824,6 +853,10 @@
 %       defines the corresponding labels.
 %       Note that a global |\documentclass|-option \texttt{draft} is
 %       recognized, so you don't need to repeat it as a package option.
+%
+% \item[\normalfont\texttt{final}]\leavevmode\label{uoption:final}
+%
+%       Overwrites a global \texttt{draft} option.
 %
 % \item[\normalfont\texttt{savemem}]\leavevmode
 %
@@ -1864,6 +1897,7 @@
 %   \lstthanks{Oliver~Baum}{oli.baum@web.de},
 %   \lstthanks{Ralph~Becket}{rbeck@microsoft.com},
 %   \lstthanks{Olaf~Trygve~Berglihn}{olafb@pvv.org}, ^^A {1999/11/29}{3-char comment delimiter don't work (Python)}
+%   \lstthanks{Geraint~Paul~Bevan}{geraint@users.sf.net},
 %   \lstthanks{Peter~Biechele}{peter.biechele@physik.uni-freiburg.de},
 %   \lstthanks{Kai~Below}{below@tu-harburg.de},
 %   \lstthanks{Beat~Birkhofer}{beat@birkhofer.ch},
@@ -1871,46 +1905,65 @@
 %   \lstthanks{Martin~Brodbeck}{Martin.Brodbeck@gmx.de},
 %   \lstthanks{Walter~E.~Brown}{WB@fnal.gov},
 %   \lstthanks{Achim~D.~Brucker}{brucker@informatik.uni-freiburg.de},
-%   \lstthanks{David~Carlisle}{carlisle@cs.man.ac.uk},
+%   \lstthanks{David~Carlisle}{davidc@nag.co.uk},
 %   \lstthanks{Bradford~Chamberlain}{brad@cs.washington.edu},
 %   \lstthanks{Patrick~Cousot}{Patrick.Cousot@wanadoo.fr},
+%   \lstthanks{Xavier~Cr\'egut}{cregut@enseeiht.fr},
 %   \lstthanks{Holger~Danielsson}{dani@fbg.schwerte.de},
 %   \lstthanks{Andreas~Deininger}{deininger@uni-kassel.de},
 %   \lstthanks{Robert~Denham}{Robert.Denham@dnr.qld.gov.au},
 %   \lstthanks{Detlev~Dr\"oge}{droege@informatik.uni-koblenz.de},
 %   \lstthanks{Anders~Edenbrandt}{Anders.Edenbrandt@dna.lth.se},
+%   \lstthanks{Mark~van~Eijk}{mark@luon.net},
+%   \lstthanks{Norbert~Eisinger}{Norbert.Eisinger@informatik.uni-muenchen.de},
+%   \lstthanks{Thomas~Esser}{te@dbs.uni-hannover.de},
 %   \lstthanks{Chris~Edwards}{edwch00p@infoscience.otago.ac.nz},
 %   \lstthanks{David~John~Evans}{Matrix.Software@dial.pipex.com},
+%   \lstthanks{Robert~Frank}{rf7@ukc.ac.uk},
+%   \lstthanks{Daniel~Gazard}{gazard_d@epita.fr},
 %   \lstthanks{Daniel~Gerigk}{Daniel.Gerigk@ePost.de},
 %   \lstthanks{KP~Gores}{kp.gores@web.de},
+%   \lstthanks{Adam~Grabowski}{adam@mizar.org},
+%   \lstthanks{Jean-Philippe~Grivet}{grivet@cnrs-orleans.fr},
 %   \lstthanks{Christian~Gudrian}{Christian.Gudrian@kawo1.rwth-aachen.de},
+%   \lstthanks{Jonathan~de~Halleux}{dehalleux@auto.ucl.ac.be},
+%   \lstthanks{Carsten~Hamm}{carsten.hamm@siemens.com},
+%   \lstthanks{Martina~Hansel}{Martina.Hansel@fhtw-berlin.de},
 %   \lstthanks{Harald~Harders}{h.harders@tu-bs.de},
 %   \lstthanks{Christian~Haul}{haul@dvs1.informatik.tu-darmstadt.de},
 %   \lstthanks{Aidan~Philip~Heerdegen}{Aidan.Heerdegen@anu.edu.au},
-%   \lstthanks{Jim~Hefferon}{jhefferon@smcvt.edu},
+%   \lstthanks{Jim~Hefferon}{Hefferon9@aol.com},
 %   \lstthanks{Heiko~Heil}{info@heiko-heil.de},
 %   \lstthanks{J\"urgen~Heim}{heim@astro.uni-tuebingen.de},
+%   \lstthanks{Alvaro~Herrera}{alvherre@dcc.uchile.cl},
 %   \lstthanks{Dr.~Jobst~Hoffmann}{HOFFMANN@rz.rwth-aachen.de},
 %   \lstthanks{Torben~Hoffmann}{toho@it.dtu.dk},
 %   \lstthanks{Richard~Hoefter}{hoefter@gmx.de},
 %   \lstthanks{Berthold~H\"ollmann}{bhoel@starship.python.net},
+%   \lstthanks{Hermann~H\"uttler}{hermann.huettler@gmx.net},
 %   \lstthanks{Ralf~Imh\"auser}{snoopy@tribal.line.org},
 %   \lstthanks{R.~Isernhagen}{R.Isernhagen@FH-Wolfenbuettel.DE},
 %   \lstthanks{Oldrich~Jedlicka}{ojedlick@students.zcu.cz},
+%   \lstthanks{Dirk~Jesko}{jesko@iti.cs.uni-magdeburg.de},
+%   \lstthanks{Christian~Kaiser}{chk@combit.net},
 %   \lstthanks{Marcin~Kasperski}{Marcin.Kasperski@softax.com.pl},
 %   \lstthanks{Christian~Kindinger}{chkind@uni-wuppertal.de},
 %   \lstthanks{Steffen~Klupsch}{steffen@vlsi.informatik.tu-darmstadt.de},
 %   \lstthanks{Peter~K\"oller}{pkoeller@metaprojekt.de} (big thankyou), ^^A beta tester
 %   \lstthanks{Stefan~Lagotzki}{info@lagotzki.de},
+%   \lstthanks{Rene~H.~Larsen}{rhl@traceroute.dk},
 %   \lstthanks{Olivier~Lecarme}{ol@i3s.unice.fr},
 %   \lstthanks{Thomas~Leduc}{Thomas.Leduc@lsv.ens-cachan.fr},
 %   \lstthanks{Dr.~Peter~Leibner}{Peter.Leibner@sta.siemens.de},
 %   \lstthanks{Thomas~Leonhardt}{leonhardt@informatik.tu-darmstadt.de} (big thankyou), ^^A beta tester
 %   \lstthanks{Magnus~Lewis-Smith}{Magnus.Lewis-Smith@pace.co.uk},
 %   \lstthanks{Knut~Lickert}{knut.lickert@gmx.de},
+%   \lstthanks{Dan~Luecking}{luecking@uark.edu},
+%   \lstthanks{Kris~Luyten}{no email available},
 %   \lstthanks{Jos\'e~Romildo~Malaquias}{romildo@urano.iceb.ufop.br},
 %   \lstthanks{Andreas~Matthias}{amat@kabsi.at},
 %   \lstthanks{Knut~M\"uller}{knut@physik3.gwdg.de},
+%   \lstthanks{Svend~Tollak~Munkejord}{svendm@efisms.energy.sintef.no},
 %   \lstthanks{Gerd~Neugebauer}{gerd.neugebauer@gmx.de},
 %   \lstthanks{Torsten~Neuer}{tneuer@inwise.de},
 %   \lstthanks{Michael~Niedermair}{m.g.n@gmx.de},
@@ -1924,28 +1977,44 @@
 %   \lstthanks{Adam~Prugel-Bennett}{apb@ecs.soton.ac.uk},
 %   \lstthanks{Ralf~Quast}{rquast@hs.uni-hamburg.de},
 %   \lstthanks{Aslak~Raanes}{araanes@ifi.ntnu.no},
+%   \lstthanks{Venkatesh~Prasad~Ranganath}{vranganath@cox.net},
+%   \lstthanks{Georg~Rehm}{Georg.Rehm@germanistik.uni-giessen.de},
+%   \lstthanks{Fermin~Reig}{reig@ics.uci.edu},
 %   \lstthanks{Detlef~Reimers}{dreimers@aol.com},
+%   \lstthanks{Stephen~Reindl}{stephen.reindl@vodafone.com},
+%   \lstthanks{Peter~Ruckdeschel}{Peter.Ruckdeschel@uni-bayreuth.de},
 %   \lstthanks{Magne~Rudshaug}{magne@ife.no},
 %   \lstthanks{Vespe~Savikko}{vespe@cs.tut.fi},
 %   \lstthanks{Gunther~Schmidl}{gschmidl@gmx.at},
+%   \lstthanks{Walter~Schmidt}{wschmi@arcor.de},
 %   \lstthanks{Jochen~Schneider}{jschneider@ds3.etech.haw-hamburg.de},
+%   \lstthanks{Benjamin~Schubert}{benjamin.schubert@berlin.de},
+%   \lstthanks{Uwe~Siart}{uwe.siart@ei.tum.de},
+%   \lstthanks{Richard~Stallman}{no address},
 %   \lstthanks{Martin~Steffen}{ms@informatik.uni-kiel.de},
 %   \lstthanks{Andreas~Stephan}{Andreas.Stephan@victoria.de},
+%   \lstthanks{Stefan~Stoll}{stoll@phys.chem.ethz.ch},
+%   \lstthanks{Enrico~Straube}{no email available},
+%   \lstthanks{Martin~S\"u\ss kraut}{Edon.Myder@web.de},
 %   \lstthanks{Gabriel~Tauro}{gabriel@informatik.uni-jena.de},
 %   \lstthanks{Winfried~Theis}{theis@statistik.uni-dortmund.de},
 %   \lstthanks{Jens~T.~Berger~Thielemann}{jensthi@ifi.uio.no},
+%   \lstthanks{Arnaud~Tisserand}{arnaud.tisserand@ens-lyon.fr},
 %   \lstthanks{Kalle~Tuulos}{kalle.tuulos@nic.fi},
 %   \lstthanks{Gregory~Van~Vooren}{Gregory.VanVooren@rug.ac.be},
 %   \lstthanks{Thorsten~Vitt}{vitt@informatik.hu-berlin.de},
 %   \lstthanks{Herbert~Voss}{voss@perce.de} (big thankyou), ^^A beta tester
+%   \lstthanks{Herfried~Karl~Wagner}{hirf@gmx.at},
 %   \lstthanks{Dominique~de~Waleffe}{ddw@miscrit.be},
 %   \lstthanks{Michael~Weber}{mweber@informatik.hu-berlin.de},
 %   \lstthanks{Sonja~Weidmann}{Sonja.Weidmann@gmx.de},
 %   \lstthanks{Herbert~Weinhandl}{weinhand@grz08u.unileoben.ac.at},
+%   \lstthanks{Robert~Wenner}{robert.wenner@gmx.de},
 %   \lstthanks{Michael~Wiese}{wiese@itwm.uni-kl.de},
 %   \lstthanks{J\"orn~Wilms}{wilms@rocinante.colorado.edu},
-%   \lstthanks{Kai~Wollenweber}{kai@ece.WPI.EDU}, and
-%   \lstthanks{Ulrich~G.~Wortmann}{uliw@erdw.ethz.ch}.
+%   \lstthanks{Kai~Wollenweber}{kai@ece.WPI.EDU},
+%   \lstthanks{Ulrich~G.~Wortmann}{uliw@erdw.ethz.ch}, and
+%   \lstthanks{Timothy~Van~Zandt}{tvz@econ.insead.edu}.
 % \end{quote}
 % There are probably other people who contributed to this package.
 % If I've missed your name, send an email.
@@ -2042,7 +2111,7 @@
 %       explicit space token---and, of course, using a listing inside another
 %       argument is itself experimental, see section \ref{rListingsInsideArguments}.
 %
-% \item[0.15,,changed] |\begin{|\texttt{\rstyle lstlisting}|}|\oarg{key=value list}
+% \item[0.15] |\begin{|\texttt{\rstyle lstlisting}|}|\oarg{key=value list}
 %
 %       \leavevmode\hspace*{-\leftmargini}|\end{|\texttt{\rstyle lstlisting}|}|
 %
@@ -2061,7 +2130,7 @@
 % \subsection{Space and placement}
 %
 % \begin{syntax}
-% \item[0.20,floatplacement,addon] \rkeyname{float}|=|[|*|]\meta{subset of \textup{\texttt{tbph}}}\syntaxor\rkeyname{float}
+% \item[0.20,floatplacement] \rkeyname{float}|=|[|*|]\meta{subset of \textup{\texttt{tbph}}}\syntaxor\rkeyname{float}
 %
 %       makes sense on individual displayed listings only and lets them float.
 %       The argument controls where \LaTeX\ is \emph{allowed} to put the float:
@@ -2096,7 +2165,7 @@
 % \subsection{The printed range}
 %
 % \begin{syntax}
-% \item[0.12,true,changed] \rkeyname{print}|=|\meta{\alternative{true,false}}\syntaxor\rkeyname{print}
+% \item[0.12,true] \rkeyname{print}|=|\meta{\alternative{true,false}}\syntaxor\rkeyname{print}
 %
 %       controls whether an individual displayed listing is typeset. Even if
 %       set false, the respective caption is printed and the label is defined.
@@ -2106,8 +2175,8 @@
 %       can only be used to typeset particular listings despite of the
 %       \texttt{draft} option.
 %
-% \item[0.1,1,renamed] \rkeyname{firstline}|=|\meta{number}
-% \item[0.1,9999999,renamed] \rkeyname{lastline}|=|\meta{number}
+% \item[0.1,1] \rkeyname{firstline}|=|\meta{number}
+% \item[0.1,9999999] \rkeyname{lastline}|=|\meta{number}
 %
 %       can be used on individual listings only. They determine the physical
 %       input lines used to print displayed listings.
@@ -2185,10 +2254,18 @@
 %
 %       prints or drops PODs in Perl.
 %
-% \item[0.20,true,\dag optional] \rkeyname{usekeywordsinside}|=|\meta{\alternative{true,false}}
+% \item[0.20,true,{renamed,optional}] \rkeyname{usekeywordsintag}|=|\meta{\alternative{true,false}}\label{uoption:usekeywordsintag}
 %
-%       The package either use the first order keywords for HTML or prints all
+%       The package either use the first order keywords in tags or prints all
 %       identifiers inside |<>| in keyword style.
+%
+% \item[1.1,{{}},optional] \rkeyname{tagstyle}|=|\meta{style}\label{uoption:tagstyle}
+%
+%       determines the style in which tags and their content is printed.
+%
+% \item[1.1,false,optional] \rkeyname{markfirstintag}|=|\meta{style}\label{uoption:markfirstintag}
+%
+%       prints the first name in tags with keyword style.
 %
 % \item[0.20,true,optional] \rkeyname{makemacrouse}|=|\meta{\alternative{true,false}}
 %
@@ -2207,7 +2284,7 @@
 % \item[0.18,{{}}] \rkeyname{basicstyle}|=|\meta{basic style}
 %
 %       is selected at the beginning of each listing. You could use
-%       |\footnotesize|, |\small|, |\itshape|, |\ttseries|, or something like
+%       |\footnotesize|, |\small|, |\itshape|, |\ttfamily|, or something like
 %       that. The last token of \meta{basic style} must not read any following
 %       characters.
 %
@@ -2319,13 +2396,19 @@
 %       determines the input encoding. The usage of this key requires the
 %       \packagename{inputenc} package; nothing happens if it's not loaded.
 %
+% \item[1.1,false] \rkeyname{upquote}|=|\meta{\alternative{true,false}}\label{uoption:upquote}
+%
+%       determines whether the left and right quote are printed |`'| or
+%       \texttt{\textasciigrave\textquotesingle}.
+%       This key requires the \packagename{textcomp} package.
+%
 % \item[0.12,8] \rkeyname{tabsize}|=|\meta{number}
 %
 %       sets tabulator stops at columns $\meta{number}+1$, $2\cdot\meta{number}+1$, $3\cdot\meta{number}+1$, and so on.
 %       Each tabulator in a listing moves the current column to the next
 %       tabulator stop.
 %
-% \item[0.20,false,renamed] \rkeyname{showtabs}|=|\meta{\alternative{true,false}}
+% \item[0.20,false] \rkeyname{showtabs}|=|\meta{\alternative{true,false}}
 %
 %       make tabulators visible or invisible. A visible tabulator looks like
 %       \lstinline[showtabs]!	!, but that can be changed. If you choose
@@ -2336,11 +2419,11 @@
 %
 %       \meta{tokens} is used to print a visible tabulator. You might want to use |$\to$|, |$\mapsto$|, |$\dashv$| or something like that instead of the strange default definition.
 %
-% \item[0.20,false,renamed] \rkeyname{showspaces}|=|\meta{\alternative{true,false}}
+% \item[0.20,false] \rkeyname{showspaces}|=|\meta{\alternative{true,false}}
 %
 %       lets all blank spaces appear {\textvisiblespace} or as blank spaces.
 %
-% \item[0.12,true,renamed] \rkeyname{showstringspaces}|=|\meta{\alternative{true,false}}
+% \item[0.12,true] \rkeyname{showstringspaces}|=|\meta{\alternative{true,false}}
 %
 %       lets blank spaces in strings appear {\textvisiblespace} or as blank
 %       spaces.
@@ -2359,7 +2442,7 @@
 %       makes the package either print no line numbers, or put them on the
 %       left or the right side of a listing.
 %
-% \item[0.16,1,renamed] \rkeyname{stepnumber}|=|\meta{number}
+% \item[0.16,1] \rkeyname{stepnumber}|=|\meta{number}
 %
 %       All lines with ``line number $\equiv 0$ modulo \meta{number}'' get a
 %       line number. 
@@ -2368,11 +2451,16 @@
 %       can turn them off via |stepnumber=0| and on with a nonzero number and
 %       keep the value of \keyname{numbers}.
 %
-% \item[0.16,{{}},renamed] \rkeyname{numberstyle}|=|\meta{style}
+% \item[1.1,false] \rkeyname{numberfirstline}|=|\meta{\alternative{true,false}}\label{uoption:numberfirstline}
+%
+%       The first line of each listing gets numbered (if numbers are on at all)
+%       even if the line number is not divisible by \keyname{stepnumber}.
+%
+% \item[0.16,{{}}] \rkeyname{numberstyle}|=|\meta{style}
 %
 %       determines the font and size of the numbers.
 %
-% \item[0.19,10pt,renamed] \rkeyname{numbersep}|=|\meta{dimension}
+% \item[0.19,10pt] \rkeyname{numbersep}|=|\meta{dimension}
 %
 %       is the distance between number and listing.
 %
@@ -2380,7 +2468,7 @@
 %
 %       If this is set to false, blank lines get no printed line number.
 %
-% \item[0.20,auto,{renamed,addon}] \rkeyname{firstnumber}|=|\meta{\alternative{auto,last,\normalfont\meta{number}}}
+% \item[0.20,auto] \rkeyname{firstnumber}|=|\meta{\alternative{auto,last,\normalfont\meta{number}}}
 %
 %       \texttt{auto} lets the package choose the first number: a new listing
 %       starts with number one, a named listing continues the most recent
@@ -2395,7 +2483,7 @@
 %       names a listing. Displayed environment-listings with the same name
 %       share a line counter.
 %
-% \item[0.20,\arabic{lstnumber},{renamed,data}] \rcmdname\thelstnumber
+% \item[0.20,\arabic{lstnumber},data] \rcmdname\thelstnumber
 %
 %       prints the lines' numbers.
 % \end{syntax}
@@ -2476,7 +2564,7 @@
 %
 %       prints the running number of the caption.
 %
-% \item[0.19,,re-introduced] \rcmdname\lstname
+% \item[0.19] \rcmdname\lstname
 %
 %		prints the name of the current listing which is either the file name or
 %       the name defined by the \keyname{name} key. This command can be used to
@@ -2503,13 +2591,13 @@
 %       defines the base line width for listings. The following three keys are
 %       taken into account additionally.
 %
-% \item[0.19,0pt,renamed] \rkeyname{xleftmargin}|=|\meta{dimension}
+% \item[0.19,0pt] \rkeyname{xleftmargin}|=|\meta{dimension}
 % \item[1.0,0pt] \rkeyname{xrightmargin}|=|\meta{dimension}
 %
 %       The dimensions are used as extra margins on the left and right. Line
 %       numbers and frames both move respectively shrink or grow accordingly.
 %
-% \item[0.19,false,renamed] \rkeyname{resetmargins}|=|\meta{\alternative{true,false}}
+% \item[0.19,false] \rkeyname{resetmargins}|=|\meta{\alternative{true,false}}
 %
 %       If true indention from list environments like \texttt{enumerate} or
 %       \texttt{itemize} is reset, i.e.~not used.
@@ -2568,7 +2656,7 @@
 %       \texttt{shadowbox}. The shadow color is \keyname{rulesepcolor}, see
 %       below.
 %
-% \item[0.19,{{}},changed] \rkeyname{frame}|=|\meta{subset of \textup{\texttt{trblTRBL}}}
+% \item[0.19,{{}}] \rkeyname{frame}|=|\meta{subset of \textup{\texttt{trblTRBL}}}
 %
 %		The characters \texttt{trblTRBL} are attached to lines at the top and
 %       bottom of a listing and to lines on the right and left. Upper case
@@ -2588,12 +2676,12 @@
 %       and is independent of the extra margins of a frame. The size is
 %       possibly adjusted to fit \LaTeX's circle sizes.
 %
-% \item[0.19,3pt,renamed] \rkeyname{framesep}|=|\meta{dimension}
-% \item[0.19,2pt,renamed] \rkeyname{rulesep}|=|\meta{dimension}
+% \item[0.19,3pt] \rkeyname{framesep}|=|\meta{dimension}
+% \item[0.19,2pt] \rkeyname{rulesep}|=|\meta{dimension}
 %
 %		control the space between frame and listing and between double rules.
 %
-% \item[0.19,0.4pt,renamed] \rkeyname{framerule}|=|\meta{dimension}
+% \item[0.19,0.4pt] \rkeyname{framerule}|=|\meta{dimension}
 %
 %		controls the width of the rules.
 %
@@ -2605,8 +2693,8 @@
 %       are the dimensions which are used additionally to \keyname{framesep}
 %       to make up the margin of a frame.
 %
-% \item[0.21,,changed] \rkeyname{backgroundcolor}|=|\meta{color command}
-% \item[0.21,,{renamed,changed}] \rkeyname{rulecolor}|=|\meta{color command}
+% \item[0.21] \rkeyname{backgroundcolor}|=|\meta{color command}
+% \item[0.21] \rkeyname{rulecolor}|=|\meta{color command}
 % \item[1.0] \rkeyname{fillcolor}|=|\meta{color command}
 % \item[1.0] \rkeyname{rulesepcolor}|=|\meta{color command}
 %
@@ -2880,7 +2968,7 @@
 % some remarkable features the \packagename{listings} package doesn't have.
 % (Some are possible, but you must find somebody who implements them ; -- ).
 % \begin{syntax}
-% \item[0.19,,bug] \rkeyname{fancyvrb}|=|\meta{\alternative{true,false}}
+% \item[0.19] \rkeyname{fancyvrb}|=|\meta{\alternative{true,false}}
 %
 %       activates or deactivates the interface. If active, verbatim code is
 %       read by \packagename{fancyvrb} but typeset by \packagename{listings},
@@ -2894,13 +2982,18 @@
 %       If \packagename{fancyvrb} and \packagename{listings} provide similar
 %       functionality, you should use \packagename{fancyvrb}'s.
 %
-%       Bug (\keyname{commandchars}): If you use \packagename{fancyvrb}'s
-%       \keyname{commandchars}, the used commands must not take arguments from
-%       the verbatim code except the source code which is actually typeset.
-%       For example, |\textcolor{red}{keyword}| is illegal since |red| is (used
-%       to select the colour and) not typeset. There is an easy work-around:
-%       write |\newcommand*\myred{\textcolor{red}}| and use |\myred{keyword}|
-%       inside the verbatim code.
+% \item[1.1,{\overlay 1}] \rkeyname{fvcmdparams}|=|\meta{command$_1$}\meta{number$_1$}\ldots\label{uoption:fvcmdparams}
+% \item[1.1] \rkeyname{morefvcmdparams}|=|\meta{command$_1$}\meta{number$_1$}\ldots\label{uoption:morefvcmdparams}
+%
+%       If you use \packagename{fancyvrb}'s \keyname{commandchars}, you must
+%       tell the \packagename{listings} package how many arguments each command
+%       takes. If a command takes no arguments, there is nothing to do.
+%
+%       The first (third, fifth, \ldots) parameter to the keys is the command
+%       and the second (fourth, sixth, \ldots) is the number of arguments
+%       that command takes. So, if you want to use |\textcolor{red}{keyword}|
+%       with the \packagename{fancyvrb}-\packagename{listings} interface, you
+%       should write |\lstset{morefvcmdparams=\textcolor 2}|.
 % \end{syntax}
 %
 % \iffancyvrb
@@ -3100,7 +3193,7 @@
 %       so on. If one keyword is a subsequence of another (like |--| and
 %       |-->|), you must specify the shorter first.
 %
-% \item[0.20,,{\dag optional}] \rkeyname{keywordsinside}|=|\meta{character}\meta{character}\syntaxor\rkeyname{keywordsinside}|={}|
+% \item[0.20,,{renamed,optional}] \rkeyname{tag}|=|\meta{character}\meta{character}\syntaxor\rkeyname{tag}|={}|\label{uoption:tag}
 %
 %       The first order keywords are active only between the first and second
 %       character. This key is used for HTML.
@@ -3182,7 +3275,7 @@
 %       are not allowed---think a while about it!
 %       Modula-2 and Oberon-2 use |morecomment=[n]{(*}{*)}|.
 %
-% \item[0.18,,changed] \keyname{morecomment}|=[f][]|\oarg{n=preceding columns}\meta{delimiter}
+% \item[0.18] \keyname{morecomment}|=[f][]|\oarg{n=preceding columns}\meta{delimiter}
 %
 %       The delimiter starts a comment line if and only if it appears on a
 %       fixed column-number, namely if it is in column $n$ (zero based).
@@ -3226,10 +3319,10 @@
 %       of the \packagename{listings} package into directories as follows:
 %       \begin{center}
 %       \begin{tabular}{lcl}
-%       \texttt{listings.dvi}&$\to$&\texttt{texmf/doc/latex/listings}\\
+%       \texttt{listings.pdf}&$\to$&\texttt{texmf/doc/latex/listings}\\
 %       \texttt{listings.dtx}, \texttt{listings.ins},\\
-%       \texttt{lstdrvrs.dtx},
-%       \texttt{lstpatch.sty}&$\to$&\texttt{texmf/source/latex/listings}
+%       \texttt{listings.ind}, \texttt{lstpatch.sty},\\
+%       \texttt{lstdrvrs.dtx}&$\to$&\texttt{texmf/source/latex/listings}
 %       \end{tabular}
 %       \end{center}
 %       Note that you possibly don't have a patch file \texttt{lstpatch.sty}.
@@ -3365,7 +3458,7 @@
 % Note that you must request the following keys with \texttt{procnames} option:
 % |\usepackage[procnames]{listings}|.
 % \begin{syntax}
-% \item[0.19,{{}},{\dag renamed,optional}] \rkeyname{procnamekeys}|=|\marg{keywords}
+% \item[0.19,{{}},{\dag optional}] \rkeyname{procnamekeys}|=|\marg{keywords}
 % \item[0.21,,\dag optional] \rkeyname{moreprocnamekeys}|=|\marg{keywords}
 % \item[0.21,,\dag optional] \rkeyname{deleteprocnamekeys}|=|\marg{keywords}
 %
@@ -3385,7 +3478,7 @@
 % \end{syntax}
 % \begin{TODO}
 % The \aspectname{procnames} aspect is unsatisfactory (since unchanged for more
-% than three years). It marks and indexes the function definitions so far, but
+% than four years). It marks and indexes the function definitions so far, but
 % it would be possible to mark also the following function calls, for example.
 % A key could control whether function names are added to a special keyword
 % class, which then appears in `procname' style. But should these names be
@@ -3565,7 +3658,7 @@
 % to forget.
 %
 % First of all, I'd like to support even more languages, for example Maple,
-% PostScript, Reduce, and so on. Fortunately my lifetime is limited, so other
+% PostScript, and so on. Fortunately my lifetime is limited, so other
 % people may do that work. Please (e-)mail me your language definitions.
 %
 % Then, there are several ideas for the future. Some have already been stated
@@ -3597,7 +3690,8 @@
 % \ikeyname{extendedchars}|=false| but extended chars are used.
 %
 % \lsthelper{Andreas~Matthias}{2000/01/04}{define header/footer to print
-% the listing name}: Make the header/footer print the listing name.
+% the listing name}: Make the header/footer print the listing name. Some
+% people asked for continued captions.
 %
 %
 % \part{Tips and tricks}
@@ -3605,6 +3699,7 @@
 % Note: This part of the documentation is under construction.
 % Section \ref{uHowTos} must be sorted by topic and ordered in some way.
 % Moreover a new section `Examples' is planned, but not written.
+% Lack of time is the main problem \ldots
 %
 %
 % \section{Troubleshooting}\label{uTroubleshooting}
@@ -3612,7 +3707,7 @@
 % If you're faced with a \packagename{listings}' package problem, there are
 % some steps you should undergo before you make a bug report. First you should
 % consult the reference guide whether the problem is already known. If not,
-% create a \emph{minimal} file which reproduced the problem. Follow these
+% create a \emph{minimal} file which reproduces the problem. Follow these
 % instructions:
 % \begin{enumerate}
 % \item Start from the minimal file in section \ref{uAMinimalFile}.
@@ -3799,6 +3894,10 @@
 %
 %
 % \subsubsection*{How to get bold typewriter type keywords}
+% Use the \packagename{LuxiMono} package available from
+% \href{ftp://ftp.dante.de/tex-archive/fonts/luximono}
+%      {CTAN/fonts/luximono}.
+% \iffalse
 % Many people asked for bold typewriter fonts since they aren't included in
 % the \LaTeX\ standard distribution. Here now one answer on how to use them
 % in spite of that.
@@ -3832,6 +3931,7 @@
 % want to make a local copy of \texttt{ot1cmtt.fd} and replace the declaration
 % there. But note that you're not allowed to distributed the modified file
 % under its original name!
+% \fi
 %
 %
 % \subsubsection*{How to get the developer's guide}
@@ -4268,10 +4368,7 @@
 %
 % \item[0.19,,changed] |\lst@EnterMode|\meta{mode}\marg{start tokens}
 %
-%       opens a group level, enters the mode, uses \meta{style} as the current
-%       style, and executes \meta{start tokens}. Note that the style and start
-%       tokens are read as one single argument and that there must be braces
-%       around the style.
+%       opens a group level, enters the mode, and executes \meta{start tokens}.
 %
 %       Use |\lst@modetrue| in \meta{start tokens} to prohibit future mode
 %       changes---except leaving the mode, of course. You must test yourself
@@ -5247,7 +5344,7 @@
 % \part{Implementation}
 %
 %
-% \CheckSum{10861}
+% \CheckSum{11187}
 %^^A
 %^^A Don't index TeX-primitives.
 %^^A
@@ -5373,36 +5470,17 @@
 % \paragraph{Preamble}
 % All files generated from this \texttt{listings.dtx} will get a header.
 %    \begin{macrocode}
-%% Please read the software license in listings.dtx or listings.dvi.
+%% Please read the software license in listings.dtx or listings.pdf.
 %%
-%% (w)(c) 1996 -- 2002 Carsten Heinz and/or any other author
+%% (w)(c) 1996 -- 2003 Carsten Heinz and/or any other author
 %% listed elsewhere in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
 %% Either version 1.0 or, at your option, any later version.
 %%
-%% Permission is granted to modify the listings package as well as
-%% lstdrvrs.dtx. You are not allowed to distribute a modified version
-%% of the package or lstdrvrs.dtx unless you change the file names and
-%% provide the original files. In any case it is better to contact the
-%% address below; other users will welcome removed bugs, new features,
-%% and additional programming languages.
-%%
-%% The listings package is free software.
-%%
-%% However, if you distribute the package as part of a commercial
-%% product or if you use the package to prepare a commercial document
-%% (books, journals, and so on), I'd like to encourage you to make a
-%% donation to the LaTeX3 fund. The size of this `license fee' should
-%% depend on the value of the package for your product. For more
-%% information about LaTeX see http://www.latex-project.org
-%%
-%% No matter whether you use the package for a commercial or
-%% non-commercial document, please send me a copy of the document (.dvi,
-%% .ps, .pdf, hardcopy, etc.) to support further development---it is
-%% easier to introduce new features or simplify things if I see how the
-%% package is used by other people.
+%% Permission is granted to modify this file. If your changes are of
+%% general interest, please contact the address below.
 %%
 %% Send comments and ideas on the package, error reports and additional
 %% programming languages to <cheinz@gmx.de>.
@@ -5412,8 +5490,8 @@
 % \paragraph{Identification}
 % All files will have same date and version.
 %    \begin{macrocode}
-\def\filedate{2002/04/01}
-\def\fileversion{1.0}
+\def\filedate{2003/06/21}
+\def\fileversion{1.1}
 %    \end{macrocode}
 % What we need and who we are.
 %    \begin{macrocode}
@@ -6660,7 +6738,11 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 \lst@AddToHook{InitVars}{\let\lst@entermodes\@empty}
+\let\lst@entermodes\@empty % init
 %    \end{macrocode}
+% The initialization has been added after a bug report from
+% \lsthelper{Herfried~Karl~Wagner}{2002/05/11}{undefined control sequence
+% \lst@entermodes}.
 % \end{macro}
 %
 % \begin{macro}{\lst@LeaveMode}
@@ -6899,12 +6981,36 @@
 %    \begin{macrocode}
 \def\lst@SaveToken{%
     \global\let\lst@gthestyle\lst@thestyle
+    \global\let\lst@glastother\lst@lastother
     \xdef\lst@RestoreToken{\noexpand\lst@token{\the\lst@token}%
                            \noexpand\lst@length\the\lst@length\relax
                            \noexpand\let\noexpand\lst@thestyle
-                                        \noexpand\lst@gthestyle}}
+                                        \noexpand\lst@gthestyle
+                           \noexpand\let\noexpand\lst@lastother
+                                        \noexpand\lst@glastother}}
 %    \end{macrocode}
+% Now -- that means after a bug report by \lsthelper{Rolf~Niepraschk}
+% {2002/04/12}{\RequirePackage is missing keywordstyle when near the top of
+% a page} -- |\lst@lastother| is also saved and restored.
 % \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\lst@IfLastOtherOneOf}
+% Finally, this obvious implementation.
+%    \begin{macrocode}
+\def\lst@IfLastOtherOneOf#1{\lst@IfLastOtherOneOf@ #1\relax}
+\def\lst@IfLastOtherOneOf@#1{%
+    \ifx #1\relax
+        \expandafter\@secondoftwo
+    \else
+        \ifx\lst@lastother#1%
+            \lst@IfLastOtherOneOf@t
+        \else
+            \expandafter\expandafter\expandafter\lst@IfLastOtherOneOf@
+        \fi
+    \fi}
+\def\lst@IfLastOtherOneOf@t#1\fi\fi#2\relax{\fi\fi\@firstoftwo}
+%    \end{macrocode}
 % \end{macro}
 %
 %
@@ -7994,8 +8100,8 @@
 % Now we insert more standard characters.
 %    \begin{macrocode}
 \lst@CCPut \lst@ProcessOther
-    {"21}{"22}{"27}{"28}{"29}{"2B}{"2C}{"2E}{"2F}
-    {"3A}{"3B}{"3D}{"3F}{"5B}{"5D}{"60}
+    {"21}{"22}{"28}{"29}{"2B}{"2C}{"2E}{"2F}
+    {"3A}{"3B}{"3D}{"3F}{"5B}{"5D}
     \z@
 \lst@CCPut \lst@ProcessDigit
     {"30}{"31}{"32}{"33}{"34}{"35}{"36}{"37}{"38}{"39}
@@ -8064,6 +8170,8 @@
     \lst@ProcessLetter{"24}\textdollar
     \lst@ProcessOther {"25}\%
     \lst@ProcessOther {"26}\&
+    \lst@ProcessOther {"27}{\lst@ifupquote \textquotesingle
+                                     \else \char39\relax \fi}
     \lst@ProcessOther {"2A}{\lst@ttfamily*\textasteriskcentered}
     \lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{$-$}}
     \lst@ProcessOther {"3C}{\lst@ttfamily<\textless}
@@ -8071,6 +8179,8 @@
     \lst@ProcessOther {"5C}{\lst@ttfamily{\char92}\textbackslash}
     \lst@ProcessOther {"5E}\textasciicircum
     \lst@ProcessLetter{"5F}{\lst@ttfamily{\char95}\textunderscore}
+    \lst@ProcessOther {"60}{\lst@ifupquote \textasciigrave
+                                     \else \char96\relax \fi}
     \lst@ProcessOther {"7B}{\lst@ttfamily{\char123}\textbraceleft}
     \lst@ProcessOther {"7C}{\lst@ttfamily|\textbar}
     \lst@ProcessOther {"7D}{\lst@ttfamily{\char125}\textbraceright}
@@ -8097,6 +8207,33 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{lstkey}{upquote}
+% is used above to decide which quote to print. We print an error message if
+% the necessary \packagename{textcomp} commands are not available. This key
+% has been added after an email from \lsthelper{Frank~Mittelbach}{2003/06/18}
+% {listings and upquote}.
+%    \begin{macrocode}
+\lst@Key{upquote}{false}[t]{\lstKV@SetIf{#1}\lst@ifupquote
+    \lst@ifupquote
+       \@ifundefined{textasciigrave}%
+          {\let\KV@lst@upquote\@gobble
+           \lstKV@SetIf f\lst@ifupquote \@gobble\fi
+           \PackageError{Listings}{Option `upquote' requires `textcomp'
+            package.\MessageBreak The option has been disabled}%
+          {Add \string\usepackage{textcomp} to your preamble.}}%
+          {}%
+    \fi}
+%    \end{macrocode}
+% If an \packagename{upquote} package is loaded, the \keyname{upquote} option
+% is enabled by default.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \@ifpackageloaded{upquote}{\RequirePackage{textcomp}%
+                             \lstset{upquote}}{}%
+  \@ifpackageloaded{upquote2}{\lstset{upquote}}{}}
+%    \end{macrocode}
+% \end{lstkey}
+%
 % \begin{macro}{\lst@ifactivechars}
 % A simple switch.
 %    \begin{macrocode}
@@ -8121,8 +8258,12 @@
 %    \end{macrocode}
 % The following line and the according macros below have been added after a
 % bug report from \lsthelper{Fr\'ed\'eric~Boulanger}{2001/02/27}{ligatures}.
+% The assignment to |\do@noligs| was changed to |\do| after a bug report from
+% \lsthelper{Peter~Ruckdeschel}{2002/04/12}{problems with simultanous use of
+% seminar.sty and listings.sty}. This bugfix was kindly provided by
+% \lsthelper{Timothy~Van~Zandt}{2002/04/13}{Re: ...}.
 %    \begin{macrocode}
-    \let\do@noligs\lst@do@noligs \verbatim@nolig@list
+    \let\do\lst@do@noligs \verbatim@nolig@list
 %    \end{macrocode}
 % There are two ways to adjust the standard table: inside the hook or with
 % |\lst@DeveloperSCT|. We use these macros and initialize the backslash if
@@ -8153,12 +8294,13 @@
 % To prevent ligatures, this macro inserts the token |\lst@NoLig| in front of
 % |\lst@Process|\meta{whatever}\meta{spec.~token}. This is done by
 % |\verbatim@nolig@list| for certain characters. Note that the submacro is
-% a special kind of a local |\lst@AddToAtTop|.
+% a special kind of a local |\lst@AddToAtTop|. The submacro definition was
+% fixed thanks to \lsthelper{Peter~Bartke}{2002/04/10}{bad `noligs' handling}.
 %    \begin{macrocode}
 \def\lst@do@noligs#1{%
     \begingroup \lccode`\~=`#1\lowercase{\endgroup
     \lst@do@noligs@~}}
-\def\lst@do@noligs#1#2{%
+\def\lst@do@noligs@#1{%
     \expandafter\expandafter\expandafter\def
     \expandafter\expandafter\expandafter#1%
     \expandafter\expandafter\expandafter{\expandafter\lst@NoLig#1}}
@@ -8280,6 +8422,7 @@
 \def\lst@nfss@catcodes{%
     \lst@makeletter
         ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\relax
+    \@makeother (\@makeother )\@makeother ,\@makeother :\@makeother &%
     \@makeother 0\@makeother 1\@makeother 2\@makeother 3\@makeother 4%
     \@makeother 5\@makeother 6\@makeother 7\@makeother 8\@makeother 9%
     \@makeother =\lsts@nfss@catcodes}
@@ -8287,6 +8430,11 @@
 % The investigation of a bug reported by \lsthelper{Christian~Gudrian}
 % {2000/11/16}{problems with mathpple} showed that the equal sign needs
 % to have `other' catcode, as assigned above.
+% \lsthelper{Svend~Tollak~Munkejord}{2002/04/17}{package incompatible with
+%  Lucida .fd files} reported problems with Lucida .fd-files, while
+% \lsthelper{Heiko~Oberdiek}{2002/04/17}{Re: listings fails with Lucida
+% font} analysed the bug, which above led to the line starting with
+% |\@makeaother (|.
 %
 % The name of |\lst@makeletter| is an imitation of \LaTeX's |\@makeother|.
 %    \begin{macrocode}
@@ -8651,8 +8799,11 @@
     \fi
     \@ifnextchar[\lst@Delim@option
                  \lst@Delim@delim}
-\def\lst@Delim@option[#1]{\def\lst@arg{#1}\lst@Delim@delim}
+\def\lst@Delim@option[#1]{\def\lst@arg{[#1]}\lst@Delim@delim}
 %    \end{macrocode}
+% |[| and |]| in the replacement text above have been added after a bug report
+% by \lsthelper{Stephen~Reindl}{2002/05/28}{\inaccessible using Cobol}.
+%
 % The definition of |\lst@delimstyle| depends on whether the first token is a
 % control sequence. Here we possibly build |\lst@|\meta{style}.
 %    \begin{macrocode}
@@ -8898,7 +9049,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\lst@StringKey}
+% \begin{macro}{\lst@DelimKey}
 % We just put together the arguments for |\lst@Delim|.
 %    \begin{macrocode}
 \gdef\lst@DelimKey#1#2{%
@@ -9060,10 +9211,15 @@
     \lst@ifbstring
         \lst@CArgX \\\\\relax \lst@CDefX{}%
            {\lst@ProcessOther\lstum@backslash
-            \lst@ProcessOther\lstum@backslash}%
+            \lst@ProcessOther\lstum@backslash
+            \let\lst@lastother\relax}%
            {}%
     \fi}
 %    \end{macrocode}
+% The reset of |\lst@lastother| has been added after a bug reports by
+% \lsthelper{Hermann~H\"uttler}{2002/10/05}{C++-string "... \\" does not
+% end with second double quote} and \lsthelper{Dan~Luecking}{2003/01/15}
+% {string "\\" doesn't end after the second quote}.
 % \end{macro}
 %
 % \begin{macro}{\lst@StringDM@bd}
@@ -9075,15 +9231,14 @@
 %    \end{macrocode}
 % \end{macro}\end{macro}
 %
-% \begin{macro}{\lst@StringDM@m}
-% `M'atlabed is designed for programming languages where string delimiters are
-% are also used for other purposes, like Matlab or Ada. Here we enter string
-% mode only if the last character has not been a letter and has not been a
-% right parenthesis or right bracket. The test for the latter one has been
-% added after bug report from \lsthelper{Christian~Kindinger}{2002/03/??}
+% \begin{macro}{\lst@StringDM@a}
+% This delimiter type is designed for Ada. Here we enter string mode only
+% if the last character has not been a letter and has not been a right
+% parenthesis or right bracket. The test for the latter one has been added
+% after bug report from \lsthelper{Christian~Kindinger}{2002/03/??}
 % {]' starts a string in Matlab}.
 %    \begin{macrocode}
-\gdef\lst@StringDM@m#1#2\@empty#3#4#5{%
+\gdef\lst@StringDM@a#1#2\@empty#3#4#5{%
     \lst@CArg #2\relax\lst@DefDelimBE{}{}%
         {\let\lst@next\@gobblethree
          \lst@ifletter\else
@@ -9091,6 +9246,34 @@
              \let\lst@next\@empty
          \fi \fi \fi
          \lst@next}#3{#1}{#5}#4}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lst@StringDM@m}
+% is for Matlab. We enter string mode only if the last character is not in
+% the following list of exceptional characters: letters, digits, period,
+% quote, right parenthesis, right bracket, and right brace. The first list
+% has been extended after bug reports from \lsthelper{Christian~Kindinger}
+% {2002/03/??}{]' starts a string in Matlab}, \lsthelper{Benjamin~Schubert}
+% {2003/02/05}{.' starts a string in Matlab}, and \lsthelper{Stefan~Stoll}
+% {2003/02/18}{any of 0123456789\}' plus quote start a string in Matlab}.
+%    \begin{macrocode}
+\gdef\lst@StringDM@m#1#2\@empty#3#4#5{%
+    \lst@CArg #2\relax\lst@DefDelimBE{}{}%
+        {\let\lst@next\@gobblethree
+         \lst@ifletter\else
+             \lst@IfLastOtherOneOf{)].0123456789\lstum@rbrace'}%
+                 {}%
+                 {\let\lst@next\@empty}%
+         \fi
+         \lst@next}#3{#1}{#5}#4}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lstum@rbrace}
+% This has been used above.
+%    \begin{macrocode}
+\lst@SaveOutputDef{"7D}\lstum@rbrace
 %    \end{macrocode}
 % \end{macro}
 %
@@ -9109,6 +9292,13 @@
 %<*misc>
 \lst@BeginAspect{comments}
 %    \end{macrocode}
+%
+% \begin{macro}{\lst@commentmode}
+% is a general purpose mode for comments.
+%    \begin{macrocode}
+\lst@NewMode\lst@commentmode
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\lst@commenttypes}
 % Via \keyname{comment} available comment types: \textbf line, \textbf fixed
@@ -9188,7 +9378,7 @@
 %
 % Now we provide all |\lst@Comment|[|DM|]|@|\meta{type} macros.
 %
-% \begin{macro}{\lst@Comment@l}
+% \begin{macro}{\lst@CommentDM@l}
 % is easy---thanks to |\lst@CArg| and |\lst@DefDelimB|. Note that the
 % `end comment' argument |#4| is not used here.
 %    \begin{macrocode}
@@ -9304,7 +9494,7 @@
             \else
                \expandafter\@gobblethree
             \fi}%
-           \lst@BeginComment\lst@PODmode\lst@commentstyle
+           \lst@BeginComment\lst@PODmode{{\lst@commentstyle}}%
 %    \end{macrocode}
 % If we come to |=|, we calculate the current column number (zero based).
 %    \begin{macrocode}
@@ -9319,8 +9509,149 @@
             \fi}%
            {}%
            \lst@EndComment\lst@PODmode
-	 \fi}
+     \fi}
 %    \end{macrocode}
+%
+%    \begin{macrocode}
+\lst@EndAspect
+%</misc>
+%    \end{macrocode}
+% \end{aspect}
+%
+%
+% \subsubsection{Tags}
+%
+% \begin{aspect}{html}
+% Support for HTML and other `markup languages'.
+%    \begin{macrocode}
+%<*misc>
+\lst@BeginAspect[keywords]{html}
+%    \end{macrocode}
+%
+% \begin{macro}{\lst@tagtypes}
+% Again we begin with the list of tag types. It's rather short.
+%    \begin{macrocode}
+\gdef\lst@tagtypes{s}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lst@TagKey}
+% Again we just put together the arguments for |\lst@Delim| and \ldots
+%    \begin{macrocode}
+\gdef\lst@TagKey#1#2{%
+    \lst@Delim\lst@tagstyle #2\relax
+        {Tag}\lst@tagtypes #1%
+                     {\lst@BeginTag\lst@EndTag}%
+        \@@end\@empty{}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{lstkey}{tag}
+% \ldots\ we use the definition here.
+%    \begin{macrocode}
+\lst@Key{tag}\relax{\lst@TagKey\@empty{#1}}
+%    \end{macrocode}
+% \end{lstkey}
+%
+% \begin{lstkey}{tagstyle}
+% You shouldn't need comments on the following two lines, do you?
+%    \begin{macrocode}
+\lst@Key{tagstyle}{}{\def\lst@tagstyle{#1}}
+\lst@AddToHook{EmptyStyle}{\let\lst@tagstyle\@empty}
+%    \end{macrocode}
+% \end{lstkey}
+%
+% \begin{macro}{\lst@BeginTag}
+% The special things here are: (1) We activate keyword detection inside tags
+% and (2) we initialize the switch |\lst@iffirstintag| if necessary.
+%    \begin{macrocode}
+\gdef\lst@BeginTag{%
+    \lst@DelimOpen
+        \lst@ifextags\else
+        {\let\lst@ifkeywords\iftrue
+         \lst@ifmarkfirstintag \lst@firstintagtrue \fi}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@AddToHookExe{ExcludeDelims}{\let\lst@ifextags\iffalse}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lst@EndTag}
+% is just like the other |\lst@End|\meta{whatever} definitions.
+%    \begin{macrocode}
+\gdef\lst@EndTag{\lst@DelimClose\lst@ifextags\else}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{lstkey}{usekeywordsintag}
+% \begin{lstkey}{markfirstintag}
+% The second key has already been `used'.
+%    \begin{macrocode}
+\lst@Key{usekeywordsintag}t[t]{\lstKV@SetIf{#1}\lst@ifusekeysintag}
+\lst@Key{markfirstintag}f[t]{\lstKV@SetIf{#1}\lst@ifmarkfirstintag}
+%    \end{macrocode}
+% For this, we install a (global) switch, \ldots
+%    \begin{macrocode}
+\gdef\lst@firstintagtrue{\global\let\lst@iffirstintag\iftrue}
+\global\let\lst@iffirstintag\iffalse
+%    \end{macrocode}
+% \ldots\ which is reset by the output of an identifier but not by other
+% output.
+%    \begin{macrocode}
+\lst@AddToHook{PostOutput}{\lst@tagresetfirst}
+\lst@AddToHook{Output}
+    {\gdef\lst@tagresetfirst{\global\let\lst@iffirstintag\iffalse}}
+\lst@AddToHook{OutputOther}{\gdef\lst@tagresetfirst{}}
+%    \end{macrocode}
+% Now we only need to test against this switch in the \hookname{Output} hook.
+%    \begin{macrocode}
+\lst@AddToHook{Output}
+    {\ifnum\lst@mode=\lst@tagmode
+         \lst@iffirstintag \let\lst@thestyle\lst@gkeywords@sty \fi
+%    \end{macrocode}
+% Moreover we check here, whether the keyword style is always to be used.
+%    \begin{macrocode}
+         \lst@ifusekeysintag\else \let\lst@thestyle\lst@gkeywords@sty\fi
+     \fi}
+%    \end{macrocode}
+% \end{lstkey}
+% \end{lstkey}
+%
+% \begin{macro}{\lst@tagmode}
+% We allocate the mode and \ldots
+%    \begin{macrocode}
+\lst@NewMode\lst@tagmode
+%    \end{macrocode}
+% deactivate keyword detection if any tag delimiter is defined (see below).
+%    \begin{macrocode}
+\lst@AddToHook{Init}{\global\let\lst@ifnotag\iftrue}
+\lst@AddToHook{SelectCharTable}{\let\lst@ifkeywords\lst@ifnotag}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lst@Tag@s}
+% The definition of the one and only delimiter type is not that interesting.
+% Compared with the others we set |\lst@ifnotag| and enter tag mode only if
+% we aren't in tag mode.
+%    \begin{macrocode}
+\gdef\lst@Tag@s#1#2\@empty#3#4#5{%
+    \global\let\lst@ifnotag\iffalse
+    \lst@CArg #1\relax\lst@DefDelimB {}{}%
+        {\ifnum\lst@mode=\lst@tagmode \expandafter\@gobblethree \fi}%
+        #3\lst@tagmode{#5}%
+    \lst@CArg #2\relax\lst@DefDelimE {}{}{}#4\lst@tagmode}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\lst@BeginCDATA}
+% This macro is used by the XML language definition.
+%    \begin{macrocode}
+\gdef\lst@BeginCDATA#1\@empty{%
+    \lst@TrackNewLines \lst@PrintToken
+    \lst@EnterMode\lst@GPmode{}\let\lst@ifmode\iffalse
+    \lst@mode\lst@tagmode #1\lst@mode\lst@GPmode\relax\lst@modetrue}
+%    \end{macrocode}
+% \end{macro}
 %
 %    \begin{macrocode}
 \lst@EndAspect
@@ -10076,14 +10407,17 @@
 % \begin{macro}{\lst@ProvideFamily}
 % provides the member `|\the\@tempcnta|' of the family |#1|. We do nothing if
 % the member already exists. Otherwise we expand the data macro defined above.
-% Note that we don't use the counter if it equals one.
+% Note that we don't use the counter if it equals one. Since a bug report by
+% \lsthelper{Kris~Luyten}{2002/08/03}{Undefined control sequence \lst@thestyle}
+% keyword families use the prefix |lstfam| instead of |lst|.
 %    \begin{macrocode}
 \gdef\lst@ProvideFamily#1{%
-    \@ifundefined{lst@#1\ifnum\@tempcnta=\@ne\else \the\@tempcnta \fi}%
-    {\expandafter\expandafter\expandafter\lst@ProvideFamily@
+    \@ifundefined{lstfam@#1\ifnum\@tempcnta=\@ne\else\the\@tempcnta\fi}%
+    {\@namedef{lstfam@#1\ifnum\@tempcnta=\@ne\else \the\@tempcnta\fi}{}%
+     \expandafter\expandafter\expandafter\lst@ProvideFamily@
          \csname\@lst @#1@data\endcsname
          {\ifnum\@tempcnta=\@ne\else \the\@tempcnta \fi}}%
-    {}}
+    {}}%
 %    \end{macrocode}
 % Now we have the following arguments
 % \begin{macroargs}
@@ -10414,6 +10748,9 @@
 %<*misc>
 \lst@BeginAspect[keywords]{directives}
 %    \end{macrocode}
+% The initialization of |\lst@directives| has been added after a bug report
+% from \lsthelper{Kris~Luyten}{2002/07/30}{Undefined control sequence
+% \lst@thestyle caused by undefined \lst@directives after loading C}.
 %    \begin{macrocode}
 \lst@NewMode\lst@CDmode
 \lst@AddToHook{EOL}{\ifnum\lst@mode=\lst@CDmode \lst@LeaveMode \fi}
@@ -10422,6 +10759,7 @@
          \let\lst@thestyle\lst@directivestyle
      \fi}
     ld
+\global\let\lst@directives\@empty % init
 %    \end{macrocode}
 % If the user has defined directives, we redefine the character |#|.
 %    \begin{macrocode}
@@ -10492,87 +10830,6 @@
 % \end{aspect}
 %
 %
-% \subsection{Restricted keywords}
-%
-% \begin{aspect}{html}
-% Support HTML and others.
-%    \begin{macrocode}
-%<*misc>
-\lst@BeginAspect[keywords]{html}
-%    \end{macrocode}
-%
-% \begin{lstkey}{keywordsinside}
-% Allocate a new mode and start the key.
-%    \begin{macrocode}
-\lst@NewMode\lst@insidemode
-\lst@Key{keywordsinside}{}{\lstKV@TwoArg{#1}
-    {\let\lst@DefInside\@empty
-     \ifx\@empty##1\@empty\else \ifx\@empty##2\@empty\else
-         \def\lst@DefInside{%
-%    \end{macrocode}
-% The redefinitions of the characters enter respectively leave the mode and
-% execute the old meanings.
-%    \begin{macrocode}
-             \lst@DefSaveDef{`##1}\lsts@insideb
-                 {\lst@ifmode\else \ifnum\lst@mode=\lst@insidemode\else
-                      \lst@XPrintToken
-                      \lst@EnterMode\lst@insidemode{}%
-                  \fi\fi
-                  \lsts@insideb}%
-             \lst@DefSaveDef{`##2}\lsts@insidee
-                  {\ifnum\lst@mode=\lst@insidemode
-                       \lsts@insidee \lst@XPrintToken\lst@LeaveMode
-                   \else
-                       \expandafter\lsts@insidee
-                   \fi}}%
-     \fi\fi}}
-%    \end{macrocode}
-% The redefinition is done via \hookname{SelectCharTable}. It is reset in
-% \hookname{SetLanguage} since a bug report from \lsthelper{Richard~Hoefter}
-% {2000/11/03}{no keyword detection in case of language=HTML,language=Java}.
-%    \begin{macrocode}
-\lst@AddToHook{SelectCharTable}{\lst@DefInside}
-\lst@AddToHook{SetLanguage}{\let\lst@DefInside\@empty}
-%    \end{macrocode}
-% We reset |\lst@thestyle| if necessary.
-%    \begin{macrocode}
-\lst@AddToHook{Output}
-    {\ifx\lst@DefInside\@empty\else \ifx\lst@thestyle\lst@gkeywords@sty
-         \ifnum\lst@mode=\lst@insidemode\else
-             \let\lst@thestyle\@empty
-         \fi
-     \fi\fi}
-%    \end{macrocode}
-% \end{lstkey}
-%
-% \begin{lstkey}{usekeywordsinside}
-% Here we set |\lst@thestyle| to keyword style if necessary.
-%    \begin{macrocode}
-\lst@Key{usekeywordsinside}t[t]{\lstKV@SetIf{#1}\lst@ifusekeysinside}
-\lst@AddToHook{Output}
-    {\ifnum\lst@mode=\lst@insidemode \lst@ifusekeysinside\else
-         \let\lst@thestyle\lst@gkeywords@sty
-     \fi\fi}
-%    \end{macrocode}
-% \end{lstkey}
-%
-% \begin{macro}{\lst@BeginCDATA}
-% This macro is used by the XML language definition.
-%    \begin{macrocode}
-\gdef\lst@BeginCDATA#1\@empty{%
-    \lst@TrackNewLines \lst@PrintToken
-    \lst@EnterMode\lst@GPmode{}\let\lst@ifmode\iffalse
-    \lst@mode\lst@insidemode #1\lst@mode\lst@GPmode\relax\lst@modetrue}
-%    \end{macrocode}
-% \end{macro}
-%
-%    \begin{macrocode}
-\lst@EndAspect
-%</misc>
-%    \end{macrocode}
-% \end{aspect}
-%
-%
 % \subsection{Keyword comments}
 %
 % \begin{aspect}{keywordcomments}
@@ -10584,19 +10841,24 @@
 %
 % \begin{macro}{\lst@BeginKC}
 % \begin{macro}{\lst@BeginKCS}
-% Starting a keyword comment is easy, but \ldots
+% Starting a keyword comment is easy, but: (1) The submacros are called
+% outside of two group levels, and \ldots
 %    \begin{macrocode}
 \lst@NewMode\lst@KCmode \lst@NewMode\lst@KCSmode
-\gdef\lst@BeginKC{%
+\gdef\lst@BeginKC{\aftergroup\aftergroup\aftergroup\lst@BeginKC@}%
+\gdef\lst@BeginKC@{%
     \lst@ResetToken
-    \lst@BeginComment\lst@KCmode\lst@commentstyle\@empty}
-\gdef\lst@BeginKCS{%
+    \lst@BeginComment\lst@KCmode{{\lst@commentstyle}\lst@modetrue}%
+                     \@empty}%
+\gdef\lst@BeginKCS{\aftergroup\aftergroup\aftergroup\lst@BeginKCS@}%
+\gdef\lst@BeginKCS@{%
     \lst@ResetToken
-    \lst@BeginComment\lst@KCSmode\lst@commentstyle\@empty}
+    \lst@BeginComment\lst@KCSmode{{\lst@commentstyle}\lst@modetrue}%
+                     \@empty}%
 %    \end{macrocode}
-% \ldots\space we must ensure that the comment starts after printing the
-% comment delimiter since it could be a keyword. We assign |\lst@BeginKC|[|S|]
-% to |\lst@KCpost|, which is executed and reset in \hookname{PostOutput}.
+% (2) we must ensure that the comment starts after printing the comment
+% delimiter since it could be a keyword. We assign |\lst@BeginKC|[|S|] to
+% |\lst@KCpost|, which is executed and reset in \hookname{PostOutput}.
 %    \begin{macrocode}
 \lst@AddToHook{PostOutput}{\lst@KCpost \global\let\lst@KCpost\@empty}
 \global\let\lst@KCpost\@empty % init
@@ -10608,7 +10870,8 @@
 % leaves the comment mode before the (temporaryly saved) comment delimiter is
 % printed.
 %    \begin{macrocode}
-\gdef\lst@EndKC{\lst@SaveToken \lst@LeaveMode \lst@RestoreToken}
+\gdef\lst@EndKC{\lst@SaveToken \lst@LeaveMode \lst@RestoreToken
+    \let\lst@thestyle\lst@identifierstyle \lsthk@Output}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10636,13 +10899,19 @@
 % \end{lstkey}
 %
 % \begin{lstkey}{keywordcommentsemicolon}
-% The key simply stores the keywords.
+% The key simply stores the keywords. After a bug report by \lsthelper
+% {Norbert~Eisinger}{2002/11/26}{keywordcommentsemicolon active after
+% language change} the initialization in \hookname{SetLanguage} has been
+% added.
 %    \begin{macrocode}
 \lst@Key{keywordcommentsemicolon}{}{\lstKV@ThreeArg{#1}%
     {\def\lst@KCAkeywordsB{##1}%
      \def\lst@KCAkeywordsE{##2}%
      \def\lst@KCBkeywordsB{##3}%
      \def\lst@KCkeywords{##1##2##3}}}
+\lst@AddToHook{SetLanguage}{%
+    \let\lst@KCAkeywordsB\@empty \let\lst@KCAkeywordsE\@empty
+    \let\lst@KCBkeywordsB\@empty \let\lst@KCkeywords\@empty}
 %    \end{macrocode}
 % We define an appropriate semicolon if this keyword comment type is defined.
 % Appropriate means that we leave any keyword comment mode if active.
@@ -11440,15 +11709,21 @@
 % \begin{lstkey}{numbersep}
 % \begin{lstkey}{stepnumber}
 % \begin{lstkey}{numberblanklines}
+% \begin{lstkey}{numberfirstline}
 % Definition of the keys.
 %    \begin{macrocode}
 \lst@Key{numberstyle}{}{\def\lst@numberstyle{#1}}
 \lst@Key{numbersep}{10pt}{\def\lst@numbersep{#1}}
 \lst@Key{stepnumber}{1}{\def\lst@stepnumber{#1\relax}}
 \lst@AddToHook{EmptyStyle}{\let\lst@stepnumber\@ne}
+%    \end{macrocode}
+%    \begin{macrocode}
 \lst@Key{numberblanklines}{true}[t]
     {\lstKV@SetIf{#1}\lst@ifnumberblanklines}
+\lst@Key{numberfirstline}{f}[t]{\lstKV@SetIf{#1}\lst@ifnumberfirstline}
+\gdef\lst@numberfirstlinefalse{\let\lst@ifnumberfirstline\iffalse}
 %    \end{macrocode}
+% \end{lstkey}
 % \end{lstkey}
 % \end{lstkey}
 % \end{lstkey}
@@ -11588,8 +11863,17 @@
     \ifnum\lst@skipnumbers=\z@
         \global\advance\lst@skipnumbers-\lst@stepnumber\relax
         \lst@PlaceNumber
+        \lst@numberfirstlinefalse
+    \else
+%    \end{macrocode}
+% If the first line of a listing should get a number, it gets it here.
+%    \begin{macrocode}
+        \lst@ifnumberfirstline
+            \lst@PlaceNumber
+            \lst@numberfirstlinefalse
+        \fi
     \fi
-    \global\advance\lst@skipnumbers\@ne}
+    \global\advance\lst@skipnumbers\@ne}%
 %    \end{macrocode}
 %    \begin{macrocode}
 \lst@AddToHook{OnEmptyLine}{%
@@ -11691,7 +11975,16 @@
      \ifdim\z@=\lst@lineskip\else
          \@tempdima\baselineskip
          \advance\@tempdima\lst@lineskip
-         \divide\@tempdima\strip@pt\baselineskip\relax
+%    \end{macrocode}
+% The following three lines simulate the `bad' |\divide| |\@tempdima|
+% |\strip@pt| |\baselineskip| |\relax|. Thanks to \lsthelper{Peter~Bartke}
+% {2002/04/10}{bad use of \strip@pt} for the bug report.
+%    \begin{macrocode}
+         \multiply\@tempdima\@cclvi
+         \divide\@tempdima\baselineskip\relax
+         \multiply\@tempdima\@cclvi
+%    \end{macrocode}
+%    \begin{macrocode}
          \edef\baselinestretch{\strip@pt\@tempdima}%
          \selectfont
      \fi}
@@ -11735,11 +12028,16 @@
 % \begin{macro}{\lst@spacekern}
 % Here comes the whole magic: We set a discretionary break after each `output
 % unit'. However we redefine |\space| to be used inside |\discretionary| and
-% use \hookname{EveryLine} hook.
+% use \hookname{EveryLine} hook. After a bug report by \lsthelper{Carsten~Hamm}
+% {2002/04/19}{wrong frame rules with breaklines and xleftmargin>0pt} I've
+% added |\kern-\lst@xleftmargin|, which became |\kern-\@totalleftmargin| after
+% a bug report by \lsthelper{Christian~Kaiser}{2002/12/13}{wrong frame inside
+% itemize with breaklines=true}.
 %    \begin{macrocode}
 \gdef\lst@discretionary{%
     \discretionary{\let\space\lst@spacekern\lst@prebreak}%
-                  {\llap{\lsthk@EveryLine \kern\lst@breakcurrindent}%
+                  {\llap{\lsthk@EveryLine
+                   \kern\lst@breakcurrindent \kern-\@totalleftmargin}%
                    \let\space\lst@spacekern\lst@postbreak}{}}
 \lst@AddToHook{PostOutput}{\lst@discretionary}
 \gdef\lst@spacekern{\kern\lst@width}
@@ -11769,7 +12067,11 @@
 %    \begin{macrocode}
     \xdef\lst@breakshape{\noexpand\lst@breakcurrindent \the\@tempdimc}%
     \xdef\lst@breakcurrindent{\the\@tempdima}}
+\global\let\lst@breakcurrindent\z@ % init
 %    \end{macrocode}
+% The initialization of |\lst@breakcurrindent| has been added after a bug
+% report by \lsthelper{Alvaro~Herrera}{2002/12/09}{`undefined control
+% sequence \lst@breakcurrindent' with fancyvrb and breaklines}.
 % \begin{TODO}
 % We could speed this up by allocating two global dimensions.
 % \end{TODO}
@@ -11957,6 +12259,17 @@
         {\if #8T\def#6{R}\else \def#6{Y}\fi}%
         {\def#6{N}}%
     \lst@IfSubstring #2\lst@frame{\edef#5{#5#4Y#6}}{}}
+%    \end{macrocode}
+% For text style listings all frames are deactivated -- added after a bug
+% report by \lsthelper{Stephen~Reindl}{2002/06/04}{frames not deactivated
+% for text style listings}.
+%    \begin{macrocode}
+\lst@AddToHook{TextStyle}
+   {\let\lst@frame\@empty
+    \let\lst@frametshape\@empty
+    \let\lst@framershape\@empty
+    \let\lst@framebshape\@empty
+    \let\lst@framelshape\@empty}
 %    \end{macrocode}
 % \end{lstkey}
 % \end{lstkey}
@@ -12568,7 +12881,26 @@
                                 \expandafter\refstepcounter
         \fi {lstlisting}%
         \ifx\lst@label\@empty\else \label{\lst@label}\fi
-    \fi
+%    \end{macrocode}
+% The following code has been moved here from the \hookname{Init} hook after
+% a bug report from \lsthelper{Rolf~Niepraschk}{2003/06/11}{pagebreak between
+% caption and listing}. We make a `lol' entry if the name is neither empty nor
+% a single space. But we test |\lst@|(|@|)|caption| and |\lst@ifnolol| first.
+%    \begin{macrocode}
+        \lst@ifnolol\else
+            \ifx\lst@@caption\@empty
+                \ifx\lst@caption\@empty
+                    \ifx\lst@intname\@empty \else \def\lst@temp{ }%
+                    \ifx\lst@intname\lst@temp \else
+                        \addcontentsline{lol}{lstlisting}\lst@name
+                    \fi\fi
+                \fi
+            \else
+                \addcontentsline{lol}{lstlisting}%
+                    {\protect\numberline{\thelstlisting}\lst@@caption}%
+            \fi
+         \fi
+     \fi
 %    \end{macrocode}
 % We make a caption if and only if the caption is not empty and the user
 % requested a caption at |#1| $\in\{\mathtt t,\mathtt b\}$. To disallow
@@ -12810,12 +13142,17 @@
 %    \begin{macrocode}
     \lst@Let{13}\lst@MProcessListing
     \let\lst@Backslash#1%
-    \lst@EnterMode{\lst@Pmode}{\lst@SelectCharTable}}
+    \lst@EnterMode{\lst@Pmode}{\lst@SelectCharTable}%
+    \lst@InitFinalize}
 %    \end{macrocode}
 % Note: From version 0.19 on `listing processing' is implemented as an internal
-% mode, namely a mode with special character table.
+% mode, namely a mode with special character table. Since a bug report from
+% \lsthelper{Fermin~Reig}{2002/09/04}{bad top frame inside figure+centering}
+% |\rightskip| and the others are reset via \hookname{PreInit} and not via
+% \hookname{InitVars}.
 %    \begin{macrocode}
-\lst@AddToHook{InitVars}
+\let\lst@InitFinalize\@empty % init
+\lst@AddToHook{PreInit}
     {\rightskip\z@ \leftskip\z@ \parfillskip=\z@ plus 1fil
      \let\par\@@par}
 \lst@AddToHook{EveryLine}{}% init
@@ -12835,6 +13172,10 @@
 % Output the remaining characters and update all things. First I missed to
 % to use |\lst@ifdisplaystyle| here, but then \lsthelper{KP~Gores}{2001/07/11}
 % {\csname{par} after each \lstinline} reported a problem.
+% The |\everypar| has been put behind |\lsthk@ExitVars| after a bug report by
+% \lsthelper{Michael~Niedermair}{2002/05/14}{listings.sty und caption} and
+% I've added |\normalbaselines| after a bug report by \lsthelper{Georg~Rehm}
+% {2002/05/14}{listings.sty und lange captions}.
 %    \begin{macrocode}
 \def\lst@DeInit{%
     \lst@XPrintToken \lst@EOLUpdate
@@ -12845,9 +13186,9 @@
         \setbox\@tempboxa\vbox{\lst@DoNewLines}%
     \fi
     \lst@ifdisplaystyle \par\removelastskip \fi
-    \everypar{}\lsthk@ExitVars \lsthk@DeInit
+    \lsthk@ExitVars\everypar{}\lsthk@DeInit\normalbaselines
 %    \end{macrocode}
-% Making the bottom caption.
+% Place the bottom caption.
 %    \begin{macrocode}
     \lst@MakeCaption b%
 %    \end{macrocode}
@@ -12955,13 +13296,15 @@
     {\advance\@tempcnta\m@ne \expandafter\lst@BOLGobble@@\lst@eaten}}
 %    \end{macrocode}
 % Now comes the loop: if we read |\relax|, EOL or FF, the next operation is
-% exactly the same token.
+% exactly the same token. Note that for FF (and tabs below) we test against
+% a macro which contains |\lst@ProcessFormFeed|. This was a bug analyzed by
+% \lsthelper{Heiko~Oberdiek}{2002/04/16}{Re: first experience ...}.
 %    \begin{macrocode}
 \def\lst@BOLGobble@#1{%
     \let\lst@next#1%
     \ifx \lst@next\relax\else
     \ifx \lst@next\lst@MProcessListing\else
-    \ifx \lst@next\lst@ProcessFormFeed\else
+    \ifx \lst@next\lst@processformfeed\else
 %    \end{macrocode}
 % Otherwise we use one of the two submacros.
 %    \begin{macrocode}
@@ -12973,7 +13316,7 @@
 % Now we really gobble characters. A tabulator decreases the temporary counter
 % by |\lst@tabsize| (and deals with remaining amounts, if necessary), \ldots
 %    \begin{macrocode}
-        \ifx #1\lst@ProcessTabulator
+        \ifx #1\lst@processtabulator
             \advance\@tempcnta-\lst@tabsize\relax
             \ifnum\@tempcnta<\z@
                 \lst@length-\@tempcnta \lst@PreGotoTabStop
@@ -12986,6 +13329,10 @@
         \fi
     \fi \fi \fi \fi
     \lst@next}
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\lst@processformfeed{\lst@ProcessFormFeed}
+\def\lst@processtabulator{\lst@ProcessTabulator}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13019,24 +13366,6 @@
 % prints one `lol' line.
 %    \begin{macrocode}
 \def\l@lstlisting#1#2{\@dottedtocline{1}{1.5em}{2.3em}{#1}{#2}}
-%    \end{macrocode}
-% We make a `lol' entry if the name is neither empty nor a single space.
-% But we test |\lst@|(|@|)|caption| and |\lst@ifnolol| first.
-%    \begin{macrocode}
-\lst@AddToHook{Init}
-    {\lst@ifnolol\else
-         \ifx\lst@@caption\@empty
-             \ifx\lst@caption\@empty
-                 \ifx\lst@intname\@empty \else \def\lst@temp{ }%
-                 \ifx\lst@intname\lst@temp \else
-                     \addcontentsline{lol}{lstlisting}\lst@name
-                 \fi\fi
-             \fi
-        \else
-             \addcontentsline{lol}{lstlisting}%
-                 {\protect\numberline{\thelstlisting}\lst@@caption}%
-        \fi
-     \fi}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -13172,11 +13501,13 @@
 % \end{macro}
 %
 % \begin{macro}{\lst@MissingFileError}
-% is a derivation of \LaTeX's |\@missingfileerror|:
+% is a derivation of \LaTeX's |\@missingfileerror|. The parenthesis have been
+% added after \lsthelper{Heiko~Oberdiek}{2003/01/14}{File `Makefile.tex' not
+% found} reported about a problem discussed on TEX-D-L.
 %    \begin{macrocode}
 \def\lst@MissingFileError#1#2{%
-    \typeout{^^J! Package Listings Error: File `#1.#2' not found.^^J^^J%
-        Type X to quit or <RETURN> to proceed,^^J%
+    \typeout{^^J! Package Listings Error: File `#1(.#2)' not found.^^J%
+        ^^JType X to quit or <RETURN> to proceed,^^J%
         or enter new name. (Default extension: #2)^^J}%
     \message{Enter file name: }%
     {\endlinechar\m@ne \global\read\m@ne to\@gtempa}%
@@ -13204,10 +13535,12 @@
 % \end{macro}
 %
 % \begin{macro}{\lst@ifdraft}
-% makes use of |\lst@ifprint|.
+% makes use of |\lst@ifprint|. \lsthelper{Enrico~Straube}{2002/02/12}
+% {de.comp.text.tex: listings und draft Modus} requested the final option.
 %    \begin{macrocode}
 \let\lst@ifdraft\iffalse
 \DeclareOption{draft}{\let\lst@ifdraft\iftrue}
+\DeclareOption{final}{\let\lst@ifdraft\iffalse}
 \lst@AddToHook{PreSet}
     {\lst@ifdraft
          \let\lst@ifprint\iffalse
@@ -13225,6 +13558,7 @@
       \lsthk@PreSet \gdef\lst@intname{#1}%
       \expandafter\lstset\expandafter{\lst@set}%
       \lsthk@DisplayStyle
+      \catcode\active=\active
       \lst@Init\relax \let\lst@gobble\z@
       \lst@SkipToFirst
       \lst@ifprint \def\lst@next{\input{#1}}%
@@ -13233,6 +13567,9 @@
       \lst@DeInit
     \endgroup}
 %    \end{macrocode}
+% The line |\catcode\active=\active|, which makes the CR-character active,
+% has been added after a bug report by \lsthelper{Rene~H.~Larsen}{2002/04/15}
+% {\lstinputlistings and texcl conflict}.
 % \end{macro}
 %
 % \begin{macro}{\lst@SkipToFirst}
@@ -13447,11 +13784,14 @@
                           \@doendpe \@ignoretrue}%
 %    \end{macrocode}
 % |\@doendpe| again removes the indention problem.
-% Finally we start the processing.
+%
+% Finally we start the processing. The |\lst@EndProcessListing| assignment
+% has been moved in front of |\lst@Init| after a bug report by
+% \lsthelper{Andreas~Deininger}{2002/11/11}{Compiling just stops}.
 %    \begin{macrocode}
          \lsthk@DisplayStyle
-         \lst@Init\lstenv@backslash
          \let\lst@EndProcessListing\lstenv@SkipToEnd
+         \lst@Init\lstenv@backslash
          \lst@ifprint
              \expandafter\expandafter\expandafter\lstenv@Process
          \else
@@ -13633,11 +13973,13 @@
 \newif\ifhyper \@ifundefined{pdfoutput}{}
     {\IfFileExists{hyperref.sty}{\hypertrue}{}}
 \newif\ifalgorithmic \IfFileExists{algorithmic.sty}{\algorithmictrue}{}
+\newif\iflgrind \IfFileExists{lgrind.sty}{\lgrindtrue}{}
 \iffancyvrb \RequirePackage{fancyvrb}\fi
 \ifhyper \RequirePackage[colorlinks]{hyperref}\else
     \def\href#1{\texttt}\fi
 \ifcolor \RequirePackage{color}\fi
 \ifalgorithmic \RequirePackage{algorithmic}\fi
+\iflgrind \RequirePackage{lgrind}\fi
 \RequirePackage{nameref}
 \renewcommand\ref{\protect\T@ref}
 \renewcommand\pageref{\protect\T@pageref}
@@ -14066,6 +14408,7 @@
      \switchfontfamily\sfdefault\rmdefault
      \check@icl #1\check@icr
      \expandafter}}%
+\renewcommand\packagename[1]{{\normalfont\sffamily#1}}
 \def\switchfontfamily#1#2{%
     \begingroup\xdef\@gtempa{#1}\endgroup
     \ifx\f@family\@gtempa\fontfamily#2%
@@ -14075,7 +14418,7 @@
 % The color mainly for keys and commands in the reference guide.
 %    \begin{macrocode}
 \ifcolor
-    \definecolor{darkgreen}{rgb}{0,0.6,0}
+    \definecolor{darkgreen}{rgb}{0,0.5,0}
     \def\rstyle{\color{darkgreen}}
 \else
     \let\rstyle\empty
@@ -14333,9 +14676,12 @@
 \lst@Key{firstlabel}\relax{\def\lst@firstnumber{#1\relax}}
 \lst@Key{advancelabel}\relax{\def\lst@advancenumber{#1\relax}}
 \let\c@lstlabel\c@lstnumber
-\lst@AddToHook{Init}{\let\thelstnumber\thelstlabel}
+\lst@AddToHook{Init}{\def\thelstnumber{\thelstlabel}}
 \newcommand*\thelstlabel{\@arabic\c@lstlabel}
 %    \end{macrocode}
+% A |\let| in the second last line has been changed to |\def| after a bug
+% report by \lsthelper{Venkatesh~Prasad~Ranganath}{2002/08/31}{Undefined
+% control sequence \thelstnumber with 0.21-option}.
 %    \begin{macrocode}
 \lst@Key{first}\relax{\def\lst@firstline{#1\relax}}
 \lst@Key{last}\relax{\def\lst@lastline{#1\relax}}
@@ -14424,7 +14770,6 @@
 %
 % \lsthelper{Denis~Girou}{1998/07/26}{fancyvrb} asked whether
 % \packagename{fancyvrb} and \packagename{listings} could work together.
-% This is still the second attempt.
 %
 % \begin{lstkey}{fancyvrb}
 % We set the boolean and call a submacro.
@@ -14518,8 +14863,11 @@
         \lst@DeInit
         \let\FV@ProcessLine\@gtempa
         \setbox\@tempboxa\box\lstFV@gtempboxa
+        \par
     \fi}
 %    \end{macrocode}
+% The |\par| has been added after a bug report by \lsthelper{Peter~Bartke}
+% {2002/04/10}{TeX is not in vertical mode when leaving "Verbatim"}.
 %    \begin{macrocode}
 \newbox\lstFV@gtempboxa
 %    \end{macrocode}
@@ -14556,13 +14904,44 @@
 % \lsthelper{Peter~Bartke}{1999/11/18}{wrong par indention with fancyvrb}.
 % \end{macro}
 %
+% \begin{lstkey}{fvcmdparams}
+% \begin{lstkey}{morefvcmdparams}
+% These keys adjust \lst@FVcmdparams, which will be used by the following
+% conversion macro. The base set of commands and parameter numbers was
+% provided by \lsthelper{Denis~Girou}{2002/05/31}{init of fvcmdparams}.
+%    \begin{macrocode}
+\lst@Key{fvcmdparams}%
+    {\overlay\@ne}%
+    {\def\lst@FVcmdparams{,#1}}
+\lst@Key{morefvcmdparams}\relax{\lst@lAddTo\lst@FVcmdparams{,#1}}
+%    \end{macrocode}
+% \end{lstkey}
+% \end{lstkey}
+%
 % \begin{macro}{\lst@FVConvert}
+% We do conversion or \ldots
+%    \begin{macrocode}
+\gdef\lst@FVConvert{\@tempcnta\z@ \lst@FVConvertO@}%
+\gdef\lst@FVConvertO@{%
+    \ifcase\@tempcnta
+        \expandafter\futurelet\expandafter\@let@token
+        \expandafter\lst@FVConvert@@
+    \else
+%    \end{macrocode}
+% \ldots\ we append arguments without conversion, argument by argument,
+% |\@tempcnta| times.
+%    \begin{macrocode}
+        \expandafter\lst@FVConvertO@a
+    \fi}
+\gdef\lst@FVConvertO@a#1{%
+    \lst@lAddTo\lst@arg{{#1}}\advance\@tempcnta\m@ne
+    \lst@FVConvertO@}%
+%    \end{macrocode}
 % Since |\@ifnextchar\bgroup| might fail, we have to use |\ifcat| here.
 % Bug reported by \lsthelper{Denis~Girou}{1999/07/26}{fancyvrb=true + `second
 % commandchar' other than \{ doesn't work}.
 % However we don't gobble space tokens as |\@ifnextchar| does.
 %    \begin{macrocode}
-\gdef\lst@FVConvert{\futurelet\@let@token\lst@FVConvert@@}
 \gdef\lst@FVConvert@@{%
     \ifcat\noexpand\@let@token\bgroup \expandafter\lst@FVConvertArg
                                 \else \expandafter\lst@FVConvert@ \fi}
@@ -14580,8 +14959,6 @@
      \lst@lExtend\lst@arg{\expandafter{\@gtempa\lst@PrintToken}}%
      \lst@FVConvert}
 %    \end{macrocode}
-% Having no |\bgroup|, we look whether we've found the end of the input, and
-% convert one token ((non)active character or control sequence) and continue.
 %    \begin{macrocode}
 \gdef\lst@FVConvert@#1{%
     \ifx \@nil#1\else
@@ -14591,6 +14968,26 @@
           \lccode`\~=`#1\lowercase{\lst@lAddTo\lst@arg~}%
        \fi
        \expandafter\lst@FVConvert
+    \fi}
+%    \end{macrocode}
+% Having no |\bgroup|, we look whether we've found the end of the input, and
+% convert one token ((non)active character or control sequence).
+%    \begin{macrocode}
+\gdef\lst@FVConvert@#1{%
+    \ifx \@nil#1\else
+       \if\relax\noexpand#1%
+          \lst@lAddTo\lst@arg{\lst@OutputLostSpace\lst@PrintToken#1}%
+%    \end{macrocode}
+% Here we check for registered commands with arguments and set the value of
+% |\@tempcnta| as required.
+%    \begin{macrocode}
+          \def\lst@temp##1,#1##2,##3##4\relax{%
+              \ifx##3\@empty \else \@tempcnta##2\relax \fi}%
+          \expandafter\lst@temp\lst@FVcmdparams,#1\z@,\@empty\relax
+       \else
+          \lccode`\~=`#1\lowercase{\lst@lAddTo\lst@arg~}%
+       \fi
+       \expandafter\lst@FVConvertO@
     \fi}
 %    \end{macrocode}
 % \end{macro}
@@ -15070,12 +15467,14 @@
 %   \item keyword classes replaced by families
 %   \item dynamic modes
 % \item[1.0$\beta$] 2001/09/21
-%   \item keynames synchronized with \packagename{fancyvrb}
+%   \item key names synchronized with \packagename{fancyvrb}
 %   \item \aspectname{frames} aspect extended
 %   \item new output concept (delaying and merging)
 % \item[1.0] 2002/04/01
 %   \item update of all documentation sections including Developer's guide
 %   \item delimiters unified
+% \item[1.1] 2003/06/21
+%   \item bugfix-release with some new keys
 % \end{itemize}
 % \endgroup
 %
@@ -15083,4 +15482,3 @@
 % \Finale
 %
 \endinput
-

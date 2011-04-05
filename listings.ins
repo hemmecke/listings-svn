@@ -5,7 +5,7 @@
 %%     tex listings.ins
 %%
 %%
-%% (w)(c) 1996--1999,2002 Carsten Heinz
+%% (w)(c) 1996--1999,2002,2003 Carsten Heinz
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
@@ -48,7 +48,7 @@
         \@@input #1
         #3%
     \fi}
-\def\ProvidesFile#1[#2]{\def\lstpatch{#2}\endinput}
+\def\ProvidesFile#1[#2]{\edef\lstpatch{#2}\endinput}
 \def\lstinsCheckVersion#1 #2{%
     \ifx #2v\dummypatchtrue \expandafter\lstinsGobbleNil \fi
     \afterassignment\lstinsCheckVersion@ \count\z@#2}
@@ -68,9 +68,7 @@
     {\let\lstversion\fileversion
      \lstinsIfFileExists{lstpatch.sty}%
          {\let\fileversion\@undefined}%
-         {\ifx\fileversion\@undefined
-              \expandafter\lstinsCheckVersion\lstpatch\@nil
-          \fi}%
+         {\expandafter\lstinsCheckVersion\lstpatch\@nil}%
     }
 
 \ifdummypatch
@@ -92,4 +90,3 @@
 \Msg{*}
 
 \endbatchfile
-
