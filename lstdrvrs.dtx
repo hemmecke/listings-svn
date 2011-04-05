@@ -22,7 +22,7 @@
 % \DoNotIndex{\undefined}
 %
 %
-% \title{Language, Style and Format drivers\\ for \textsf{Listings 1.1}\\ {\large by Carsten Heinz and individual authors:}}
+% \title{Language, Style and Format drivers\\ for \textsf{Listings 1.2}\\ {\large by Carsten Heinz and individual authors:}}
 % \author{\InputIfFileExists{lstdrvrs.tmp}{}{}}
 % \date{}
 %
@@ -40,8 +40,8 @@
 %
 % \begingroup
 %    \begin{macrocode}
-%% (w)(c) 1996/1997/1998/1999/2000/2001/2002/2003 Carsten Heinz and/or
-%% any other author listed elsewhere in this file.
+%% (w)(c) 1996/1997/1998/1999/2000/2001/2002/2003/2004 Carsten Heinz
+%% and/or any other author listed elsewhere in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
@@ -97,7 +97,7 @@
 % \endgroup
 % We mainly define default dialects.
 %    \begin{macrocode}
-\ProvidesFile{listings.cfg}[2003/08/13 1.1a listings configuration]
+\ProvidesFile{listings.cfg}[2004/02/13 1.2 listings configuration]
 \def\lstlanguagefiles
     {lstlang0.sty,lstlang1.sty,lstlang2.sty,lstlang3.sty}
 \lstset{defaultdialect=[R/3 6.10]ABAP,
@@ -134,10 +134,10 @@
 % \endgroup
 %
 %    \begin{macrocode}
-%<+lang1>\ProvidesFile{lstlang1}
-%<+lang2>\ProvidesFile{lstlang2}
-%<+lang3>\ProvidesFile{lstlang3}
-%<-config>    [2003/08/13 1.1a listings language file]
+%<+lang1>\ProvidesFile{lstlang1.sty}
+%<+lang2>\ProvidesFile{lstlang2.sty}
+%<+lang3>\ProvidesFile{lstlang3.sty}
+%<-config>    [2004/02/13 1.2 listings language file]
 %    \end{macrocode}
 %
 %
@@ -190,26 +190,26 @@
 \lst@definelanguage[R/2 5.0]{ABAP}%
   {sensitive=f,%
    procnamekeys={report,program,form,function,module},%
-   morekeywords={*,add,after,alias,analyzer,and,append,area,assign,at,%
+   morekeywords={*,add,after,alias,analyzer,and,append,appending,area,assign,at,%
         authority-check,before,binary,blank,break-point,calendar,call,%
         case,change,changing,check,clear,cnt,co,collect,commit,common,%
-        component,compute,condense,cos,cp,cs,currency-conversion,%
-        cursor,data,database,dataset,decimals,define,delete,dequeue,%
+        component,compute,condense,corresponding,cos,cp,cs,currency-conversion,%
+        cursor,data,database,dataset,decimals,define,delete,deleting,dequeue,%
         describe,detail,dialog,directory,div,divide,do,documentation,%
         during,dynpro,else,end-of-page,end-of-selection,endat,endcase,%
         enddo,endfor,endform,endif,endloop,endmodule,endselect,%
         endwhile,enqueue,exceptions,exit,exp,export,exporting,extract,%
-        field,field-groups,field-symbols,find,for,form,format,free,%
+        field,fields,field-groups,field-symbols,find,for,form,format,free,%
         from,function,generating,get,giving,hide,id,if,import,%
         importing,in,incl,include,initial,initialization,input,insert,%
-        interrupt,into,is,language,leave,like,line,lines,line-count,
+        interrupt,into,is,language,leave,leading,left-justified,like,line,lines,line-count,
         line-selection,list-processing,load,local,log,logfile,loop,%
         margin,mark,mask,memory,menue,message,mod,modify,module,move,%
         move-text,multiply,na,new,new-line,new-page,no-gaps,np,ns,%
         number,obligatory,occurs,of,on,or,others,output,parameter,%
         parameters,parts,perform,pf-status,places,position,process,%
         raise,raising,ranges,read,refresh,refresh-dynpro,reject,remote,%
-        replace,report,reserve,reset,restart,run,screen,scroll,search,%
+        replace,report,reserve,reset,restart,right-justified,run,screen,scroll,search,%
         segments,select,select-options,selection-screen,set,shift,sin,%
         single,sqrt,start-of-selection,statement,structure,submit,%
         subtract,summary,summing,suppress,system,table,tables,task,%
@@ -933,9 +933,9 @@
 % \endgroup
 %
 %
-% \subsection{C-Shell}
+% \subsection{bash, csh, and sh}
 %
-% This language is from \lstthanks{Kai~Below}{below@tu-harburg.de}{1998/09/21},
+% csh is from \lstthanks{Kai~Below}{below@tu-harburg.de}{1998/09/21},
 % but he pointed out that some keywords are probably missing.
 % \begingroup
 %    \begin{macrocode}
@@ -956,7 +956,26 @@
    morestring=[d]"%
   }[keywords,comments,strings]%
 %    \end{macrocode}
+% Thanks to \lstthanks{Riccardo~Murri}{riccardo.murri@gmx.it}{2003/09/24}
+% for the following two definitions.
 %    \begin{macrocode}
+%%
+%% bash,sh definition (c) 2003 Riccardo Murri <riccardo.murri@gmx.it>
+%%
+\lst@definelanguage{bash}[]{sh}%
+  {morekeywords={alias,bg,bind,builtin,command,compgen,complete,%
+      declare,disown,enable,fc,fg,history,jobs,et,local,logout,printf,%
+      pushd,popd,select,set,suspend,shopt,source,times,type,typeset,%
+      ulimit,unalias,wait},%
+  }%
+\lst@definelanguage{sh}%
+  {morekeywords={awk,break,case,cat,cd,continue,do,done,echo,else,%
+      env,eval,exec,expr,exit,export,false,fi,for,function,getopts,%
+      hash,history,if,kill,nice,nohup,ps,pwd,read,readonly,return,%
+      sed,shift,test,then,times,trap,true,umask,unset,until,while},%
+   morecomment=[l]\#,%
+   morestring=[d]"%
+  }[keywords,comments,strings]%
 %</lang1>
 %    \end{macrocode}
 % \endgroup
@@ -1481,6 +1500,108 @@
    sensitive=f,%
    morecomment=[l];,%
    morestring=[d]'%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Inform}
+%
+% Thanks to \lstthanks{Jonathan~Sauer}{jonathan.sauer@gmx.de}{2003/11/10}
+% for this language definition.
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% Inform definition (c) 2003 Jonathan Sauer
+%%
+\lstdefinelanguage{inform}{%
+    % Language keywords
+    morekeywords={breakdo,else,false,for,has,hasnt,if,%
+                in,indirect,jump,notin,nothing,NULL,objectloop,ofclass,%
+                private,property,provides,return,rfalse,rtrue,self,string,%
+                switch,to,true,until,while,with,%
+                creature,held,multiexcept,multiheld,multiinside,noun,number,%
+                scope,topic},%
+    %
+    % Inform functions
+    morekeywords=[2]{box,child,children,font,give,inversion,metaclass,move,%
+                new_line,parent,print,print_ret,read,remove,restore,sibling,%
+                save,spaces,quit,style,bold,underline,reverse,roman remaining,%
+                create,destroy,recreate,copy},%
+    %
+    % Inform definitions
+    morekeywords=[3]{Attribute,Array,Class,Constant,Default,End,Endif,Extend,%
+                Global,Ifdef,Iffalse,Ifndef,Ifnot,Iftrue,Include,Object,%
+                Property,Verb,Release,Serial,Statusline},%
+    %
+    % Library attributes
+    morekeywords=[4]{absent,animate,clothing,concealed,container,door,edible,%
+                enterable,female,general,light,lockable locked,male,moved,%
+                neuter,on,open,openable,pluralname,proper,scenery,scored,%
+                static,supporter,switchable,talkable,transparent,visited,%
+                workflag,worn},%
+    %
+    % Libary properties
+    morekeywords=[5]{n_to,s_to,e_to,w_to,ne_to,nw_to,se_to,sw_to,in_to,%
+                out_to,u_to,d_to,add_to_scope,after,article,articles,before,%
+                cant_go,capacity,daemon,describe,description,door_dir,door_to,%
+                each_turn,found_in,grammar,initial,inside_description,invent,%
+                life,list_together,name number,orders,parse_name,plural,%
+                react_after,react_before,short_name,short_name_indef,time_left,%
+                time_out,when_closed,when_open,when_on,when_off,%
+                with_key}, 
+    %
+    % Library routines
+    morekeywords=[6]{Achieved,AfterRoutines,AllowPushDir,Banner,ChangePlayer,%
+                CommonAncestor,DictionaryLookup,GetGNAOfObject,HasLightSource,%
+                IndirectlyContains,IsSeeThrough,Locale,LoopOverScope,LTI_Insert,%
+                MoveFloatingObjects,NextWord,NextWordStopped,NounDomain,%
+                ObjectIsUntouchable OffersLight,ParseToken,PlaceInScope,PlayerTo,%
+                PronounNotice,PronounValue,ScopeWithin,SetPronoun,SetTime,%
+                StartDaemon,StartTimer,StopDaemon,StopTimer,TestScope,TryNumber,%
+                UnsignedCompare,WordAddress,WordInProperty,WordLength,%
+                WriteListFrom,YesOrNo},%
+    %
+    % Library,entry points
+    morekeywords=[7]{AfterLife,AfterPrompt,Amusing,BeforeParsing,ChooseObjects,%
+                DarkToDark,DeathMessage,GamePostRoutine GamePreRoutine,%
+                Initialise,InScope,LookRoutine,NewRoom,ParseNoun,ParseNumber,%
+                ParserError,PrintRank,PrintTaskName,PrintVerb,TimePasses,%
+                UnknownVerb},%
+    %
+    % Library constants
+    morekeywords=[8]{NEWLINE_BIT,INDENT_BIT,FULLINV_BIT,ENGLISH_BIT,RECURSE_BIT,%
+                ALWAYS_BIT,TERSE_BIT,PARTINV_BIT,DEFART_BIT,WORKFLAG_BIT,%
+                ISARE_BIT,CONCEAL_BIT},%
+    %
+    % Library,meta actions
+    morekeywords=[9]{Pronouns,Quit,Restart,Restore,Save,Verify,ScriptOn,ScriptOff,%
+                NotifyOn,NotifyOff,Places,Objects,Score,FullScore,Version,LMode1,%
+                LMode2,Lmode3},%
+    %
+    % Library,main actions
+    morekeywords=[10]{Close,Disrobe,Drop,Eat,Empty,EmptyT,Enter,Examine,Exit,GetOff,%
+                Give,Go,GoIn,Insert,Inv,InvTall,InvWide,Lock,Look,Open,PutOn,Remove,%
+                Search,Show,SwitchOff,SwitchOn,Take,Transfer,Unlock VagueGo,%
+                Wear},%
+    %
+    % Library,stub actions
+    morekeywords=[11]{Answer,Ask,AskFor,Attack,Blow,Burn,Buy,Climb,Consult,Cut,Dig,%
+                Drink,Fill,Jump,JumpOver,Kiss,Listen,LookUnder,Mild,No,Pray,Pull,%
+                Push,PushDir,Rub,Set,SetTo,Sing,Sleep,Smell,,Sleep,Smell,Sorry,%
+                Squeeze,Strong,Swim,Swing,Taste,Tell,Think,ThrowAt,Tie,Touch,Turn,%
+                Wait,Wake,WakeOther,Wave,WaveHands,Yes},%
+    %
+    otherkeywords={->,-->},%
+    sensitive=false,%
+    morestring=[d]{"},%
+    morecomment=[l]{!}%
   }[keywords,comments,strings]%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -2623,6 +2744,39 @@
 % \endgroup
 %
 %
+% \subsection{Oz}
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+% Thanks to \lstthanks{Andres~Becerra~Sandoval}{abecerra@univalle.edu.co}
+% {2003/10/02} for providing this language definition.
+%    \begin{macrocode}
+%%
+%% Oz definition (c) Andres Becerra Sandoval
+%%
+\lst@definelanguage{Oz}%
+  {morekeywords={andthen,at,attr,case,catch,choice,class,%
+      cond,declare,define,dis,div,else,elsecase,%
+      elseif,end,export,fail,false,feat,finally,%
+      from,fun,functor,if,import,in,local,%
+      lock,meth,mod,not,of,or,orelse,%
+      prepare,proc,prop,raise,require,self,skip,%
+      then,thread,true,try,unit},%
+   sensitive=true,%
+   morecomment=[l]{\%},%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]",%
+   morestring=[d]'%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Pascal}
 %
 % \begingroup
@@ -3543,20 +3697,52 @@
 % \endgroup
 %
 %
-% \subsection{Ruby}
+% \subsection{Rexx}
 %
-% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided this
+% \lstthanks{Patrick~TJ~McPhee}{ptjm@interlog.com}{2003/10/24} provided this
 % definition.
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
 %    \end{macrocode}
 %    \begin{macrocode}
+%%
+%% classic rexx listings definition
+%% by Patrick TJ McPhee <ptjm@interlog.com>
+%%
+\lst@definelanguage{Rexx}
+  {morekeywords={address,arg,call,do,drop,else,end,exit,if,iterate,%
+                 interpret,leave,nop,numeric,options,otherwise,parse,%
+                 procedure,pull,push,queue,return,say,signal,then,to,%
+                 trace,when},%
+   sensitive=false,%
+   morecomment=[n]{/*}{*/},%
+   morestring=[d]{'},%
+   morestring=[d]{"},%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Ruby}
+%
+% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided this
+% definition. \lstthanks{Xavier~Noria}{fxn@hashref.com}{2004/01/11} replaced
+% the keywords with the keywords from the at the time of writing current
+% stable Ruby version.
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+%    \begin{macrocode}
 \lst@definelanguage{Ruby}%
-  {morekeywords={if,else,elsif,end,while,until,unless,do,case,when,for,%
-      in,each,def,module,class,break,redo,next,retry,exit,retrn,super,%
-      begin,rescue,yield,ensure,raise,catch,throw,once,NIL,nil,new,%
-      kind_of,self,require,include,extend},%
+  {morekeywords={__FILE__,__LINE__,BEGIN,END,alias,and,begin,break,%
+      case,class,def,defined?,do,else,elsif,end,ensure,false,for,%
+      if,in,module,next,nil,not,or,redo,rescue,retry,return,self,%
+      super,then,true,undef,unless,until,when,while,yield},%
    sensitive=true,%
    morecomment=[l]\#,%
    morecomment=[l]\#\#,%
@@ -4528,7 +4714,9 @@
 % \subsection{Verilog}
 %
 % Thanks to \lstthanks{Cameron H. G. Wright}{c.h.g.wright@ieee.org}{2003/04/30}
-% for providing the definition.
+% for providing the definition. After a bug report by \lsthelper{George
+% M.~Georgiou}{georgiou@csci.csusb.edu}{2004/02/05}{directives not detected} I
+% changed the declaration of directives to use normal keywords.
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
@@ -4557,24 +4745,24 @@
       supply0,supply1,table,task,time,tran,tranif0,tranif1,tri,tri0,%
       tri1,triand,trior,trireg,unsigned,use,vectored,wait,wand,weak0,%
       weak1,while,wire,wor,xnor,xor},%
-   moredirectives={% system tasks and functions
+   morekeywords=[2]{% system tasks and functions
       $bitstoreal,$countdrivers,$display,$fclose,$fdisplay,$fmonitor,%
       $fopen,$fstrobe,$fwrite,$finish,$getpattern,$history,$incsave,%
       $input,$itor,$key,$list,$log,$monitor,$monitoroff,$monitoron,%
       $nokey},%
-   moredirectives={% compiler directives
+   morekeywords=[3]{% compiler directives
       `accelerate,`autoexpand_vectornets,`celldefine,`default_nettype,%
       `define,`else,`elsif,`endcelldefine,`endif,`endprotect,%
       `endprotected,`expand_vectornets,`ifdef,`ifndef,`include,%
       `no_accelerate,`noexpand_vectornets,`noremove_gatenames,%
       `nounconnected_drive,`protect,`protected,`remove_gatenames,%
       `remove_netnames,`resetall,`timescale,`unconnected_drive},%
-   moredelim=*[directive]\#,%
+   alsoletter=\`,%
    sensitive,%
    morecomment=[s]{/*}{*/},%
    morecomment=[l]//,% nonstandard
    morestring=[b]"%
-  }[keywords,comments,strings,directives]%
+  }[keywords,comments,strings]% 
 %    \end{macrocode}
 %    \begin{macrocode}
 %</lang3>
@@ -4668,7 +4856,77 @@
 % \endgroup
 %
 %
-% \subsection{XML}
+% \subsection{XML et al}
+%
+% \lstthanks{Bernhard~Walle}{bernhard@bwalle.de}{2003/11/22} provided the
+% following two definitions.
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{XSLT}[]{XML}%
+  {morekeywords={%
+     % main elements
+     xsl:stylesheet,xsl:transform,%
+     % childs of the main element
+     xsl:apply-imports,xsl:attribute-set,xsl:decimal-format,xsl:import,%
+     xsl:include,xsl:key,xsl:namespace-alias,xsl:output,xsl:param,%
+     xsl:preserve-space,xsl:strip-space,xsl:template,xsl:variable,%
+     % 21 directives
+     xsl:apply-imports,xsl:apply-templates,xsl:attribute,%
+     xsl:call-template,xsl:choose,xsl:comment,xsl:copy,xsl:copy-of,%
+     xsl:element,xsl:fallback,xsl:for-each,xsl:if,xsl:message,%
+     xsl:number,xsl:otherwise,xsl:processing-instruction,xsl:text,%
+     xsl:value-of,xsl:variable,xsl:when,xsl:with-param},%
+   alsodigit={-},%
+  }%
+%    \end{macrocode}
+%    \begin{macrocode}
+\lstdefinelanguage{Ant}[]{XML}%
+  {morekeywords={%
+     project,target,patternset,include,exclude,excludesfile,includesfile,filterset,%
+     filter,filtersfile,libfileset,custom,classpath,fileset,none,depend,mapper,%
+     filename,not,date,contains,selector,depth,or,and,present,majority,size,dirset,%
+     filelist,pathelement,path,param,filterreader,extension,filterchain,linecontainsregexp,%
+     regexp,classconstants,headfilter,tabstospaces,striplinebreaks,tailfilter,stripjavacomments,%
+     expandproperties,linecontains,replacetokens,token,striplinecomments,comment,prefixlines,%
+     classfileset,rootfileset,root,description,xmlcatalog,entity,dtd,substitution,%
+     extensionSet,propertyfile,entry,vsscheckin,sql,transaction,cvspass,csc,%
+     dirname,wlrun,wlclasspath,p4label,replaceregexp,get,jjtree,sleep,jarlib,%
+     dependset,targetfileset,srcfileset,srcfilelist,targetfilelist,zip,zipgroupfileset,zipfileset,%
+     patch,jspc,webapp,style,test,arg,jvmarg,sysproperty,testlet,env,tstamp,%
+     format,unwar,vsshistory,icontract,cvschangelog,user,p4submit,ccmcheckin,%
+     p4change,bzip2,vssadd,javadoc,bottom,source,doctitle,header,excludepackage,bootclasspath,%
+     doclet,taglet,packageset,sourcepath,link,footer,package,group,title,tag,%
+     translate,signjar,vajload,vajproject,jarlib,extensionset,WsdlToDotnet,buildnumber,%
+     jpcovmerge,tomcat,ejbjar,weblogictoplink,jboss,borland,weblogic,iplanet,jonas,%
+     support,websphere,wasclasspath,war,manifest,attribute,section,metainf,lib,%
+     classes,webinf,rename,sequential,serverdeploy,generic,property,move,%
+     copydir,cccheckin,wljspc,fixcrlf,sosget,pathconvert,map,record,p4sync,exec,%
+     p4edit,maudit,rulespath,searchpath,antlr,netrexxc,jpcovreport,reference,filters,%
+     coveragepath,execon,targetfile,srcfile,ccmcheckout,ant,xmlvalidate,xslt,%
+     iplanet,ccmcheckintask,gzip,native2ascii,starteam,ear,archives,input,%
+     rmic,extdirs,compilerarg,checksum,mail,bcc,message,cc,to,from,loadfile,vsscheckout,%
+     stylebook,soscheckin,mimemail,stlabel,gunzip,concat,cab,touch,parallel,splash,%
+     antcall,cccheckout,typedef,p4have,xmlproperty,copy,tomcat,antstructure,ccmcreatetask,%
+     rpm,delete,replace,replacefilter,replacetoken,replacevalue,mmetrics,waitfor,isfalse,%
+     equals,available,filepath,os,filesmatch,istrue,isset,socket,http,uptodate,srcfiles,%
+     untar,loadproperties,echoproperties,vajexport,stcheckout,bunzip2,copyfile,vsscreate,%
+     ejbc,unjar,tomcat,wsdltodotnet,mkdir,condition,cvs,commandline,marker,argument,%
+     tempfile,junitreport,report,taskdef,echo,ccupdate,java,renameext,vsslabel,basename,%
+     javadoc2,vsscp,tar,tarfileset,tomcat,vajimport,setproxy,wlstop,p4counter,ilasm,%
+     soscheckout,apply,ccuncheckout,jarlib,location,url,cvstagdiff,jlink,mergefiles,%
+     addfiles,javacc,pvcs,pvcsproject,jarlib,options,depends,chmod,jar,sound,fail,%
+     success,mparse,blgenclient,genkey,dname,javah,class,ccmreconfigure,unzip,javac,%
+     src,p4add,soslabel,jpcoverage,triggers,method,vssget,deltree,ddcreator},
+   deletekeywords={default},%
+  }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
+%    \end{macrocode}
+% \endgroup
 %
 % This is my first attempt to support XML. It is from 2000/07/18.
 % \begingroup
