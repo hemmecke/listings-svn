@@ -29,7 +29,7 @@
 % \DoNotIndex{\undefined}
 %
 %
-% \title{Language, Style and Format drivers\\ for \textsf{Listings 0.21}\\ {\large by Carsten Heinz and individual authors:}}
+% \title{Language, Style and Format drivers\\ for \textsf{Listings 1.0}\\ {\large by Carsten Heinz and individual authors:}}
 % \author{\InputIfFileExists{lstdrvrs.tmp}{}{}}
 % \date{}
 %
@@ -47,18 +47,14 @@
 %
 % \begingroup
 %    \begin{macrocode}
-%% (w)(c) 1996/1997/1998/1999/2000 Carsten Heinz and/or any other author
-%% listed elsewhere in this file.
+%% (w)(c) 1996/1997/1998/1999/2000/2001/2002 Carsten Heinz and/or any
+%% other author listed elsewhere in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
 %% Either version 1.0 or, at your option, any later version.
 %%
 %% This file is completely free and comes without any warranty.
-%%
-%% Permission is granted to change this file. You are not allowed to
-%% distribute any changed version of this file, neither under the same
-%% name nor under a different one.
 %%
 %% Send comments and ideas on the package, error reports and additional
 %% programming languages to <cheinz@gmx.de>.
@@ -108,22 +104,23 @@
 % \endgroup
 % We mainly define default dialects.
 %    \begin{macrocode}
+\ProvidesFile{listings.cfg}[2002/04/01 v1.0 listings configuration]
 \def\lstlanguagefiles
     {lstlang0.sty,lstlang1.sty,lstlang2.sty,lstlang3.sty}
-\lstset{defaultdialect=[R/3 4.6C]ABAP,
+\lstset{defaultdialect=[R/3 6.10]ABAP,
         defaultdialect=[95]Ada,
         defaultdialect=[68]Algol,
-        defaultdialect=[Visual]Basic,
         defaultdialect=[ANSI]C,
         defaultdialect=[light]Caml,
         defaultdialect=[1985]Cobol,
-        defaultdialect=[ANSI]C++,
+        defaultdialect=[ISO]C++,
         defaultdialect=[95]Fortran,
         defaultdialect=[3.0]Mathematica,
         defaultdialect=[OMG]OCL,
         defaultdialect=[Standard]Pascal,
         defaultdialect=[67]Simula,
-        defaultdialect=[plain]TeX}
+        defaultdialect=[plain]TeX,
+        defaultdialect=[97]VRML}
 \lstalias[]{TclTk}[tk]{tcl}
 %    \end{macrocode}
 % \begingroup
@@ -132,14 +129,21 @@
 %    \end{macrocode}
 % \endgroup
 %
+%    \begin{macrocode}
+%<+lang1>\ProvidesFile{lstlang1}
+%<+lang2>\ProvidesFile{lstlang2}
+%<+lang3>\ProvidesFile{lstlang3}
+%<-config>    [2002/06/17 v1.0b listings language file]
+%    \end{macrocode}
+%
 %
 % \section{Language drivers}
 %
 %
 % \subsection{Abap}
 %
-% \lstthanks{Knut Lickert}{knut.lickert@gmx.de}{2000/08/01} added support for
-% Abap.\footnote{In this section `I' is Knut Lickert.}
+% \lstthanks{Knut Lickert}{knut.lickert@gmx.de}{2000/08/01,2001/12/29} added
+% support for Abap.\footnote{In this section `I' is Knut Lickert.}
 %
 % \begingroup
 %    \begin{macrocode}
@@ -149,9 +153,25 @@
 %%
 %% Abap definition by Knut Lickert <knut.lickert@gmx.de>
 %%
+%    \end{macrocode}
+%
+% There are some other new commands in release 6.10.
+% They will follow later, but up to now I don't work
+% with 6.10.
+%
+%    \begin{macrocode}
+%%%%knut>>>>>new
+\lst@definelanguage[R/3 6.10]{ABAP}[R/3 4.6C]{ABAP}%
+  {morekeywords={try,endtry},%
+  }[keywords,comments,strings]
+%%%%knut<<<<<new -end-
+%    \end{macrocode}
+%    \begin{macrocode}
 \lst@definelanguage[R/3 4.6C]{ABAP}[R/3 3.1]{ABAP}%
-  {morekeywords={method,ref,class,create,object},%
-   literate={->}{{$\to$}}1,%
+  {morekeywords={method,ref,class,create,object,%
+        catch,system-exceptions,endcatch,%knut
+        },%
+   literate={->}{{$\rightarrow$}}1{=>}{{$\Rightarrow$}}1,%knut
   }[keywords,comments,strings]
 %    \end{macrocode}
 % Yes there are also some more releases in R/3 (2.1\ldots), but I
@@ -165,6 +185,7 @@
 %    \begin{macrocode}
 \lst@definelanguage[R/2 5.0]{ABAP}%
   {sensitive=f,%
+   procnamekeys={report,program,form,function},%
    morekeywords={*,add,after,alias,analyzer,and,append,area,assign,at,%
         authority-check,before,binary,blank,break-point,calendar,call,%
         case,change,changing,check,clear,cnt,co,collect,commit,common,%
@@ -191,9 +212,10 @@
         text,time,to,top-of-page,trace,transaction,transfer,%
         transfer-dynpro,translate,type,unpack,update,user-command,%
         using,value,when,where,while,window,with,workfile,write,},%
-  morecomment=[l]",%
-  morecomment=[f][0]*,%
-  }[keywords,comments,strings]
+   morecomment=[l]",%
+   morecomment=[f][0]*,%
+   morestring=[d]'%
+  }[keywords,comments,strings,procnames]
 %    \end{macrocode}
 % This section for R/2~4.3 is not really maintained. It is just what I remember
 % of the past.
@@ -205,6 +227,33 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{ACSL}
+%
+% This language was provided by \lstthanks{Andreas~Matthias}{amat@kabsi.at}
+% {2000/03/21}. I'm sorry for forgetting to add this language for a long time.
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% ACSL definition (c) 2000 by Andreas Matthias <amat@kabsi.at>
+%%
+\lst@definelanguage{ACSL}[90]{Fortran}%
+   {morekeywords={algorithm,cinterval,constant,derivative,discrete,%
+         dynamic,errtag,initial,interval,maxterval,minterval,%
+         merror,xerror,nsteps,procedural,save,schedule,sort,%
+         table,terminal,termt,variable},%
+    sensitive=false,%
+    morecomment=[l]!%
+   }[keywords, comments]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
 %    \end{macrocode}
 % \endgroup
 %
@@ -302,74 +351,31 @@
 % \endgroup
 %
 %
-% \subsection{Basic}
-%
-% Thanks to \lstthanks{Fr\'ed\'eric~Jacquet}
-% {fjacquet@gphy.campus.univ-poitiers.fr}{2001/01/22} for providing
-% the Visual Basic definition.
-% \begingroup
-%    \begin{macrocode}
-%<*lang3>
-%%
-%% Visual Basic definition (c) 2001 Frédéric Jacquet
-%%                             <fjacquet@gphy.campus.univ-poitiers.fr>
-%%
-\lstdefinelanguage[Visual]{Basic}
-  {morekeywords={AddressOf,Abs,And,AppActivate,Array,As,Asc,Atn,Base,%
-      Beep,Binary,ByRef,ByVal,CVErr,Call,CallByName,Case,ChDir,ChDrive,%
-      Choose,Chr,Close,Command,Compare,Comparison,Const,Cos,%
-      CreateObject,CurDir,DDB,Date,DateAdd,DateDiff,DatePart,%
-      DateSerial,DateValue,Day,Declare,Deftype,DeleteSetting,Dim,Dir,%
-      Do,DoEvents,EOF,Each,Else,Empty,End,Enum,Environ,Eqv,Erase,Error,%
-      Event,Exit,Exp,Explicit,FV,False,FileAttr,FileCopy,FileDateTime,%
-      FileLen,Filter,Fix,For,Format,FormatCurrency,FormatDateRime,%
-      FormatNumber,FormatPercent,Friend,Function,Get,GetAllSettings,%
-      GetAttr,GetAutoServerSettings,GetObject,GetSetting,GoSub,GoTo,%
-      Hex,Hour,IIf,IMEStatus,IPmt,IRR,If,Imp,Implements,InStr,InStrRev,%
-      Input,InputBox,Int,Is,IsArray,IsDate,IsEmpty,IsError,IsMissing,%
-      IsNull,IsNumeric,IsObject,Join,Kill,LBound,LCase,LOF,LSet,LTrim,%
-      Left,Len,Let,Like,Line,Load,LoadPicture,LoadResData,%
-      LoadResPicture,LoadResString,Loc,Lock,Lock,Log,Loop,MIRR,Math,Me,%
-      Mid,Minute,MkDir,Mod,Month,MonthName,MsgBox,NPV,NPer,Name,New,%
-      Next,Not,Nothing,Now,Null,Oct,On,Open,Option,Optional,Or,PPmt,PV,%
-      Paramarray,Partition,Pmt,Print,Private,Property,Public,Put,%
-      QBColor,RGB,RSet,RTrim,RaiseEvent,Randomize,Rate,ReDim,Rem,%
-      Replace,Resume,Return,Right,RmDir,Rnd,Round,SLN,SYD,SavePicture,%
-      SaveSetting,Second,Seek,Select,SendKeys,Set,SetAttr,Sgn,Shell,%
-      Sin,Space,Spc,Split,Sqr,Static,Step,Stop,Str,StrComp,StrConv,%
-      StrReverse,String,Sub,Switch,Tab,Tan,Then,Time,TimeSerial,%
-      TimeValue,Timer,Trim,True,Type,TypeName,UBound,UCase,Unload,%
-      Unlock,Val,VarType,Weekday,WeekdayName,Wend,While,Width,With,%
-      Withevents,Write,Xor,Year},%
-   sensitive=false,%
-   morecomment=[l]\',%
-   morestring=[b]"%
-  }%
-%</lang3>
-%    \end{macrocode}
-% \endgroup
-%
-%
 % \subsection{Clean}
 %
 % Thanks to \lstthanks{Jos\'e~Romildo~Malaquias}{romildo@iceb.ufop.br}{2000/08/08}.
+% \lsthelper{Markus~Pahlow}{pahlowm@mar.dfo-mpo.gc.ca}{2001/10/12}{missing comma}
+% found a missing comma
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
 %%
-%% Clean definition (c) 1999 José Romildo Malaquias <romildo@iceb.ufop.br>
+%% Clean definition (c) 1999 Jos\'e Romildo Malaquias
+%%                           <romildo@iceb.ufop.br>
 %%
 %% Clean 1.3 :  some standard functional language: pure, lazy,
 %%              polymorphic type system, modules, type classes,
 %%              garbage collection, functions as first class citizens
 %%
 \lst@definelanguage{Clean}%
-  {otherkeywords={:,::,=,:==,=:,=>,->,<-,<-:,\{,\},\{|,|\},\#,\#!,|,\&,[,],!,.,\\\\,;,_},%
-   keywords={from,definition,implementation,import,module,system,case,code,%
-             if,in,let,let!,of,where,with,infix,infixl,infixr},%
-   ndkeywords={True,False,Start,Int,Real,Char,Bool,String,World,File,ProcId},%
+  {otherkeywords={:,::,=,:==,=:,=>,->,<-,<-:,\{,\},\{|,|\},\#,\#!,|,\&,%
+      [,],!,.,\\\\,;,_},%
+   morekeywords={from,definition,implementation,import,module,system,%
+      case,code,if,in,let,let!,of,where,with,infix,infixl,infixr},%
+   morendkeywords={True,False,Start,Int,Real,Char,Bool,String,World,%
+      File,ProcId},%
    sensitive,%
-   morecomment=[l]//%
+   morecomment=[l]//,% missing comma: Markus Pahlow
    morecomment=[n]{/*}{*/},%
    morestring=[b]"%
   }[keywords,comments,strings]%
@@ -407,28 +413,39 @@
 % \endgroup
 %
 %
-% \subsection{C, C++ and Objective-C}
+% \subsection{C, C++, et al}
 %
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
 %    \end{macrocode}
+% For compatibility the `ANSI' language is defined in terms of ISO.
 %    \begin{macrocode}
-\lst@definelanguage[Visual]{C++}[ANSI]{C++}%
+\lst@definelanguage[ANSI]{C++}[ISO]{C++}{}%
+%    \end{macrocode}
+% \lstthanks{Michael Piefel}{piefel@informatik.hu-berlin.de}{2001/11/21}
+% suggested some more changes and added GNU C++.
+%    \begin{macrocode}
+\lst@definelanguage[GNU]{C++}[ISO]{C++}%
+  {morekeywords={__attribute__,__extension__,__restrict,__restrict__,%
+      typeof,__typeof__},%
+  }%
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage[Visual]{C++}[ISO]{C++}%
   {morekeywords={__asm,__based,__cdecl,__declspec,dllexport,%
       dllimport,__except,__fastcall,__finally,__inline,__int8,__int16,%
       __int32,__int64,naked,__stdcall,thread,__try,__leave},%
   }%
 %    \end{macrocode}
 %    \begin{macrocode}
-\lst@definelanguage[ANSI]{C++}[ANSI]{C}%
-  {morekeywords={asm,bad_cast,bad_typeid,bool,catch,class,const_cast,%
-      delete,dynamic_cast,false,friend,inline,namespace,new,operator,%
-      private,protected,public,reinterpret_cast,static_cast,template,%
-      this,throw,true,try,type_info,typeid,using,virtual,xalloc,%
-      __multiple_inheritance,__single_inheritance,%
-      __virtual_inheritance},%
-   morecomment=[l]//%
+\lst@definelanguage[ISO]{C++}[ANSI]{C}%
+  {morekeywords={and,and_eq,asm,bad_cast,bad_typeid,bitand,bitor,bool,%
+      catch,class,compl,const_cast,delete,dynamic_cast,explicit,export,%
+      false,friend,inline,mutable,namespace,new,not,not_eq,operator,or,%
+      or_eq,private,protected,public,reinterpret_cast,static_cast,%
+      template,this,throw,true,try,typeid,type_info,typename,using,%
+      virtual,wchar_t,xor,xor_eq},%
   }%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -451,7 +468,6 @@
   {morekeywords={bycopy,id,in,inout,oneway,out,self,super,%
       @class,@defs,@encode,@end,@implementation,@interface,@private,%
       @protected,@protocol,@public,@selector},%
-   morecomment=[l]//,%
    moredirectives={import}%
   }%
 %    \end{macrocode}
@@ -472,11 +488,41 @@
       void,volatile,while},%
    sensitive,%
    morecomment=[s]{/*}{*/},%
+   morecomment=[l]//,% nonstandard
    morestring=[b]",%
    morestring=[b]',%
    moredirectives={define,elif,else,endif,error,if,ifdef,ifndef,line,%
       include,pragma,undef,warning}%
   }[keywords,comments,strings,directives]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
+%    \end{macrocode}
+% \endgroup
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+% Thanks go to \lstthanks{Martin~Brodbeck}{Martin.Brodbeck@gmx.de}{2002/03/17}.
+%    \begin{macrocode}
+%%
+%% C-Sharp definition (c) 2002 Martin Brodbeck <Martin.Brodbeck@gmx.de>
+%%
+\lst@definelanguage[Sharp]{C}%
+  {morekeywords={abstract,base,bool,break,byte,case,catch,char,checked,%
+      class,const,continue,decimal,default,delegate,do,double,else,%
+      enum,event,explicit,extern,false,finally,fixed,float,for,foreach,%
+      goto,if,implicit,in,int,interface,internal,is,lock,long,%
+      namespace,new,null,object,operator,out,override,params,private,%
+      protected,public,readonly,ref,return,sbyte,sealed,short,sizeof,%
+      static,string,struct,switch,this,throw,true,try,typeof,uint,%
+      ulong,unchecked,unsafe,ushort,using,virtual,void,while},%
+   sensitive,%
+   morecomment=[s]{/*}{*/},%
+   morecomment=[l]//,%
+   morestring=[b]"
+  }[keywords,comments,strings]%
 %    \end{macrocode}
 %    \begin{macrocode}
 %</lang1>
@@ -596,11 +642,15 @@
       TERMINATE,TEXT,THAN,THROUGH,THRU,TIME,TIMES,TO,TOP,TRAILING,TYPE,%
       UNIT,UNSTRING,UNTIL,UP,UPON,USAGE,USE,USING,VALUE,VALUES,VARYING,%
       WHEN,WITH,WORDS,WORKING-STORAGE,WRITE,ZERO,ZEROES,ZEROS},%
+   alsodigit=-%,
    sensitive=f,% ???
-   morecomment=[f][6]*,%
+   morecomment=[f][commentstyle][6]*,%
    morestring=[d]"% ??? doubled
   }[keywords,comments,strings]%
 %    \end{macrocode}
+% \texttt{commentstyle} (not the surrounding brackets) have been added after
+% a bug report by \lsthelper{Stephen Reindl}{Stephen.Reindl@vodafone.de}
+% {2002/05/28}{no commentstyle in Cobol}.
 %    \begin{macrocode}
 %</lang2>
 %    \end{macrocode}
@@ -671,6 +721,8 @@
 % \subsection{Delphi}
 %
 % I took the data from Delphi 1.0 (?) online help.
+% \lstthanks{Christian~Gudrian}{chrigu@kawo1.rwth-aachen.de}{2001/08/16}
+% provided the `double slash' comment.
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
@@ -718,7 +770,9 @@
       TrackCursor,Trunc,Truncate,TypeOf,UpCase,UpperCase,Val,WhereX,%
       WhereY,Write,WriteBuf,WriteChar,Writeln},%
    sensitive=f,%
-   morecomment=[d]{(*}{*)}{\{}{\}},%
+   morecomment=[s]{(*}{*)},%
+   morecomment=[s]{\{}{\}},%
+   morecomment=[l]{//},% 2001 Christian Gudrian
    morestring=[d]'%
   }[keywords,comments,strings]%
 %    \end{macrocode}
@@ -868,7 +922,7 @@
 % Moreover the keyword INCLUDE is due to him.
 %    \begin{macrocode}
 \lst@definelanguage[95]{Fortran}[77]{Fortran}%
-  {deletekeywords=SAVE,
+  {deletekeywords=SAVE,%
    morekeywords={ACTION,ADVANCE,ALLOCATE,ALLOCATABLE,ASSIGNMENT,CASE,%
       CONTAINS,CYCLE,DEALLOCATE,DEFAULT,DELIM,EXIT,INCLUDE,IN,NONE,IN,%
       OUT,INTENT,INTERFACE,IOLENGTH,KIND,LEN,MODULE,NAME,NAMELIST,NMT,%
@@ -878,8 +932,8 @@
       ENDBLOCKDATA,ENDDO,ENDFILE,ENDFUNCTION,ENDIF,ENDINTERFACE,%
       ENDMODULE,ENDPROGRAM,ENDSELECT,ENDSUBROUTINE,ENDTYPE,ENDWHERE,%
       GOTO,INOUT,SELECTCASE},%
-   morecomment=[l]!,%
-   deletecomment=[f]% no fixed comment line: 1998 Magne Rudshaug
+   deletecomment=[f],% no fixed comment line: 1998 Magne Rudshaug
+   morecomment=[l]!%
   }%
 %    \end{macrocode}
 % As proposed by \lsthelper{J\"orn Wilms}{wilms@rocinante.colorado.edu}
@@ -896,7 +950,9 @@
       RETURN,REWIND,SEQUENTIAL,STATUS,STOP,SUBROUTINE,THEN,TYPE,%
       UNFORMATTED,UNIT,WRITE,SAVE},%
    sensitive=f,%% not Fortran standard %%
-   morecomment=[f]*Cc,%
+   morecomment=[f]*,%
+   morecomment=[f]C,%
+   morecomment=[f]c,%
    morestring=[d]"%
   }[keywords,comments,strings]%
 %    \end{macrocode}
@@ -922,7 +978,7 @@
 %%
 \lst@definelanguage{Haskell}%
   {otherkeywords={=>},%
-   keywords={abstype,if,then,else,case,class,data,default,deriving,%
+   morekeywords={abstype,if,then,else,case,class,data,default,deriving,%
       hiding,if,in,infix,infixl,infixr,import,instance,let,module,%
       newtype,of,qualified,type,where,do,AbsoluteSeek,AppendMode,%
       Array,BlockBuffering,Bool,BufferMode,Char,Complex,Double,Either,%
@@ -990,7 +1046,7 @@
    sensitive,%
    morecomment=[l]--,%
    morecomment=[n]{\{-}{-\}},%
-   morestrings=[b]"%
+   morestring=[b]"%
   }[keywords,comments,strings]%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1027,16 +1083,21 @@
 % We don't enter comment mode if we aren't inside |<>|.
 %    \begin{macrocode}
    MoreSelectCharTable=%
-      \lst@CArgX--\relax\lst@CommentB\lst@GPmode{}{}%
+      \lst@CArgX--\relax\lst@DefDelimB{}{}%
           {\ifnum\lst@mode=\lst@insidemode\else
                \expandafter\@gobblethree
-           \fi}\lst@commentstyle
-      \lst@CArgX--\relax\lst@CommentE\lst@GPmode{}{}{}%
+           \fi}%
+          \lst@BeginComment\lst@commentmode{{\lst@commentstyle}}%
+      \lst@CArgX--\relax\lst@DefDelimE{}{}{}%
+          \lst@EndComment\lst@commentmode
   }[keywords,comments,strings,html]%
 %    \end{macrocode}
 % \lsthelper{Peter~Biechele}{peter.biechele@physik.uni-freiburg.de}
 % {1999/07/01}{! Missing $\}$ inserted} reported a problem which was due to
-% missing |\@empty| in value of |SelectCharTable|.
+% missing |\@empty| in value of |SelectCharTable|. And after receiving a bug
+% report from \lsthelper{Jochen Schneider}{jschneider@ds3.etech.haw-hamburg.de}
+% {2002/04/05}{use of \lst@thestyle doesn't match its definition} I converted
+% the version 0.21 contents of |MoreSelectCharTable| to version 1.0.
 %    \begin{macrocode}
 %</lang1>
 %    \end{macrocode}
@@ -1100,7 +1161,35 @@
 % \endgroup
 %
 %
-% \subsection{Lisp}
+% \subsection{ksh}
+%
+% Thanks to \lsthelper{Jeffrey Ratcliffe}{Jeffrey.Ratcliffe@m.eads.net}
+% {2002/02/21}{} for this language definition.
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{ksh}
+  {morekeywords={alias,awk,cat,echo,else,elif,fi,exec,exit,%
+      for,in,do,done,select,case,esac,while,until,function,%
+      time,export,cd,eval,fc,fg,kill,let,pwd,read,return,rm,%
+      glob,goto,history,if,logout,nice,nohup,onintr,repeat,sed,%
+      set,setenv,shift,source,switch,then,umask,unalias,%
+      unset,wait,@,env,argv,child,home,ignoreeof,noclobber,%
+      noglob,nomatch,path,prompt,shell,status,verbose,print,printf,%
+      sqrt,BEGIN,END},%
+   morecomment=[l]\#,%
+   morestring=[d]",%
+   morestring=[d]'%
+  }[keywords,comments,strings]%
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Lisp, AutoLisp}
 %
 % Most data are from
 % \begin{itemize}
@@ -1171,6 +1260,115 @@
 % \endgroup
 %
 %
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+% \lstthanks{Stefan Lagotzki}{info@lagotzki.de}{2001/10/28}{} warned me to
+% define this as a lisp dialect \ldots
+%    \begin{macrocode}
+%%
+%% AutoLISP/VisualLISP - Stefan Lagotzki, info@lagotzki.de
+%%
+\lst@definelanguage[Auto]{Lisp}%
+  {morekeywords={abs,acad_colordlg,acad_helpdlg,acad_strlsort,%
+      action_tile,add_list,alert,alloc,and,angle,angtof,angtos,append,%
+      apply,arx,arxload,arxunload,ascii,assoc,atan,atof,atoi,atom,%
+      atoms-family,autoarxload,autoload,Boole,boundp,caddr,cadr,car,%
+      cdr,chr,client_data_tile,close,command,cond,cons,cos,cvunit,%
+      defun,defun-q,defun-q-list-ref,defun-q-list-set,dictadd,dictnext,%
+      dictremove,dictrename,dictsearch,dimx_tile,dimy_tile,distance,%
+      distof,done_dialog,end_image,end_list,entdel,entget,entlast,%
+      entmake,entmakex,entmod,entnext,entsel,entupd,eq,equal,*error*,%
+      eval,exit,exp,expand,expt,fill_image,findfile,fix,float,foreach,%
+      function,gc,gcd,get_attr,get_tile,getangle,getcfg,getcname,%
+      getcorner,getdist,getenv,getfiled,getint,getkword,getorient,%
+      getpoint,getreal,getstring,getvar,graphscr,grclear,grdraw,grread,%
+      grtext,grvecs,handent,help,if,initdia,initget,inters,itoa,lambda,%
+      last,layoutlist,length,list,listp,load,load_dialog,log,logand,%
+      logior,lsh,mapcar,max,mem,member,menucmd,menugroup,min,minusp,%
+      mode_tile,namedobjdict,nentsel,nentselp,new_dialog,not,nth,%
+      null,numberp,open,or,osnap,polar,prin1,princ,print,progn,prompt,%
+      quit,quote,read,read-char,read-line,redraw,regapp,rem,repeat,%
+      reverse,rtos,set,set_tile,setcfg,setenv,setfunhelp,setq,%
+      setvar,setview,sin,slide_image,snvalid,sqrt,ssadd,ssdel,ssget,%
+      ssgetfirst,sslength,ssmemb,ssname,ssnamex,sssetfirst,startapp,%
+      start_dialog,start_image,start_list,strcase,strcat,strlen,subst,%
+      substr,tablet,tblnext,tblobjname,tblsearch,term_dialog,terpri,%
+      textbox,textpage,textscr,trace,trans,type,unload_dialog,untrace,%
+      vector_image,ver,vl-acad-defun,vl-acad-undefun,vl-arx-import,%
+      vl-bb-ref,vl-bb-set,vl-catch-all-apply,%
+      vl-catch-all-error-message,vl-catch-all-error-p,vl-cmdf,vl-consp,%
+      vl-directory-files,vl-doc-export,vl-doc-import,vl-doc-ref,%
+      vl-doc-set,vl-every,vl-exit-with-error,vl-exit-with-value,%
+      vl-file-copy,vl-file-delete,vl-file-directory-p,vl-file-rename,%
+      vl-file-size,vl-file-systime,vl-filename-base,%
+      vl-filename-directory,vl-filename-extension,vl-filename-mktemp,%
+      vl-get-resource,vl-list*,vl-list->string,%
+      vl-list-exported-functions,vl-list-length,vl-list-loaded-vlx,%
+      vl-load-all,vl-load-com,vl-load-reactors,vl-member-if,%
+      vl-member-if-not,vl-position,vl-prin1-to-string,%
+      vl-princ-to-string,vl-propagate,vl-registry-delete,%
+      vl-registry-descendents,vl-registry-read,vl-registry-write,%
+      vl-remove,vl-remove-if,vl-remove-if-not,vl-some,vl-sort,%
+      vl-sort-i,vl-string->list,vl-string-elt,vl-string-left-trim,%
+      vl-string-mismatch,vl-string-position,vl-string-right-trim,%
+      vl-string-search,vl-string-subst,vl-string-translate,%
+      vl-string-trim,vl-symbol-name,vl-symbol-value,vl-symbolp,%
+      vl-unload-vlx,vl-vbaload,vl-vbarun,vl-vlx-loaded-p,vlax-3D-point,%
+      vlax-add-cmd,vlax-create-object,vlax-curve-getArea,%
+      vlax-curve-getDistAtParam,vlax-curve-getDistAtPoint,%
+      vlax-curve-getEndParam,vlax-curve-getEndPoint,%
+      vlax-curve-getParamAtDist,vlax-curve-getParamAtPoint,%
+      vlax-curve-getPointAtDist,vlax-curve-getPointAtParam,%
+      vlax-curve-getStartParam,vlax-curve-getStartPoint,%
+      vlax-curve-isClosed,vlax-curve-isPeriodic,vlax-curve-isPlanar,%
+      vlax-curve-getClosestPointTo,%
+      vlax-curve-getClosestPointToProjection,vlax-curve-getFirstDeriv,%
+      vlax-curve-getSecondDeriv,vlax-dump-object,%
+      vlax-ename->vla-object,vlax-erased-p,vlax-for,%
+      vlax-get-acad-object,vlax-get-object,vlax-get-or-create-object,%
+      vlax-get-property,vlax-import-type-library,vlax-invoke-method,%
+      vlax-ldata-delete,vlax-ldata-get,vlax-ldata-list,vlax-ldata-put,%
+      vlax-ldata-test,vlax-make-safearray,vlax-make-variant,%
+      vlax-map-collection,vlax-method-applicable-p,%
+      vlax-object-released-p,vlax-product-key,%
+      vlax-property-available-p,vlax-put-property,vlax-read-enabled-p,%
+      vlax-release-object,vlax-remove-cmd,vlax-safearray-fill,%
+      vlax-safearray-get-dim,vlax-safearray-get-element,%
+      vlax-safearray-get-l-bound,vlax-safearray-get-u-bound,%
+      vlax-safearray-put-element,vlax-safearray-type,%
+      vlax-safearray->list,vlax-tmatrix,vlax-typeinfo-available-p,%
+      vlax-variant-change-type,vlax-variant-type,vlax-variant-value,%
+      vlax-vla-object->ename,vlax-write-enabled-p,vlisp-compile,%
+      vlr-acdb-reactor,vlr-add,vlr-added-p,vlr-beep-reaction,%
+      vlr-command-reactor,vlr-current-reaction-name,vlr-data,%
+      vlr-data-set,vlr-deepclone-reactor,vlr-docmanager-reactor,%
+      vlr-dwg-reactor,vlr-dxf-reactor,vlr-editor-reactor,%
+      vlr-insert-reactor,vlr-linker-reactor,vlr-lisp-reactor,%
+      vlr-miscellaneous-reactor,vlr-mouse-reactor,vlr-notification,%
+      vlr-object-reactor,vlr-owner-add,vlr-owner-remove,vlr-owners,%
+      vlr-pers,vlr-pers-list,vlr-pers-p,vlr-pers-release,%
+      vlr-reaction-names,vlr-reaction-set,vlr-reactions,vlr-reactors,%
+      vlr-remove,vlr-remove-all,vlr-set-notification,%
+      vlr-sysvar-reactor,vlr-toolbar-reactor,vlr-trace-reaction,%
+      vlr-type,vlr-types,vlr-undo-reactor,vlr-wblock-reactor,%
+      vlr-window-reactor,vlr-xref-reactor,vports,wcmatch,while,%
+      write-char,write-line,xdroom,xdsize,zerop},%
+   alsodigit=->,%
+   otherkeywords={1+,1-},%
+   sensitive=false,% 
+   morecomment=[l];,%
+   morecomment=[l];;,%
+   morestring=[b]"%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Logo}
 %
 % I don't know where the keywords are from and what kind of Logo it is.
@@ -1214,8 +1412,10 @@
 %
 % \subsection{Make}
 %
-% \lstthanks{Rolf Niepraschk}{niepraschk@ptb.de}{2000/01/10} sent me the new
-% definitions.
+% \lstthanks{Rolf~Niepraschk}{niepraschk@ptb.de}{2000/01/10} sent me the new
+% definitions. \lstthanks{Markus~Pahlow}{pahlowm@mar.dfo-mpo.gc.ca}{2001/10/12}
+% found a missing comma and added some keywords, which improve the highlighting
+% with |makemacrouse=true| (but I haven't tested this).
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
@@ -1226,6 +1426,7 @@
 %%
 \lst@definelanguage[gnu]{make}%
   {morekeywords={SHELL,MAKE,MAKEFLAGS,$@,$\%,$<,$?,$^,$+,$*,%
+      @,^,<,\%,+,?,*,% Markus Pahlow
       export,unexport,include,override,define,ifdef,ifneq,ifeq,else,%
       endif,vpath,subst,patsubst,strip,findstring,filter,filter-out,%
       sort,dir,notdir,suffix,basename,addsuffix,addprefix,join,word,%
@@ -1237,7 +1438,7 @@
       ARFLAGS,ASFLAGS,CFLAGS,CXXFLAGS,COFLAGS,CPPFLAGS,FFLAGS,GFLAGS,%
       LDFLAGS,LOADLIBES,LFLAGS,PFLAGS,RFLAGS,YFLAGS,M2FLAGS,MODFLAGS,%
       LINTFLAGS,MAKEINFO_FLAGS,TEXI2DVI_FLAGS,COFLAGS,GFLAGS,%
-      OUTPUT_OPTION,SCCS_OUTPUT_OPTION%
+      OUTPUT_OPTION,SCCS_OUTPUT_OPTION,% missing comma: Markus Pahlow
       .PHONY,.SUFFIXES,.DEFAULT,.PRECIOUS,.INTERMEDIATE,.SECONDARY,%
       .IGNORE,.SILENT,.EXPORT_ALL_VARIABLES,MAKEFILES,VPATH,MAKESHELL,%
       MAKELEVEL,MAKECMDGOALS,SUFFIXES},%
@@ -1525,7 +1726,8 @@
 % \subsection{Mercury}
 %
 % \lstthanks{Dominique~de~Waleffe}{ddw@miscrit.be}{1997/11/24} mailed me the
-% data.
+% data and \lstthanks{Ralph~Becket}{rbeck@microsoft.com}{2001/05/01} extended
+% the definition.
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
@@ -1533,13 +1735,21 @@
 %    \begin{macrocode}
 %%
 %% Mercury definition (c) 1997 Dominique de Waleffe <ddw@miscrit.be>
+%% Extended (c) 2001 Ralph Becket <rbeck@microsoft.com>
 %%
 \lst@definelanguage{Mercury}%
-  {otherkeywords={::,->,-->,--->,:-},%
-   morekeywords={pred,type,module,end_module,import_module,mode,%
-      pragma,func,lambda,det,semidet,erroneous,multi,true,fail,is,in,%
-      out,di,uo,ui,interface,implementation},%
-   sensitive=f,%
+  {otherkeywords={::,->,-->,--->,:-,==,=>,<=,<=>},%
+   morekeywords={module,include_module,import_module,interface,%
+      end_module,implementation,mode,is,failure,semidet,nondet,det,%
+      multi,erroneous,inst,in,out,di,uo,ui,type,typeclass,instance,%
+      where,with_type,pred,func,lambda,impure,semipure,if,then,else,%
+      some,all,not,true,fail,pragma,memo,no_inline,inline,loop_check,%
+      minimal_model,fact_table,type_spec,terminates,does_not_terminate,%
+      check_termination,promise_only_solution,unsafe_promise_unique,%
+      source_file,obsolete,import,export,c_header_code,c_code,%
+      foreign_code,foreign_proc,may_call_mercury,will_not_call_mercury,%
+      thread_safe,not_thread_safe},%
+   sensitive=t,%
    morecomment=[l]\%,%
    morecomment=[s]{/*}{*/},%
    morestring=[bd]",%
@@ -1655,6 +1865,37 @@
 % \endgroup
 %
 %
+% \subsection{NASTRAN}
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+% The definition is from \lsthelper{Jeffrey Ratcliffe}
+% {Jeffrey.Ratcliffe@m.eads.net}{2002/02/21}{}---except the
+% \texttt{MoreSelectCharTable} part which simulates the keyword
+% \texttt{BEGIN BULK}.
+%    \begin{macrocode}
+\lst@definelanguage{NASTRAN}
+  {morekeywords={ENDDATA},%
+   morecomment=[l]$,%
+   MoreSelectCharTable=%
+        \lst@CArgX BEGIN\ BULK\relax\lst@CDef{}%
+        {\lst@ifmode\else \ifnum\lst@length=\z@
+             \lst@EnterMode{\lst@GPmode}{\lst@modetrue
+                  \let\lst@currstyle\lst@gkeywords@sty}%
+         \fi \fi}%
+        {\ifnum\lst@mode=\lst@GPmode
+             \lst@XPrintToken \lst@LeaveMode
+         \fi}%
+  }[keywords,comments]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Oberon-2}
 %
 % \begingroup
@@ -1692,7 +1933,7 @@
 %               Available at \texttt{ftp://ftp.omg.org/pub/docs/ad/99-06-08.pdf}.
 % \end{itemize}%
 % This language is due to \lstthanks{Achim~D.~Brucker}
-% {brucker@informatik.uni-freiburg.de}{2000/08/14}{OCL}.
+% {brucker@informatik.uni-freiburg.de}{2000/08/14}.
 %
 % \begingroup
 %    \begin{macrocode}
@@ -1700,15 +1941,20 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %%
-%% OCL definition (c) 2000 Achim D. Brucker <brucker@informatik.uni-freiburg.de>
-%% You are allowed to use, modify and distribute this code either under 
-%% the terms of the LPPL (version 1.0 or later) or the GPL (version 2.0 or later).
+%% OCL definition (c) 2000 Achim D. Brucker
+%%                         <brucker@informatik.uni-freiburg.de>
 %%
-%% First we define are very decorative style. In the OMG standard only the boolean (infix (?))
-%% operations are highlighted, but I think all OCL-defined operations should be
-%% highlighted, because they are \emph{guaranteed} to be side-effect-free (in OCL only side effect
-%% free evaluations or path expressions are allowed). 
+%% You are allowed to use, modify and distribute this code either under
+%% the terms of the LPPL (version 1.0 or later) or the GPL (version 2.0
+%% or later).
 %%
+%    \end{macrocode}
+% First we define are very decorative style. In the OMG standard only the
+% boolean (infix (?)) operations are highlighted, but I think all OCL-defined
+% operations should be highlighted, because they are \emph{guaranteed} to be
+% side-effect-free (in OCL only side effect free evaluations or path
+% expressions are allowed).
+%    \begin{macrocode}
 \lst@definelanguage[decorative]{OCL}[OMG]{OCL}
   {otherkeywords={@pre},%
    morendkeywords={name,attributes,associatoinEnds,operations,%
@@ -1721,29 +1967,130 @@
       asSequence,asBag,asSequence,asSet,append,prepend,subSequence,at,%
       first,last,true,false,isQuery}%
   }%
-%% Remark: "isQuery" is not real OCL, but a important Attribute of the
-%%         underlying UML model.
-%%
-%% The dialect called \texttt{OMG} is a very spare version. If you use
-%% this variant with bold style for first and second order keywords you
-%% get the look and feel of the OMG standard. 
+%    \end{macrocode} 
+% Remark: "isQuery" is not real OCL, but a important attribute of the
+% underlying UML model.
+%
+% The dialect called \texttt{OMG} is a very spare version. If you use
+% this variant with bold style for first and second order keywords you
+% get the look and feel of the OMG standard. First order keywords are the
+% OCL context declarations (see section 7.3 of the OMG standard):
+%    \begin{macrocode}
 \lst@definelanguage[OMG]{OCL}%
-% First order keywords are the OCL context declarations (see section 7.3 of the OMG standard):
-    {morekeywords={context,pre,inv,post},
+    {morekeywords={context,pre,inv,post},%
+%    \end{macrocode} 
 % Second order keywords are the operation which are defined for type
 % Boolean (see pages 7-34/35 of the OMG standard) and the let-operation
 % (in principle these are the infix operations):
+%    \begin{macrocode}
     ndkeywords={or,xor,and,not,implies,if,then,else,endif},%
-% Third order keywords are the basic data types as declared in section 7.4 of the OMG standard:
+%    \end{macrocode} 
+% Third order keywords are the basic data types as declared in section 7.4 of
+% the OMG standard:
+%    \begin{macrocode}
     morerdkeywords={Boolean,Integer,Real,String,Set,Sequence,Bag,%
        OclType,OclAny,OclExpression,Enumeration,Collection,},%
     sensitive=t,%
     morecomment=[l]--,%
     morestring=[d]'%
    }[keywords,rdkeywords,comments,strings]%
-%   \end{macrocode} 
-%   \begin{macrocode}
+%    \end{macrocode} 
+%    \begin{macrocode}
 %</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Octave}
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+% As you can read below the definition is due to \lsthelper{Ulrich G. Wortmann}
+% {uliw@erdw.ethz.ch}{2002/02/18}{}.
+%    \begin{macrocode}
+%%
+%% Octave definition (c) 2001,2002 Ulrich G. Wortmann
+%%                                 <uliw@erdw.ethz.ch>
+%%
+\lst@definelanguage{Octave}%
+  {morekeywords={gt,lt,gt,lt,amp,abs,acos,acosh,acot,acoth,acsc,acsch,%
+      all,angle,ans,any,asec,asech,asin,asinh,atan,atan2,atanh,auread,%
+      auwrite,axes,axis,balance,bar,bessel,besselk,bessely,beta,%
+      betainc,betaln,blanks,bone,break,brighten,capture,cart2pol,%
+      cart2sph,caxis,cd,cdf2rdf,cedit,ceil,chol,cla,clabel,clc,clear,%
+      clf,clock,close,colmmd,Colon,colorbar,colormap,ColorSpec,colperm,%
+      comet,comet3,compan,compass,computer,cond,condest,conj,contour,%
+      contour3,contourc,contrast,conv,conv2,cool,copper,corrcoef,cos,%
+      cosh,cot,coth,cov,cplxpair,cputime,cross,csc,csch,csvread,%
+      csvwrite,cumprod,cumsum,cylinder,date,dbclear,dbcont,dbdown,%
+      dbquit,dbstack,dbstatus,dbstep,dbstop,dbtype,dbup,ddeadv,ddeexec,%
+      ddeinit,ddepoke,ddereq,ddeterm,ddeunadv,deblank,dec2hex,deconv,%
+      del2,delete,demo,det,diag,diary,diff,diffuse,dir,disp,dlmread,%
+      dlmwrite,dmperm,dot,drawnow,echo,eig,ellipj,ellipke,else,elseif,%
+      end,engClose,engEvalString,engGetFull,engGetMatrix,engOpen,%
+      engOutputBuffer,engPutFull,engPutMatrix,engSetEvalCallback,%
+      engSetEvalTimeout,engWinInit,eps,erf,erfc,erfcx,erfinv,%
+      errorbar,etime,etree,eval,exist,exp,expint,expm,expo,eye,fclose,%
+      feather,feof,ferror,feval,fft,fft2,fftshift,fgetl,fgets,figure,%
+      fill,fill3,filter,filter2,find,findstr,finite,fix,flag,fliplr,%
+      flipud,floor,flops,fmin,fmins,fopen,for,format,fplot,fprintf,%
+      fread,frewind,fscanf,fseek,ftell,full,function,funm,fwrite,fzero,%
+      gallery,gamma,gammainc,gammaln,gca,gcd,gcf,gco,get,getenv,%
+      getframe,ginput,global,gplot,gradient,gray,graymon,grid,griddata,%
+      gtext,hadamard,hankel,help,hess,hex2dec,hex2num,hidden,hilb,hist,%
+      hold,home,hostid,hot,hsv,hsv2rgb,if,ifft,ifft2,imag,image,%
+      imagesc,Inf,info,input,int2str,interp1,interp2,interpft,inv,%
+      invhilb,isempty,isglobal,ishold,isieee,isinf,isletter,isnan,%
+      isreal,isspace,issparse,isstr,jet,keyboard,kron,lasterr,lcm,%
+      legend,legendre,length,lin2mu,line,linspace,load,log,log10,log2,%
+      loglog,logm,logspace,lookfor,lower,ls,lscov,lu,magic,matClose,%
+      matDeleteMatrix,matGetDir,matGetFp,matGetFull,matGetMatrix,%
+      matGetNextMatrix,matGetString,matlabrc,matlabroot,matOpen,%
+      matPutFull,matPutMatrix,matPutString,max,mean,median,menu,mesh,%
+      meshc,meshgrid,meshz,mexAtExit,mexCallMATLAB,mexdebug,%
+      mexErrMsgTxt,mexEvalString,mexFunction,mexGetFull,mexGetMatrix,%
+      mexGetMatrixPtr,mexPrintf,mexPutFull,mexPutMatrix,mexSetTrapFlag,%
+      min,more,movie,moviein,mu2lin,mxCalloc,mxCopyCharacterToPtr,%
+      mxCopyComplex16ToPtr,mxCopyInteger4ToPtr,mxCopyPtrToCharacter,%
+      mxCopyPtrToComplex16,mxCopyPtrToInteger4,mxCopyPtrToReal8,%
+      mxCopyReal8ToPtr,mxCreateFull,mxCreateSparse,mxCreateString,%
+      mxFree,mxFreeMatrix,mxGetIr,mxGetJc,mxGetM,mxGetN,mxGetName,%
+      mxGetNzmax,mxGetPi,mxGetPr,mxGetScalar,mxGetString,mxIsComplex,%
+      mxIsFull,mxIsNumeric,mxIsSparse,mxIsString,mxIsTypeDouble,%
+      mxSetIr,mxSetJc,mxSetM,mxSetN,mxSetName,mxSetNzmax,mxSetPi,%
+      mxSetPr,NaN,nargchk,nargin,nargout,newplot,nextpow2,nnls,nnz,%
+      nonzeros,norm,normest,null,num2str,nzmax,ode23,ode45,orient,orth,%
+      pack,pascal,patch,path,pause,pcolor,pi,pink,pinv,plot,plot3,%
+      pol2cart,polar,poly,polyder,polyeig,polyfit,polyval,polyvalm,%
+      pow2,print,printopt,prism,prod,pwd,qr,qrdelete,qrinsert,quad,%
+      quad8,quit,quiver,qz,rand,randn,randperm,rank,rat,rats,rbbox,%
+      rcond,real,realmax,realmin,refresh,rem,reset,reshape,residue,%
+      return,rgb2hsv,rgbplot,rootobject,roots,rose,rosser,rot90,rotate,%
+      round,rref,rrefmovie,rsf2csf,save,saxis,schur,sec,sech,semilogx,%
+      semilogy,set,setstr,shading,sign,sin,sinh,size,slice,sort,sound,%
+      spalloc,sparse,spaugment,spconvert,spdiags,specular,speye,spfun,%
+      sph2cart,sphere,spinmap,spline,spones,spparms,sprandn,sprandsym,%
+      sprank,sprintf,spy,sqrt,sqrtm,sscanf,stairs,startup,std,stem,%
+      str2mat,str2num,strcmp,strings,strrep,strtok,subplot,subscribe,%
+      subspace,sum,surf,surface,surfc,surfl,surfnorm,svd,symbfact,%
+      symmmd,symrcm,tan,tanh,tempdir,tempname,terminal,text,tic,title,%
+      toc,toeplitz,trace,trapz,tril,triu,type,uicontrol,uigetfile,%
+      uimenu,uiputfile,unix,unwrap,upper,vander,ver,version,view,%
+      viewmtx,waitforbuttonpress,waterfall,wavread,wavwrite,what,%
+      whatsnew,which,while,white,whitebg,who,whos,wilkinson,wk1read,%
+      stderr,stdout,plot,set,endif,wk1write,xlabel,xor,ylabel,zeros,%
+      zlabel,zoom,endwhile,endfunction},%
+   sensitive=f,%
+   morecomment=[l]\#,%
+   morecomment=[l]\#\#,%
+   morestring=[m]',%
+   morestring=[m]"%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
 %    \end{macrocode}
 % \endgroup
 %
@@ -1815,7 +2162,8 @@
       text,then,to,true,type,unpack,until,var,while,with,write,%
       writeln},%
    sensitive=f,%
-   morecomment=[d]{(*}{*)}{\{}{\}},%
+   morecomment=[s]{(*}{*)},%
+   morecomment=[s]{\{}{\}},%
    morestring=[d]'%
   }[keywords,comments,strings]%
 %    \end{macrocode}
@@ -1875,6 +2223,526 @@
 % \endgroup
 %
 %
+% \subsection{PHP}
+%
+% \lstthanks{Luca Balzerani}{lou@latoserver.it}{2002/04/06} sent me this
+% language definition.
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% PHP definition by Luca Balzerani, <lou@latoserver.it>
+%%
+\lst@definelanguage{PHP}%
+  {morekeywords={%
+    abs,acos,acosh,addcslashes,addslashes,apache_child_terminate,%
+    apache_note,apache_setenv,array_change_key_case,array_chunk,%
+    array_diff,array_fill,array_filter,array_flip,array_intersect,%
+    array_keys,array_map,array_merge_recursive,array_merge,%
+    array_pad,array_pop,array_push,array_rand,array_reduce,%
+    array_search,array_shift,array_slice,array_splice,array_sum,%
+    array_unshift,array_values,array_walk,array,arsort,ascii2ebcdic,%
+    asinh,asort,aspell_check_raw,aspell_check,aspell_new,%
+    assert_options,assert,atan,atan2,atanh,base_convert,%
+    base64_encode,basename,bcadd,bccomp,bcdiv,bcmod,bcmul,bcpow,%
+    bcsqrt,bcsub,bin2hex,bind_textdomain_codeset,bindec,%
+    bzclose,bzcompress,bzdecompress,bzerrno,bzerror,bzerrstr,%
+    bzopen,bzread,bzwrite,cal_days_in_month,cal_from_jd,cal_info,%
+    call_user_func_array,call_user_func,call_user_method_array,%
+    ccvs_add,ccvs_auth,ccvs_command,ccvs_count,ccvs_delete,%
+    ccvs_init,ccvs_lookup,ccvs_new,ccvs_report,ccvs_return,%
+    ccvs_sale,ccvs_status,ccvs_textvalue,ccvs_void,ceil,chdir,%
+    checkdnsrr,chgrp,chmod,chop,chown,chr,chroot,chunk_split,%
+    clearstatcache,closedir,closelog,com_addref,com_get,com_invoke,%
+    com_load_typelib,com_load,com_propget,com_propput,com_propset,%
+    com_set,compact,connection_aborted,connection_status,%
+    constant,convert_cyr_string,copy,cos,cosh,count_chars,count,%
+    cpdf_add_outline,cpdf_arc,cpdf_begin_text,cpdf_circle,cpdf_clip,%
+    cpdf_closepath_fill_stroke,cpdf_closepath_stroke,cpdf_closepath,%
+    cpdf_curveto,cpdf_end_text,cpdf_fill_stroke,cpdf_fill,%
+    cpdf_finalize,cpdf_global_set_document_limits,cpdf_import_jpeg,%
+    cpdf_moveto,cpdf_newpath,cpdf_open,cpdf_output_buffer,%
+    cpdf_place_inline_image,cpdf_rect,cpdf_restore,cpdf_rlineto,%
+    cpdf_rotate_text,cpdf_rotate,cpdf_save_to_file,cpdf_save,%
+    cpdf_set_action_url,cpdf_set_char_spacing,cpdf_set_creator,%
+    cpdf_set_font_directories,cpdf_set_font_map_file,cpdf_set_font,%
+    cpdf_set_keywords,cpdf_set_leading,cpdf_set_page_animation,%
+    cpdf_set_text_matrix,cpdf_set_text_pos,cpdf_set_text_rendering,%
+    cpdf_set_title,cpdf_set_viewer_preferences,%
+    cpdf_setdash,cpdf_setflat,cpdf_setgray_fill,cpdf_setgray_stroke,%
+    cpdf_setlinecap,cpdf_setlinejoin,cpdf_setlinewidth,%
+    cpdf_setrgbcolor_fill,cpdf_setrgbcolor_stroke,cpdf_setrgbcolor,%
+    cpdf_show,cpdf_stringwidth,cpdf_stroke,cpdf_text,cpdf_translate,%
+    crack_closedict,crack_getlastmessage,crack_opendict,crc32,%
+    crypt,ctype_alnum,ctype_alpha,ctype_cntrl,ctype_digit,%
+    ctype_lower,ctype_print,ctype_punct,ctype_space,ctype_upper,%
+    curl_close,curl_errno,curl_error,curl_exec,curl_getinfo,%
+    curl_setopt,curl_version,current,cybercash_base64_decode,%
+    cybercash_decr,cybercash_encr,cybermut_creerformulairecm,%
+    cybermut_testmac,cyrus_authenticate,cyrus_bind,cyrus_close,%
+    cyrus_query,cyrus_unbind,date,dba_close,dba_delete,dba_exists,%
+    dba_firstkey,dba_insert,dba_nextkey,dba_open,dba_optimize,%
+    dba_replace,dba_sync,dbase_add_record,dbase_close,dbase_create,%
+    dbase_get_record_with_names,dbase_get_record,dbase_numfields,%
+    dbase_open,dbase_pack,dbase_replace_record,dblist,dbmclose,%
+    dbmexists,dbmfetch,dbmfirstkey,dbminsert,dbmnextkey,dbmopen,%
+    dbplus_add,dbplus_aql,dbplus_chdir,dbplus_close,dbplus_curr,%
+    dbplus_errno,dbplus_find,dbplus_first,dbplus_flush,%
+    dbplus_freelock,dbplus_freerlocks,dbplus_getlock,%
+    dbplus_info,dbplus_last,dbplus_lockrel,dbplus_next,dbplus_open,%
+    dbplus_rchperm,dbplus_rcreate,dbplus_rcrtexact,dbplus_rcrtlike,%
+    dbplus_restorepos,dbplus_rkeys,dbplus_ropen,dbplus_rquery,%
+    dbplus_rsecindex,dbplus_runlink,dbplus_rzap,dbplus_savepos,%
+    dbplus_setindexbynumber,dbplus_sql,dbplus_tcl,dbplus_tremove,%
+    dbplus_undoprepare,dbplus_unlockrel,dbplus_unselect,%
+    dbplus_xlockrel,dbplus_xunlockrel,dbx_close,dbx_compare,%
+    dbx_error,dbx_query,dbx_sort,dcgettext,dcngettext,debugger_off,%
+    decbin,dechex,decoct,define_syslog_variables,define,defined,%
+    delete,dgettext,die,dio_close,dio_fcntl,dio_open,dio_read,%
+    dio_stat,dio_truncate,dio_write,dirname,disk_free_space,%
+    diskfreespace,dl,dngettext,domxml_add_root,domxml_attributes,%
+    domxml_dumpmem,domxml_get_attribute,domxml_new_child,%
+    domxml_node_set_content,domxml_node_unlink_node,domxml_node,%
+    domxml_set_attribute,domxml_version,dotnet_load,doubleval,each,%
+    easter_days,ebcdic2ascii,echo,empty,end,ereg_replace,ereg,%
+    eregi,error_log,error_reporting,escapeshellarg,escapeshellcmd,%
+    exec,exit,exp,explode,expm1,extension_loaded,extract,ezmlm_hash,%
+    fbsql_autocommit,fbsql_change_user,fbsql_close,fbsql_commit,%
+    fbsql_create_blob,fbsql_create_clob,fbsql_create_db,%
+    fbsql_database_password,fbsql_database,fbsql_db_query,%
+    fbsql_drop_db,fbsql_errno,fbsql_error,fbsql_fetch_array,%
+    fbsql_fetch_field,fbsql_fetch_lengths,fbsql_fetch_object,%
+    fbsql_field_flags,fbsql_field_len,fbsql_field_name,%
+    fbsql_field_table,fbsql_field_type,fbsql_free_result,%
+    fbsql_hostname,fbsql_insert_id,fbsql_list_dbs,fbsql_list_fields,%
+    fbsql_next_result,fbsql_num_fields,fbsql_num_rows,%
+    fbsql_pconnect,fbsql_query,fbsql_read_blob,fbsql_read_clob,%
+    fbsql_rollback,fbsql_select_db,fbsql_set_lob_mode,%
+    fbsql_start_db,fbsql_stop_db,fbsql_tablename,fbsql_username,%
+    fclose,fdf_add_template,fdf_close,fdf_create,fdf_get_file,%
+    fdf_get_value,fdf_next_field_name,fdf_open,fdf_save,fdf_set_ap,%
+    fdf_set_file,fdf_set_flags,fdf_set_javascript_action,%
+    fdf_set_status,fdf_set_submit_form_action,fdf_set_value,feof,%
+    fgetc,fgetcsv,fgets,fgetss,file_exists,file,fileatime,filectime,%
+    fileinode,filemtime,fileowner,fileperms,filepro_fieldcount,%
+    filepro_fieldtype,filepro_fieldwidth,filepro_retrieve,%
+    filepro,filesize,filetype,floatval,flock,floor,flush,fopen,%
+    fputs,fread,frenchtojd,fribidi_log2vis,fscanf,fseek,fsockopen,%
+    ftell,ftok,ftp_cdup,ftp_chdir,ftp_connect,ftp_delete,ftp_exec,%
+    ftp_fput,ftp_get,ftp_login,ftp_mdtm,ftp_mkdir,ftp_nlist,%
+    ftp_put,ftp_pwd,ftp_quit,ftp_rawlist,ftp_rename,ftp_rmdir,%
+    ftp_size,ftp_systype,ftruncate,func_get_arg,func_get_args,%
+    function_exists,fwrite,get_browser,get_cfg_var,%
+    get_class_vars,get_class,get_current_user,get_declared_classes,%
+    get_defined_functions,get_defined_vars,get_extension_funcs,%
+    get_included_files,get_loaded_extensions,get_magic_quotes_gpc,%
+    get_meta_tags,get_object_vars,get_parent_class,%
+    get_resource_type,getallheaders,getcwd,getdate,getenv,%
+    gethostbyname,gethostbynamel,getimagesize,getlastmod,getmxrr,%
+    getmyinode,getmypid,getmyuid,getprotobyname,getprotobynumber,%
+    getrusage,getservbyname,getservbyport,gettext,gettimeofday,%
+    gmdate,gmmktime,gmp_abs,gmp_add,gmp_and,gmp_clrbit,gmp_cmp,%
+    gmp_div_q,gmp_div_qr,gmp_div_r,gmp_div,gmp_divexact,gmp_fact,%
+    gmp_gcdext,gmp_hamdist,gmp_init,gmp_intval,gmp_invert,%
+    gmp_legendre,gmp_mod,gmp_mul,gmp_neg,gmp_or,gmp_perfect_square,%
+    gmp_pow,gmp_powm,gmp_prob_prime,gmp_random,gmp_scan0,gmp_scan1,%
+    gmp_sign,gmp_sqrt,gmp_sqrtrem,gmp_strval,gmp_sub,gmp_xor,%
+    gregoriantojd,gzclose,gzcompress,gzdeflate,gzencode,gzeof,%
+    gzgetc,gzgets,gzgetss,gzinflate,gzopen,gzpassthru,gzputs,gzread,%
+    gzseek,gztell,gzuncompress,gzwrite,header,headers_sent,hebrev,%
+    hexdec,highlight_file,highlight_string,htmlentities,%
+    hw_array2objrec,hw_changeobject,hw_children,hw_childrenobj,%
+    hw_connect,hw_connection_info,hw_cp,hw_deleteobject,%
+    hw_docbyanchorobj,hw_document_attributes,hw_document_bodytag,%
+    hw_document_setcontent,hw_document_size,hw_dummy,hw_edittext,%
+    hw_errormsg,hw_free_document,hw_getanchors,hw_getanchorsobj,%
+    hw_getchildcoll,hw_getchildcollobj,hw_getchilddoccoll,%
+    hw_getobject,hw_getobjectbyquery,hw_getobjectbyquerycoll,%
+    hw_getobjectbyqueryobj,hw_getparents,hw_getparentsobj,%
+    hw_getremote,hw_getremotechildren,hw_getsrcbydestobj,hw_gettext,%
+    hw_identify,hw_incollections,hw_info,hw_inscoll,hw_insdoc,%
+    hw_insertdocument,hw_insertobject,hw_mapid,hw_modifyobject,%
+    hw_new_document,hw_objrec2array,hw_output_document,hw_pconnect,%
+    hw_root,hw_setlinkroot,hw_stat,hw_unlock,hw_who,hypot,%
+    ibase_blob_cancel,ibase_blob_close,ibase_blob_create,%
+    ibase_blob_get,ibase_blob_import,ibase_blob_info,%
+    ibase_close,ibase_commit,ibase_connect,ibase_errmsg,%
+    ibase_fetch_object,ibase_fetch_row,ibase_field_info,%
+    ibase_free_result,ibase_num_fields,ibase_pconnect,ibase_prepare,%
+    ibase_rollback,ibase_timefmt,ibase_trans,icap_close,%
+    icap_delete_calendar,icap_delete_event,icap_fetch_event,%
+    icap_list_events,icap_open,icap_rename_calendar,icap_reopen,%
+    icap_store_event,iconv_get_encoding,iconv_set_encoding,iconv,%
+    ifx_blobinfile_mode,ifx_byteasvarchar,ifx_close,ifx_connect,%
+    ifx_create_blob,ifx_create_char,ifx_do,ifx_error,ifx_errormsg,%
+    ifx_fieldproperties,ifx_fieldtypes,ifx_free_blob,ifx_free_char,%
+    ifx_get_blob,ifx_get_char,ifx_getsqlca,ifx_htmltbl_result,%
+    ifx_num_fields,ifx_num_rows,ifx_pconnect,ifx_prepare,ifx_query,%
+    ifx_update_blob,ifx_update_char,ifxus_close_slob,%
+    ifxus_free_slob,ifxus_open_slob,ifxus_read_slob,ifxus_seek_slob,%
+    ifxus_write_slob,ignore_user_abort,image2wbmp,%
+    imagearc,imagechar,imagecharup,imagecolorallocate,imagecolorat,%
+    imagecolorclosestalpha,imagecolorclosesthwb,%
+    imagecolorexact,imagecolorexactalpha,imagecolorresolve,%
+    imagecolorset,imagecolorsforindex,imagecolorstotal,%
+    imagecopy,imagecopymerge,imagecopymergegray,imagecopyresampled,%
+    imagecreate,imagecreatefromgd,imagecreatefromgd2,%
+    imagecreatefromgif,imagecreatefromjpeg,imagecreatefrompng,%
+    imagecreatefromwbmp,imagecreatefromxbm,imagecreatefromxpm,%
+    imagedashedline,imagedestroy,imageellipse,imagefill,%
+    imagefilledellipse,imagefilledpolygon,imagefilledrectangle,%
+    imagefontheight,imagefontwidth,imageftbbox,imagefttext,%
+    imagegd,imagegd2,imagegif,imageinterlace,imagejpeg,imageline,%
+    imagepalettecopy,imagepng,imagepolygon,imagepsbbox,%
+    imagepsextendfont,imagepsfreefont,imagepsloadfont,%
+    imagepstext,imagerectangle,imagesetbrush,imagesetpixel,%
+    imagesetthickness,imagesettile,imagestring,imagestringup,%
+    imagesy,imagetruecolortopalette,imagettfbbox,imagettftext,%
+    imagewbmp,imap_8bit,imap_alerts,imap_append,imap_base64,%
+    imap_body,imap_bodystruct,imap_check,imap_clearflag_full,%
+    imap_createmailbox,imap_delete,imap_deletemailbox,imap_errors,%
+    imap_fetch_overview,imap_fetchbody,imap_fetchheader,%
+    imap_get_quota,imap_getmailboxes,imap_getsubscribed,imap_header,%
+    imap_headers,imap_last_error,imap_listmailbox,%
+    imap_mail_compose,imap_mail_copy,imap_mail_move,imap_mail,%
+    imap_mime_header_decode,imap_msgno,imap_num_msg,imap_num_recent,%
+    imap_ping,imap_popen,imap_qprint,imap_renamemailbox,imap_reopen,%
+    imap_rfc822_parse_headers,imap_rfc822_write_address,%
+    imap_search,imap_set_quota,imap_setacl,imap_setflag_full,%
+    imap_status,imap_subscribe,imap_thread,imap_uid,imap_undelete,%
+    imap_utf7_decode,imap_utf7_encode,imap_utf8,implode,%
+    in_array,include_once,include,ingres_autocommit,ingres_close,%
+    ingres_connect,ingres_fetch_array,ingres_fetch_object,%
+    ingres_field_length,ingres_field_name,ingres_field_nullable,%
+    ingres_field_scale,ingres_field_type,ingres_num_fields,%
+    ingres_pconnect,ingres_query,ingres_rollback,ini_alter,%
+    ini_get,ini_restore,ini_set,intval,ip2long,iptcembed,iptcparse,%
+    ircg_disconnect,ircg_fetch_error_msg,ircg_get_username,%
+    ircg_ignore_add,ircg_ignore_del,ircg_is_conn_alive,ircg_join,%
+    ircg_lookup_format_messages,ircg_msg,ircg_nick,%
+    ircg_nickname_unescape,ircg_notice,ircg_part,ircg_pconnect,%
+    ircg_set_current,ircg_set_file,ircg_set_on_die,ircg_topic,%
+    is_array,is_bool,is_dir,is_double,is_executable,is_file,%
+    is_int,is_integer,is_link,is_long,is_null,is_numeric,is_object,%
+    is_real,is_resource,is_scalar,is_string,is_subclass_of,%
+    is_writable,is_writeable,isset,java_last_exception_clear,%
+    jddayofweek,jdmonthname,jdtofrench,jdtogregorian,jdtojewish,%
+    jdtounix,jewishtojd,join,jpeg2wbmp,juliantojd,key,krsort,ksort,%
+    ldap_8859_to_t61,ldap_add,ldap_bind,ldap_close,ldap_compare,%
+    ldap_count_entries,ldap_delete,ldap_dn2ufn,ldap_err2str,%
+    ldap_error,ldap_explode_dn,ldap_first_attribute,%
+    ldap_first_reference,ldap_free_result,ldap_get_attributes,%
+    ldap_get_entries,ldap_get_option,ldap_get_values_len,%
+    ldap_list,ldap_mod_add,ldap_mod_del,ldap_mod_replace,%
+    ldap_next_attribute,ldap_next_entry,ldap_next_reference,%
+    ldap_parse_result,ldap_read,ldap_rename,ldap_search,%
+    ldap_set_rebind_proc,ldap_sort,ldap_start_tls,ldap_t61_to_8859,%
+    leak,levenshtein,link,linkinfo,list,localeconv,localtime,log,%
+    log1p,long2ip,lstat,ltrim,mail,%
+    mailparse_msg_create,mailparse_msg_extract_part_file,%
+    mailparse_msg_free,mailparse_msg_get_part_data,%
+    mailparse_msg_get_structure,mailparse_msg_parse_file,%
+    mailparse_rfc822_parse_addresses,mailparse_stream_encode,%
+    max,mb_convert_encoding,mb_convert_kana,mb_convert_variables,%
+    mb_decode_numericentity,mb_detect_encoding,mb_detect_order,%
+    mb_encode_numericentity,mb_http_input,mb_http_output,%
+    mb_language,mb_output_handler,mb_parse_str,%
+    mb_send_mail,mb_strcut,mb_strimwidth,mb_strlen,mb_strpos,%
+    mb_strwidth,mb_substitute_character,mb_substr,mcal_append_event,%
+    mcal_create_calendar,mcal_date_compare,mcal_date_valid,%
+    mcal_day_of_year,mcal_days_in_month,mcal_delete_calendar,%
+    mcal_event_add_attribute,mcal_event_init,mcal_event_set_alarm,%
+    mcal_event_set_class,mcal_event_set_description,%
+    mcal_event_set_recur_daily,mcal_event_set_recur_monthly_mday,%
+    mcal_event_set_recur_none,mcal_event_set_recur_weekly,%
+    mcal_event_set_start,mcal_event_set_title,mcal_expunge,%
+    mcal_fetch_event,mcal_is_leap_year,mcal_list_alarms,%
+    mcal_next_recurrence,mcal_open,mcal_popen,mcal_rename_calendar,%
+    mcal_snooze,mcal_store_event,mcal_time_valid,mcal_week_of_year,%
+    mcrypt_cfb,mcrypt_create_iv,mcrypt_decrypt,mcrypt_ecb,%
+    mcrypt_enc_get_block_size,mcrypt_enc_get_iv_size,%
+    mcrypt_enc_get_modes_name,mcrypt_enc_get_supported_key_sizes,%
+    mcrypt_enc_is_block_algorithm,mcrypt_enc_is_block_mode,%
+    mcrypt_encrypt,mcrypt_generic_deinit,mcrypt_generic_end,%
+    mcrypt_generic,mcrypt_get_block_size,mcrypt_get_cipher_name,%
+    mcrypt_get_key_size,mcrypt_list_algorithms,mcrypt_list_modes,%
+    mcrypt_module_get_algo_block_size,%
+    mcrypt_module_get_supported_key_sizes,%
+    mcrypt_module_is_block_algorithm,mcrypt_module_is_block_mode,%
+    mcrypt_module_self_test,mcrypt_ofb,md5_file,md5,%
+    metaphone,method_exists,mhash_count,mhash_get_block_size,%
+    mhash_keygen_s2k,mhash,microtime,min,ming_setcubicthreshold,%
+    ming_useswfversion,mkdir,mktime,move_uploaded_file,%
+    msession_count,msession_create,msession_destroy,%
+    msession_find,msession_get_array,msession_get,msession_getdata,%
+    msession_list,msession_listvar,msession_lock,msession_plugin,%
+    msession_set_array,msession_set,msession_setdata,%
+    msession_uniq,msession_unlock,msql_affected_rows,msql_close,%
+    msql_create_db,msql_createdb,msql_data_seek,msql_dbname,%
+    msql_dropdb,msql_error,msql_fetch_array,msql_fetch_field,%
+    msql_fetch_row,msql_field_seek,msql_fieldflags,msql_fieldlen,%
+    msql_fieldtable,msql_fieldtype,msql_free_result,msql_freeresult,%
+    msql_list_fields,msql_list_tables,msql_listdbs,msql_listfields,%
+    msql_num_fields,msql_num_rows,msql_numfields,msql_numrows,%
+    msql_query,msql_regcase,msql_result,msql_select_db,%
+    msql_tablename,msql,mssql_bind,mssql_close,mssql_connect,%
+    mssql_execute,mssql_fetch_array,mssql_fetch_assoc,%
+    mssql_fetch_field,mssql_fetch_object,mssql_fetch_row,%
+    mssql_field_name,mssql_field_seek,mssql_field_type,%
+    mssql_get_last_message,mssql_guid_string,mssql_init,%
+    mssql_min_message_severity,mssql_next_result,mssql_num_fields,%
+    mssql_pconnect,mssql_query,mssql_result,mssql_rows_affected,%
+    mt_getrandmax,mt_rand,mt_srand,muscat_close,muscat_get,%
+    muscat_setup_net,muscat_setup,mysql_affected_rows,%
+    mysql_close,mysql_connect,mysql_create_db,mysql_data_seek,%
+    mysql_db_query,mysql_drop_db,mysql_errno,mysql_error,%
+    mysql_fetch_array,mysql_fetch_assoc,mysql_fetch_field,%
+    mysql_fetch_object,mysql_fetch_row,mysql_field_flags,%
+    mysql_field_name,mysql_field_seek,mysql_field_table,%
+    mysql_free_result,mysql_get_client_info,mysql_get_host_info,%
+    mysql_get_server_info,mysql_insert_id,mysql_list_dbs,%
+    mysql_list_tables,mysql_num_fields,mysql_num_rows,%
+    mysql_query,mysql_result,mysql_select_db,mysql_tablename,%
+    natcasesort,natsort,ncurses_addch,ncurses_addchnstr,%
+    ncurses_addnstr,ncurses_addstr,ncurses_assume_default_colors,%
+    ncurses_attron,ncurses_attrset,ncurses_baudrate,ncurses_beep,%
+    ncurses_bkgdset,ncurses_border,ncurses_can_change_color,%
+    ncurses_clear,ncurses_clrtobot,ncurses_clrtoeol,%
+    ncurses_curs_set,ncurses_def_prog_mode,ncurses_def_shell_mode,%
+    ncurses_delay_output,ncurses_delch,ncurses_deleteln,%
+    ncurses_doupdate,ncurses_echo,ncurses_echochar,ncurses_end,%
+    ncurses_erasechar,ncurses_filter,ncurses_flash,ncurses_flushinp,%
+    ncurses_halfdelay,ncurses_has_colors,ncurses_has_ic,%
+    ncurses_has_key,ncurses_hline,ncurses_inch,ncurses_init_color,%
+    ncurses_init,ncurses_insch,ncurses_insdelln,ncurses_insertln,%
+    ncurses_instr,ncurses_isendwin,ncurses_keyok,ncurses_killchar,%
+    ncurses_move,ncurses_mvaddch,ncurses_mvaddchnstr,%
+    ncurses_mvaddnstr,ncurses_mvaddstr,ncurses_mvcur,%
+    ncurses_mvgetch,ncurses_mvhline,ncurses_mvinch,ncurses_mvvline,%
+    ncurses_napms,ncurses_newwin,ncurses_nl,ncurses_nocbreak,%
+    ncurses_nonl,ncurses_noqiflush,ncurses_noraw,ncurses_putp,%
+    ncurses_raw,ncurses_refresh,ncurses_resetty,ncurses_savetty,%
+    ncurses_scr_init,ncurses_scr_restore,ncurses_scr_set,%
+    ncurses_slk_attr,ncurses_slk_attroff,ncurses_slk_attron,%
+    ncurses_slk_clear,ncurses_slk_color,ncurses_slk_init,%
+    ncurses_slk_refresh,ncurses_slk_restore,ncurses_slk_touch,%
+    ncurses_standout,ncurses_start_color,ncurses_termattrs,%
+    ncurses_typeahead,ncurses_ungetch,ncurses_use_default_colors,%
+    ncurses_use_extended_names,ncurses_vidattr,ncurses_vline,%
+    next,ngettext,nl_langinfo,nl2br,notes_body,notes_copy_db,%
+    notes_create_note,notes_drop_db,notes_find_note,%
+    notes_list_msgs,notes_mark_read,notes_mark_unread,%
+    notes_search,notes_unread,notes_version,number_format,ob_clean,%
+    ob_end_flush,ob_flush,ob_get_contents,ob_get_length,%
+    ob_gzhandler,ob_iconv_handler,ob_implicit_flush,ob_start,%
+    ocicancel,ocicollappend,ocicollassign,ocicollassignelem,%
+    ocicollmax,ocicollsize,ocicolltrim,ocicolumnisnull,%
+    ocicolumnprecision,ocicolumnscale,ocicolumnsize,ocicolumntype,%
+    ocicommit,ocidefinebyname,ocierror,ociexecute,ocifetch,%
+    ocifetchstatement,ocifreecollection,ocifreecursor,ocifreedesc,%
+    ociinternaldebug,ociloadlob,ocilogoff,ocilogon,ocinewcollection,%
+    ocinewdescriptor,ocinlogon,ocinumcols,ociparse,ociplogon,%
+    ocirollback,ocirowcount,ocisavelob,ocisavelobfile,%
+    ocisetprefetch,ocistatementtype,ociwritelobtofile,octdec,%
+    odbc_binmode,odbc_close_all,odbc_close,odbc_columnprivileges,%
+    odbc_commit,odbc_connect,odbc_cursor,odbc_do,odbc_error,%
+    odbc_exec,odbc_execute,odbc_fetch_array,odbc_fetch_into,%
+    odbc_fetch_row,odbc_field_len,odbc_field_name,odbc_field_num,%
+    odbc_field_scale,odbc_field_type,odbc_foreignkeys,%
+    odbc_gettypeinfo,odbc_longreadlen,odbc_next_result,%
+    odbc_num_rows,odbc_pconnect,odbc_prepare,odbc_primarykeys,%
+    odbc_procedures,odbc_result_all,odbc_result,odbc_rollback,%
+    odbc_specialcolumns,odbc_statistics,odbc_tableprivileges,%
+    opendir,openlog,openssl_csr_export_to_file,openssl_csr_export,%
+    openssl_csr_sign,openssl_error_string,openssl_free_key,%
+    openssl_get_publickey,openssl_open,openssl_pkcs7_decrypt,%
+    openssl_pkcs7_sign,openssl_pkcs7_verify,%
+    openssl_pkey_export,openssl_pkey_new,openssl_private_decrypt,%
+    openssl_public_decrypt,openssl_public_encrypt,openssl_seal,%
+    openssl_verify,openssl_x509_check_private_key,%
+    openssl_x509_export_to_file,openssl_x509_export,%
+    openssl_x509_parse,openssl_x509_read,ora_bind,ora_close,%
+    ora_columnsize,ora_columntype,ora_commit,ora_commitoff,%
+    ora_do,ora_error,ora_errorcode,ora_exec,ora_fetch_into,%
+    ora_getcolumn,ora_logoff,ora_logon,ora_numcols,ora_numrows,%
+    ora_parse,ora_plogon,ora_rollback,ord,overload,ovrimos_close,%
+    ovrimos_connect,ovrimos_cursor,ovrimos_exec,ovrimos_execute,%
+    ovrimos_fetch_row,ovrimos_field_len,ovrimos_field_name,%
+    ovrimos_field_type,ovrimos_free_result,ovrimos_longreadlen,%
+    ovrimos_num_rows,ovrimos_prepare,ovrimos_result_all,%
+    ovrimos_rollback,pack,parse_ini_file,parse_str,parse_url,%
+    pathinfo,pclose,pdf_add_annotation,pdf_add_bookmark,%
+    pdf_add_locallink,pdf_add_note,pdf_add_outline,pdf_add_pdflink,%
+    pdf_add_weblink,pdf_arc,pdf_arcn,pdf_attach_file,pdf_begin_page,%
+    pdf_begin_template,pdf_circle,pdf_clip,pdf_close_image,%
+    pdf_close_pdi,pdf_close,pdf_closepath_fill_stroke,%
+    pdf_closepath,pdf_concat,pdf_continue_text,pdf_curveto,%
+    pdf_end_page,pdf_end_pattern,pdf_end_template,pdf_endpath,%
+    pdf_fill,pdf_findfont,pdf_get_buffer,pdf_get_font,%
+    pdf_get_fontsize,pdf_get_image_height,pdf_get_image_width,%
+    pdf_get_minorversion,pdf_get_parameter,pdf_get_pdi_parameter,%
+    pdf_get_value,pdf_initgraphics,pdf_lineto,pdf_makespotcolor,%
+    pdf_new,pdf_open_ccitt,pdf_open_file,pdf_open_gif,%
+    pdf_open_image,pdf_open_jpeg,pdf_open_memory_image,%
+    pdf_open_pdi,pdf_open_png,pdf_open_tiff,pdf_open,%
+    pdf_place_pdi_page,pdf_rect,pdf_restore,pdf_rotate,pdf_save,%
+    pdf_set_border_color,pdf_set_border_dash,pdf_set_border_style,%
+    pdf_set_duration,pdf_set_font,pdf_set_horiz_scaling,%
+    pdf_set_info_creator,pdf_set_info_keywords,pdf_set_info_subject,%
+    pdf_set_info,pdf_set_leading,pdf_set_parameter,pdf_set_text_pos,%
+    pdf_set_text_rise,pdf_set_transition,pdf_set_value,%
+    pdf_setcolor,pdf_setdash,pdf_setflat,pdf_setfont,%
+    pdf_setgray_stroke,pdf_setgray,pdf_setlinecap,pdf_setlinejoin,%
+    pdf_setmatrix,pdf_setmiterlimit,pdf_setpolydash,%
+    pdf_setrgbcolor_stroke,pdf_setrgbcolor,pdf_show_boxed,%
+    pdf_show,pdf_skew,pdf_stringwidth,pdf_stroke,pdf_translate,%
+    pfpro_init,pfpro_process_raw,pfpro_process,pfpro_version,%
+    pg_cancel_query,pg_client_encoding,pg_close,pg_cmdtuples,%
+    pg_connection_busy,pg_connection_reset,pg_connection_status,%
+    pg_copy_to,pg_dbname,pg_end_copy,pg_errormessage,%
+    pg_escape_string,pg_exec,pg_fetch_array,pg_fetch_object,%
+    pg_fieldisnull,pg_fieldname,pg_fieldnum,pg_fieldprtlen,%
+    pg_fieldtype,pg_freeresult,pg_get_result,pg_getlastoid,pg_host,%
+    pg_last_notice,pg_lo_close,pg_lo_seek,pg_lo_tell,pg_loclose,%
+    pg_loexport,pg_loimport,pg_loopen,pg_loread,pg_loreadall,%
+    pg_lowrite,pg_numfields,pg_numrows,pg_options,pg_pconnect,%
+    pg_put_line,pg_request_cancel,pg_result_error,pg_result_status,%
+    pg_send_query,pg_set_client_encoding,pg_trace,pg_tty,pg_untrace,%
+    php_sapi_name,php_uname,phpcredits,phpinfo,<version,pi,%
+    popen,pos,posix_ctermid,posix_getcwd,posix_getegid,%
+    posix_getgid,posix_getgrgid,posix_getgrnam,posix_getgroups,%
+    posix_getpgid,posix_getpgrp,posix_getpid,posix_getppid,%
+    posix_getpwuid,posix_getrlimit,posix_getsid,posix_getuid,%
+    posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,%
+    posix_setpgid,posix_setsid,posix_setuid,posix_times,%
+    posix_uname,pow,preg_grep,preg_match_all,preg_match,preg_quote,%
+    preg_replace,preg_split,prev,print_r,print,printer_abort,%
+    printer_create_brush,printer_create_dc,printer_create_font,%
+    printer_delete_brush,printer_delete_dc,printer_delete_font,%
+    printer_draw_bmp,printer_draw_chord,printer_draw_elipse,%
+    printer_draw_pie,printer_draw_rectangle,printer_draw_roundrect,%
+    printer_end_doc,printer_end_page,printer_get_option,%
+    printer_logical_fontheight,printer_open,printer_select_brush,%
+    printer_select_pen,printer_set_option,printer_start_doc,%
+    printer_write,printf,pspell_add_to_personal,%
+    pspell_check,pspell_clear_session,pspell_config_create,%
+    pspell_config_mode,pspell_config_personal,pspell_config_repl,%
+    pspell_config_save_repl,pspell_new_config,pspell_new_personal,%
+    pspell_save_wordlist,pspell_store_replacement,pspell_suggest,%
+    qdom_error,qdom_tree,quoted_printable_decode,quotemeta,rad2deg,%
+    range,rawurldecode,rawurlencode,read_exif_data,readdir,readfile,%
+    readline_add_history,readline_clear_history,%
+    readline_info,readline_list_history,readline_read_history,%
+    readline,readlink,realpath,recode_file,recode_string,recode,%
+    register_tick_function,rename,require_once,require,reset,%
+    rewind,rewinddir,rmdir,round,rsort,rtrim,%
+    satellite_exception_id,satellite_exception_value,%
+    satellite_load_idl,satellite_object_to_string,sem_acquire,%
+    sem_release,sem_remove,serialize,sesam_affected_rows,%
+    sesam_connect,sesam_diagnostic,sesam_disconnect,sesam_errormsg,%
+    sesam_fetch_array,sesam_fetch_result,sesam_fetch_row,%
+    sesam_field_name,sesam_free_result,sesam_num_fields,sesam_query,%
+    sesam_seek_row,sesam_settransaction,session_cache_expire,%
+    session_decode,session_destroy,session_encode,%
+    session_id,session_is_registered,session_module_name,%
+    session_register,session_save_path,session_set_cookie_params,%
+    session_start,session_unregister,session_unset,%
+    set_error_handler,set_file_buffer,set_magic_quotes_runtime,%
+    setcookie,setlocale,settype,shell_exec,shm_attach,shm_detach,%
+    shm_put_var,shm_remove_var,shm_remove,shmop_close,shmop_delete,%
+    shmop_read,shmop_size,shmop_write,show_source,shuffle,%
+    sin,sinh,sizeof,sleep,snmp_get_quick_print,snmp_set_quick_print,%
+    snmprealwalk,snmpset,snmpwalk,snmpwalkoid,socket_accept,%
+    socket_close,socket_connect,socket_create_listen,%
+    socket_create,socket_fd_alloc,socket_fd_clear,socket_fd_free,%
+    socket_fd_set,socket_fd_zero,socket_get_status,socket_getopt,%
+    socket_getsockname,socket_iovec_add,socket_iovec_alloc,%
+    socket_iovec_fetch,socket_iovec_free,socket_iovec_set,%
+    socket_listen,socket_read,socket_readv,socket_recv,%
+    socket_recvmsg,socket_select,socket_send,socket_sendmsg,%
+    socket_set_blocking,socket_set_nonblock,socket_set_timeout,%
+    socket_shutdown,socket_strerror,socket_write,socket_writev,sort,%
+    split,spliti,sprintf,sql_regcase,sqrt,srand,sscanf,stat,str_pad,%
+    str_replace,str_rot13,strcasecmp,strchr,strcmp,strcoll,strcspn,%
+    strip_tags,stripcslashes,stripslashes,stristr,strlen,%
+    strnatcmp,strncasecmp,strncmp,strpos,strrchr,strrev,strrpos,%
+    strstr,strtok,strtolower,strtotime,strtoupper,strtr,strval,%
+    substr_replace,substr,swf_actiongeturl,swf_actiongotoframe,%
+    swf_actionnextframe,swf_actionplay,swf_actionprevframe,%
+    swf_actionstop,swf_actiontogglequality,swf_actionwaitforframe,%
+    swf_addcolor,swf_closefile,swf_definebitmap,swf_definefont,%
+    swf_definepoly,swf_definerect,swf_definetext,swf_endbutton,%
+    swf_endshape,swf_endsymbol,swf_fontsize,swf_fontslant,%
+    swf_getbitmapinfo,swf_getfontinfo,swf_getframe,swf_labelframe,%
+    swf_modifyobject,swf_mulcolor,swf_nextid,swf_oncondition,%
+    swf_ortho,swf_ortho2,swf_perspective,swf_placeobject,%
+    swf_popmatrix,swf_posround,swf_pushmatrix,swf_removeobject,%
+    swf_scale,swf_setfont,swf_setframe,swf_shapearc,%
+    swf_shapecurveto3,swf_shapefillbitmapclip,%
+    swf_shapefilloff,swf_shapefillsolid,swf_shapelinesolid,%
+    swf_shapemoveto,swf_showframe,swf_startbutton,swf_startdoaction,%
+    swf_startsymbol,swf_textwidth,swf_translate,swf_viewport,%
+    sybase_close,sybase_connect,sybase_data_seek,sybase_fetch_array,%
+    sybase_fetch_object,sybase_fetch_row,sybase_field_seek,%
+    sybase_get_last_message,sybase_min_client_severity,%
+    sybase_min_message_severity,sybase_min_server_severity,%
+    sybase_num_rows,sybase_pconnect,sybase_query,sybase_result,%
+    symlink,syslog,system,tan,tanh,tempnam,textdomain,time,tmpfile,%
+    trigger_error,trim,uasort,ucfirst,ucwords,udm_add_search_limit,%
+    udm_api_version,udm_cat_list,udm_cat_path,udm_check_charset,%
+    udm_clear_search_limits,udm_close_stored,udm_crc32,udm_errno,%
+    udm_find,udm_free_agent,udm_free_ispell_data,udm_free_res,%
+    udm_get_res_field,udm_get_res_param,udm_load_ispell_data,%
+    udm_set_agent_param,uksort,umask,uniqid,unixtojd,unlink,unpack,%
+    unserialize,unset,urldecode,urlencode,user_error,usleep,usort,%
+    utf8_encode,var_dump,var_export,version_compare,virtual,%
+    vpopmail_add_alias_domain,vpopmail_add_domain_ex,%
+    vpopmail_add_user,vpopmail_alias_add,vpopmail_alias_del_domain,%
+    vpopmail_alias_get_all,vpopmail_alias_get,vpopmail_auth_user,%
+    vpopmail_del_domain,vpopmail_del_user,vpopmail_error,%
+    vpopmail_set_user_quota,vprintf,vsprintf,w32api_deftype,%
+    w32api_invoke_function,w32api_register_function,%
+    wddx_add_vars,wddx_deserialize,wddx_packet_end,%
+    wddx_serialize_value,wddx_serialize_vars,wordwrap,%
+    xml_get_current_byte_index,xml_get_current_column_number,%
+    xml_get_error_code,xml_parse_into_struct,xml_parse,%
+    xml_parser_create,xml_parser_free,xml_parser_get_option,%
+    xml_set_character_data_handler,xml_set_default_handler,%
+    xml_set_end_namespace_decl_handler,%
+    xml_set_notation_decl_handler,xml_set_object,%
+    xml_set_start_namespace_decl_handler,%
+    xmldoc,xmldocfile,xmlrpc_decode_request,xmlrpc_decode,%
+    xmlrpc_encode,xmlrpc_get_type,xmlrpc_parse_method_descriptions,%
+    xmlrpc_server_call_method,xmlrpc_server_create,%
+    xmlrpc_server_register_introspection_callback,%
+    xmlrpc_set_type,xmltree,xpath_eval_expression,xpath_eval,%
+    xptr_eval,xptr_new_context,xslt_create,xslt_errno,xslt_error,%
+    xslt_process,xslt_set_base,xslt_set_encoding,%
+    xslt_set_log,xslt_set_sax_handler,xslt_set_sax_handlers,%
+    xslt_set_scheme_handlers,yaz_addinfo,yaz_ccl_conf,yaz_ccl_parse,%
+    yaz_connect,yaz_database,yaz_element,yaz_errno,yaz_error,%
+    yaz_itemorder,yaz_present,yaz_range,yaz_record,yaz_scan_result,%
+    yaz_search,yaz_sort,yaz_syntax,yaz_wait,yp_all,yp_cat,%
+    yp_errno,yp_first,yp_get_default_domain,yp_master,yp_match,%
+    yp_order,zend_logo_guid,zend_version,zip_close,zip_entry_close,%
+    zip_entry_compressionmethod,zip_entry_filesize,zip_entry_name,%
+    zip_entry_read,zip_open,zip_read},%
+   sensitive,%
+   morecomment=[l]\#,%
+   morecomment=[l]//,%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]",%
+   morestring=[b]'%
+  }[keywords,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{PL/I}
 %
 % Found the data in
@@ -1926,7 +2794,8 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %%
-%% POV definition (c) 1999 Berthold Höllmann <bhoel@starship.python.net>
+%% POV definition (c) 1999 Berthold H\"ollmann
+%%                         <bhoel@starship.python.net>
 %%
 \lst@definelanguage{POV}%
   {morekeywords={abs,absorption,acos,acosh,adaptive,adc_bailout,agate,%
@@ -2048,10 +2917,18 @@
    sensitive=true,%
    morecomment=[l]\#,%
    morecomment=[s]{'''}{'''},% used for documentation text
-   morestring=',% 
-   morestring="% 
+   morecomment=[s]{"""}{"""},% added by Philipp Matthias Hahn
+   morestring=[b]',% 
+   morestring=[b]"% 
   }%
 %    \end{macrocode}
+% \lsthelper{Philipp Matthias Hahn}{pmhahn@titan.lahn.de}{2002/04/18}{}
+% added the third comment. \lsthelper{eRreuR}{rogspr@newdeal.ch}{2002/05/28}
+% {probl\`eme avec "listings" et le langage Python} found a bug using Python
+% and \lsthelper{Nicolas Markey}{markey@lsv.ens-cachan.fr}{2002/05/29}
+% {listings and Python} informed me about the corresponding thread on
+% \texttt{fr.comp.text.tex} and provided the fix---adding \texttt{[b]} to
+% both \texttt{morestring} declarations.
 %    \begin{macrocode}
 %</lang1>
 %    \end{macrocode}
@@ -2140,6 +3017,8 @@
 %
 % Data come from \lstthanks{Christian~Haul}
 % {haul@dvs1.informatik.tu-darmstadt.de}{1998/01/09}.
+% \lstthanks{Neil Conway}{nconway@klamath.dyndns.org}{2002/07/06} added some
+% keywords.
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
@@ -2148,10 +3027,11 @@
 %%
 %% SQL definition (c) 1998 Christian Haul
 %%                         <haul@dvs1.informatik.tu-darmstadt.de>
+%%            and (c) 2002 Neil Conway <nconway@klamath.dyndns.org>
 %%
 \lst@definelanguage{SQL}%
-  {morekeywords={ABSOLUTE,ACTION,ADD,ALLOCATE,ALTER,ARE,ASSERTION,AT,%
-      BETWEEN,BIT,BIT_LENGTH,BOTH,BY,CASCADE,CASCADED,CASE,CAST,%
+  {morekeywords={ABSOLUTE,ACTION,ADD,ALLOCATE,ALTER,ARE,AS,ASSERTION,%
+      AT,BETWEEN,BIT,BIT_LENGTH,BOTH,BY,CASCADE,CASCADED,CASE,CAST,%
       CATALOG,CHAR,CHAR_LENGTH,CHARACTER_LENGTH,CLUSTER,COALESCE,%
       COLLATE,COLLATION,COLUMN,CONNECT,CONNECTION,CONSTRAINT,%
       CONSTRAINTS,CONVERT,CORRESPONDING,CREATE,CROSS,CURRENT_DATE,%
@@ -2160,16 +3040,17 @@
       DISCONNECT,DOMAIN,DROP,ELSE,END,EXEC,EXCEPT,EXCEPTION,EXECUTE,%
       EXTERNAL,EXTRACT,FALSE,FIRST,FLOAT,FOREIGN,FROM,FULL,GET,GLOBAL,%
       GRAPHIC,HAVING,HOUR,IDENTITY,IMMEDIATE,INDEX,INITIALLY,INNER,%
-      INPUT,INSENSITIVE,INT,INTEGER,INTERSECT,INTERVAL,ISOLATION,JOIN,%
-      KEY,LAST,LEADING,LEFT,LEVEL,LOCAL,LOWER,MATCH,MINUTE,MONTH,NAMES,%
-      NATIONAL,NATURAL,NCHAR,NEXT,NO,NOT,NULL,NULLIF,OCTET_LENGTH,ON,%
-      ONLY,ORDERED,OUTER,OUTPUT,OVERLAPS,PAD,PARTIAL,POSITION,PREPARE,%
-      PRESERVE,PRIMARY,PRIOR,READ,RELATIVE,RESTRICT,REVOKE,RIGHT,ROWS,%
-      SCROLL,SECOND,SELECT,SESSION,SESSION_USER,SIZE,SMALLINT,SPACE,%
-      SQLSTATE,SUBSTRING,SYSTEM_USER,TABLE,TEMPORARY,THEN,TIME,%
-      TIMESTAMP,TIMEZONE_HOUR,TIMEZONE_MINUTE,TRAILING,TRANSACTION,%
-      TRANSLATE,TRANSLATION,TRIM,TRUE,UNIQUE,UNKNOWN,UPPER,USAGE,USING,%
-      VALUE,VARCHAR,VARGRAPHIC,VARYING,WHEN,WHERE,WRITE,YEAR,ZONE},%
+      INPUT,INSENSITIVE,INSERT,INT,INTO,INTEGER,INTERSECT,INTERVAL,%
+      ISOLATION,JOIN,KEY,LAST,LEADING,LEFT,LEVEL,LIMIT,LOCAL,LOWER,%
+      MATCH,MINUTE,MONTH,NAMES,NATIONAL,NATURAL,NCHAR,NEXT,NO,NOT,NULL,%
+      NULLIF,OCTET_LENGTH,ON,ONLY,ORDER,ORDERED,OUTER,OUTPUT,OVERLAPS,%
+      PAD,PARTIAL,POSITION,PREPARE,PRESERVE,PRIMARY,PRIOR,READ,%
+      RELATIVE,RESTRICT,REVOKE,RIGHT,ROWS,SCROLL,SECOND,SELECT,SESSION,%
+      SESSION_USER,SIZE,SMALLINT,SPACE,SQLSTATE,SUBSTRING,SYSTEM_USER,%
+      TABLE,TEMPORARY,THEN,TIME,TIMESTAMP,TIMEZONE_HOUR,%
+      TIMEZONE_MINUTE,TRAILING,TRANSACTION,TRANSLATE,TRANSLATION,TRIM,%
+      TRUE,UNIQUE,UNKNOWN,UPPER,USAGE,USING,VALUE,VALUES,VARCHAR,%
+      VARGRAPHIC,VARYING,WHEN,WHERE,WRITE,YEAR,ZONE},%
    sensitive,%
    morecomment=[l]--,%
    morecomment=[s]{/*}{*/},%
@@ -2297,12 +3178,18 @@
       },%
    morestring=[d]",%
    MoreSelectCharTable=%
-      \lst@CArgX\#\relax\lst@CommentB\lst@CLmode{}{}%
+      \lst@CArgX\#\relax\lst@DefDelimB{}{}%
           {\ifx\lst@lastother\lstum@backslash
                \expandafter\@gobblethree
-           \fi}\lst@commentstyle
+           \fi}%
+          \lst@BeginComment\lst@commentmode
+          {{\lst@commentstyle}\lst@Lmodetrue}%
   }[keywords,comments,strings]%
 %    \end{macrocode}
+% And after receiving a bug report from \lsthelper{Vitaly A. Repin}
+% {vitaly@radio.hop.stu.neva.ru}{2002/04/08}{undefined control sequence
+% \lst@CommentB} I converted the version 0.21 contents of |MoreSelectCharTable|
+% to version 1.0.
 %    \begin{macrocode}
 %</lang2>
 %    \end{macrocode}
@@ -2311,8 +3198,10 @@
 %
 % \subsection{Statistical languages}
 %
-% These languages have been added by \lstthanks{Winfried Theis}
-% {theis@statistik.uni-dortmund.de}{2000/09/05}.
+% These languages have been added by \lstthanks{Winfried~Theis}
+% {theis@statistik.uni-dortmund.de}{2000/09/05}. \lstthanks{Robert~Denham}
+% {Robert.Denham@dnr.qld.gov.au}{2001/05/03} contributed the additional
+% string delimiter |'|.
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
@@ -2397,7 +3286,8 @@
    alsoother={._$},%
    sensitive,%
    morecomment=[l]\#,%
-   morestring=[d]"%
+   morestring=[d]",%
+   morestring=[d]'% 2001 Robert Denham
   }%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -2732,6 +3622,7 @@
    morecomment=[l]',%
    morestring=[d]"%
   }[keywords,comments,strings]%
+%    \end{macrocode}
 %    \begin{macrocode}
 %</lang2>
 %    \end{macrocode}
@@ -2768,6 +3659,103 @@
    morestring=[d]{"}%
   }[keywords,comments,strings]%
 %    \end{macrocode}
+% The VHDL-AMS dialect has been added by \lstthanks{Steffen~Klupsch}
+% {steffen@vlsi.informatik.tu-darmstadt.de}{2001/10/05}.
+%    \begin{macrocode}
+%%
+%% VHDL-AMS definition (c) Steffen Klupsch
+%%
+\lst@definelanguage[AMS]{VHDL}[]{VHDL}%
+  {morekeywords={ACROSS,ARRAY,BREAK,DISCONNECT,NATURE,NOISE,PORT,%
+      PROCEDURAL,QUANTITY,SHARED,SPECTRUM,SUBNATURE,TERMINAL,THROUGH,%
+      TOLERANCE,UNAFFACTED,UNITS}}
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{VRML}
+%
+% This language is due to \lstthanks{Oliver~Baum}{oli.baum@web.de}{2001/07/10}
+% {VRML}.
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% VRML definition (c) 2001 Oliver Baum <oli.baum@web.de>
+%%
+\lst@definelanguage[97]{VRML}
+  {morekeywords={DEF,EXTERNPROTO,FALSE,IS,NULL,PROTO,ROUTE,TO,TRUE,USE,%
+      eventIn,eventOut,exposedField,field,Introduction,Anchor,%
+      Appearance,AudioClip,Background,Billboard,Box,Collision,Color,%
+      ColorInterpolator,Cone,Coordinate,CoordinateInterpolator,%
+      Cylinder,CylinderSensor,DirectionalLight,ElevationGrid,Extrusion,%
+      Fog,FontStyle,Group,ImageTexture,IndexedFaceSet,IndexedLineSet,%
+      Inline,LOD,Material,MovieTexture,NavigationInfo,Normal,%
+      NormalInterpolator,OrientationInterpolator,PixelTexture,%
+      PlaneSensor,PointLight,PointSet,PositionInterpolator,%
+      ProximitySensor,ScalarInterpolator,Script,Shape,Sound,Sphere,%
+      SphereSensor,SpotLight,Switch,Text,TextureCoordinate,%
+      TextureTransform,TimeSensor,TouchSensor,Transform,Viewpoint,%
+      VisibilitySensor,WorldInfo},%
+   morecomment=[l]\#,% bug: starts comment in the first column
+   morestring=[b]"%
+  }[keywords,comments,strings]
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang2>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{XML}
+%
+% This is my first attempt to support XML. It is from 2000/07/18.
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{XML}%
+  {keywords={,CDATA,DOCTYPE,ATTLIST,termdef,ELEMENT,EMPTY,ANY,ID,%
+      IDREF,IDREFS,ENTITY,ENTITIES,NMTOKEN,NMTOKENS,NOTATION,%
+      INCLUDE,IGNORE,SYSTEM,PUBLIC,NDATA,PUBLIC,%
+      PCDATA,REQUIRED,IMPLIED,FIXED,%%% preceded by #
+      xml,xml:space,xml:lang,version,standalone,default,preserve},%
+   alsoother=$,%
+   alsoletter=:,%
+   keywordsinside=<>,%
+   morestring=[d]",% ??? doubled
+   morestring=[d]',% ??? doubled
+   MoreSelectCharTable=%
+      \lst@CArgX--\relax\lst@DefDelimB{}{}%
+          {\ifnum\lst@mode=\lst@insidemode\else
+               \expandafter\@gobblethree
+           \fi}%
+          \lst@BeginComment\lst@commentmode{{\lst@commentstyle}}%
+      \lst@CArgX--\relax\lst@DefDelimE{}{}{}%
+          \lst@EndComment\lst@commentmode
+      \lst@CArgX[CDATA[\relax\lst@CDef{}%
+          {\ifnum\lst@mode=\lst@insidemode
+               \expandafter\lst@BeginCDATA
+           \else \expandafter\lst@CArgEmpty
+           \fi}%
+          \@empty
+      \lst@CArgX]]\relax\lst@CDef{}%
+          {\ifnum\lst@mode=\lst@GPmode
+               \expandafter\lst@EndComment
+           \else \expandafter\lst@CArgEmpty
+           \fi}%
+          \@empty
+  }[keywords,comments,strings,html]%
+%    \end{macrocode}
+% And after receiving a bug report from \lsthelper{Michael Niedermair}
+% {m.g.n@gmx.de}{2002/04/07}{undefined control sequence \lst@commentmode} I
+% converted the version 0.21 contents of |MoreSelectCharTable| to version 1.0.
 %    \begin{macrocode}
 %</lang1>
 %    \end{macrocode}
@@ -2781,3 +3769,4 @@
 % \Finale
 %
 \endinput
+
