@@ -1,77 +1,50 @@
 %%
-%% Installation file: Listings package for LaTeX2e
-%% (w)(c) 1996-1998 Carsten Heinz
+%% This file generates files required to use the listings package.
+%% At your command prompt write
 %%
-\def\batchfile{listings.ins}
-%
-% just do these things
-%
-\input{docstrip}
-\keepsilent
-\askforoverwritefalse
-
-
-%
-% define the preamble
-%
+%%     tex listings.ins
+%%
+%%
+%% (w)(c) 1996--1999 Carsten Heinz
+%%
+%% This file is distributed under the terms of the LaTeX Project Public
+%% License from CTAN archives in directory  macros/latex/base/lppl.txt.
+%% Either version 1.0 or, at your option, any later version.
+%%
+%% This file is completely free and comes without any warranty.
+%%
+%% Permission is granted to change this file. You are not allowed to
+%% distribute any changed version of this file, neither under the same
+%% name nor under a different one.
+%%
+\input docstrip
 \preamble
-
-(w)(c) 1996-1998 Carsten Heinz
-
-Please read the software license in listings.dtx or listings.dvi.
-
-This file is distributed freely. You are not allowed to take money for
-the distribution of this file, except for a nominal charge for copying
-etc..
-
-This file is free for any non-commercial use. Commercial use needs (i)
-explicit permission of the author of this package and (ii) the payment
-of a license fee. This fee is to be determined in each instance by the
-commercial user and the package author and is to be payed as donation
-to the LaTeX3 project.
-
-This file is distributed without any warranty, express or implied, as
-to merchantability or fitness for any particular purpose.
-
-Permission is granted to change this file. You are not allowed to
-distribute any changed version this file, neither under the same name
-nor under a different one.
-
 \endpreamble
 
+\usedir{tex/latex/listings}
+\keepsilent
+\askonceonly
 
-%
-% unpack the listings package
-%
+
 \generate{
-    \file{listings.sty} {\from{listings.dtx}{kernel}}
-    \file{lst017.sty}  {\from{listings.dtx}{0.17}}
-    \file{lstfvrb.sty} {\from{listings.dtx}{fancyvrb}}
-}
-
-
-%
-% create installation and configuration file if lstdrvrs.dtx exists
-%
-\IfFileExists{lstdrvrs.dtx}{\generate{
+    \file{listings.sty}{\from{listings.dtx}{kernel}}
+    \file{lstmisc.sty}{\from{listings.dtx}{%
+        strings,comments,pod,escape,writefile,style,language,%
+        keywords,rdkeywords,html,tex,directives,index,procnames,%
+        keywordcomments,labels,lineshape,breaklines,frames,make,%
+        doc,fancyvrb}}
     \file{lstdrvrs.ins}{\from{lstdrvrs.dtx}{install}}
     \file{listings.cfg}{\from{lstdrvrs.dtx}{config}}
-}}
+}
+
+\batchinput{lstdrvrs.ins}
 
 
-%
-% unpack drivers if possible
-%
-\InputIfFileExists{lstdrvrs.ins}{}{}
-
-
-%
-% print user's advice
-%
 \Msg{*}
-\Msg{* Move all `.sty' and `.cfg' files into a folder searched by TeX.}
+\Msg{* You probably need to move all created `.sty' and `.cfg'}
+\Msg{* files into a directory searched by TeX.}
 \Msg{*}
-\Msg{* Run the `.dtx' file through LaTeX2e to get the documentation.}
+\Msg{* Run `listings.dtx' through LaTeX2e to get the documentation.}
 \Msg{*}
 
-\endinput
+\endbatchfile
