@@ -1,0 +1,19 @@
+Typeset programs (programming code) within LaTeX. The source code is read directly by TeX. Keywords, comments and strings can be typeset using different styles (default is bold for keywords, italic for comments and no special style for strings). Includes support for hyperref. To use, simply \usepackage{listings}, identify the language with \lstset{language=Python}, then employ the \begin{lstlisting} ... \end{lstlisting} environment or the \lstinputlisting{filename.py} command.
+
+NOTE: The original author of this package, Carsten Heinz, became inactive sometime in late 2004.  Hendri Adriaens took over maintenance of the package in accordance with the LPPL's procedure for abandoned packages.  He then passed the maintainership of the package to Brooks Moses, who had volunteered for the position while this procedure was going through.  
+
+This release, version 1.4, is the first major bugfix release in nearly three years, and contains fixes for a number of minor bugs and package conflicts, as well as some new functionality:
+
+* Many small improvements to the documentation.
+
+* Short inline listings, like so: |i = 1 + 2;|.
+
+* A new flexible-column option which only stretches existing spaces.
+
+* A new string type with multi-character delimiters.
+
+* An option to turn off by-chapter numbering of listing captions.
+
+* Better integration with KOMAscript and AMS document classes.
+
+* Several new language definitions.
