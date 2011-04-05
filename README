@@ -1,7 +1,8 @@
 Listings package
 Copyright 1996--2004 Carsten Heinz (the package)
                      individual authors (language drivers)
-Released under the LaTeX Project Public License 1.0 or later
+Copyright 2006       Brooks Moses (continued maintenance)
+Released under the LaTeX Project Public License 1.3 or later
 
 The `listings' package is a source code printer for LaTeX.
 You can typeset stand alone files as well as listings with

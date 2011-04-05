@@ -13,9 +13,10 @@
 % or simply `the package'. lstdrvrs.dtx  and the files generated from
 % that file are `drivers'.
 %
-% The listings package is copyright 1996--2004 Carsten Heinz. The drivers
-% are copyright 1997/1998/1999/2000/2001/2002/2003/2004 any individual
-% author listed in the driver files.
+% The listings package is copyright 1996--2004 Carsten Heinz, and 
+% continued maintenance on the package is copyright 2006 Brooks Moses.
+% The drivers are copyright 1997/1998/1999/2000/2001/2002/2003/2004 any
+% individual author listed in the driver files.
 %
 % The listings package and its drivers may be distributed and/or modified
 % under the conditions of the LaTeX Project Public License, either version
@@ -27,7 +28,7 @@
 %
 % The package has the LPPL maintenance status "maintained".
 %
-% The Current Maintainer is Carsten Heinz <cheinz@gmx.de>.
+% The Current Maintainer is Brooks Moses <bmoses@dpdx.net>.
 %
 % end of software license
 %
@@ -101,11 +102,15 @@
 %	\end{abstract}}
 %
 % \title{\vspace*{-2\baselineskip}The \textsf{Listings} Package}
-% \author{Copyright 1996--2004\\ Carsten Heinz \textless\lstemail\textgreater}
-% \date{2004/09/07\enspace\enspace Version 1.3\\ \box\abstractbox}
-% \def\lstemail{\href{mailto:cheinz@gmx.de}{\texttt{cheinz@gmx.de}}}
+% \author{Copyright 1996--2004, Carsten Heinz%
+%    \\ Maintainer: Brooks Moses%
+%       \thanks{Brooks Moses became the maintainer of the \packagename{listings}
+%       package in 2006; see the Preface for details.} %
+%    \textless\lstemail\textgreater}
+% \date{2006/05/08\enspace\enspace Version 1.3c\\ \box\abstractbox}
+% \def\lstemail{\href{mailto:bmoses@dpdx.net}{\texttt{bmoses@dpdx.net}}}
 % \ifhyper
-%    \hypersetup{pdfsubject=Package guide,pdfauthor=Carsten Heinz <cheinz@gmx.de>}
+%    \hypersetup{pdfsubject=Package guide,pdfauthor=Brooks Moses <bmoses@dpdx.net>}
 % \fi
 %
 % \csname @twocolumntrue\endcsname
@@ -117,6 +122,26 @@
 %
 % \section*{Preface}
 %
+% \paragraph{Transition of package maintenance}
+% The \TeX\ world lost contact with Carsten Heinz in late 2004, shortly after 
+% he released version 1.3b of the \packagename{listings} package.  After many
+% attempts to reach him had failed, Hendri Adriaens took over maintenance of
+% the package in accordance with the LPPL's procedure for abandoned packages.
+% He then passed the maintainership of the package to Brooks Moses, who had
+% volunteered for the position while this procedure was going through.
+%
+% This release, version 1.3c, is not yet a long-awaited bugfix release, as I
+% have neither a list of bugs that have been reported since 1.3b, nor a good 
+% comprehensive test suite to make sure that my fixes don't break things.
+% (It does have some very minor corrections to the Erlang and Octave language
+% definitions that were reported to the Debian bug system, and a minor 
+% internal spped improvement placed in \texttt{lstpatch.sty}, but other than that
+% the only changes are the alteration of the maintanence information and the 
+% inclusion of this prefatory note.)  I would very much appreciate it if users
+% would email any outstanding bug reports to me at \lstemail, along with any
+% examples of tricky uses of the package that should be included in the test
+% suite.
+%
 % \paragraph{Reading this manual}
 % If you are experienced with the \packagename{listings} package, you should
 % read the next paragraph ``\emph{News and changes}''. Otherwise read section
@@ -124,7 +149,7 @@
 % \ref{uTheNextSteps}.
 %
 % \paragraph{News and changes}
-% This is the third bugfix release. The most noteworthy news for the
+% Version 1.3 is the third bugfix release. The most noteworthy news for the
 % tortured\,---\,I mean experienced\,---\,user is a new |\output| routine,
 % which improves the compatibility to other packages. Therefore the temporary
 % key |noxoutput| has been removed.
@@ -729,8 +754,9 @@
 % `drivers'.
 %
 % \paragraph{Copyright}
-%   The \packagename{listings} package is copyright 1996--2004 Carsten Heinz.
-%   The drivers are copyright any individual author listed in the driver files.
+%   The \packagename{listings} package is copyright 1996--2004 Carsten Heinz,
+%   and copyright 2006 Brooks Moses.  The drivers are copyright any individual
+%   author listed in the driver files.
 %
 % \paragraph{Distribution and modification}
 %   The \packagename{listings} package and its drivers may be distributed
@@ -5526,9 +5552,10 @@
 %%
 %% (w)(c) 1996--2004 Carsten Heinz and/or any other author listed
 %% elsewhere in this file.
+%% (c) 2006 Brooks Moses
 %%
 %% Send comments and ideas on the package, error reports and additional
-%% programming languages to <cheinz@gmx.de>.
+%% programming languages to <bmoses@dpdx.net>.
 %%
 %    \end{macrocode}
 %

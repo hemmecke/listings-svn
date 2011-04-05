@@ -2,13 +2,14 @@
 %% This is file `lstpatch.sty', generated manually.
 %%
 %% (w)(c) 2004 Carsten Heinz
+%% (c) 2006 Brooks Moses
 %%
 %% This file may be distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
-%% Either version 1.0 or, at your option, any later version.
+%% Either version 1.3 or, at your option, any later version.
 %%
 %% Send comments and ideas on the package, error reports and additional
-%% programming languages to <cheinz@gmx.de>.
+%% programming languages to <bmoses@dpdx.net>.
 %%
 %% This patch file will remove the following bugs from the listings package.
 %% Each item contains the bug finder with date of report and first bug fix
@@ -25,7 +26,6 @@
 %%     \usepackage{xy,listings} yields:
 %%     "Forbidden control sequence found while scanning use of \lst@lExtend"
 %%     (xy-pic correctly resets catcode of ^^L (to active), which is \outer)
-%%
 %%
 %% The following features are added to the base package.
 %%
@@ -60,6 +60,11 @@
 %%
 %%  b) multicols=<number> (requires loaded multicol package)
 %%
+%% 1.3c
+%%
+%%  c) speedups suggested by Hendri Adriaens:
+%%
+%%     \lst@for replaced by a faster version.
 %%
 \lst@CheckVersion{1.3}
 {\typeout{^^J%
@@ -387,6 +392,25 @@
     \fi
     \endgroup}
 \let\lst@@checkend\@checkend
+%
+% c) Hendri's suggested change to \lst@for.
+%
+% \begin{macro}{\lst@for}
+% \begin{macro}{\lst@f@r}
+% A for-loop with expansion of the loop-variable.
+%    \begin{macrocode}
+\def\lst@for#1\do#2{%
+  \def\lst@forbody##1{#2}%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@empty\else\expandafter\lst@f@r#1,\@nil,\fi
+}
+\def\lst@f@r#1,{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\@nnil\else\lst@forbody{#1}\expandafter\lst@f@r\fi
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 %%
 \endinput
 %%

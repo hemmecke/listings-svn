@@ -2,10 +2,8 @@
 %
 %<*driver>
 \documentclass{ltxdoc}
-
 \EnableCrossrefs
 \CodelineIndex
-
 \begin{document}
     \DocInput{lstdrvrs-1.3.dtx}
 \end{document}
@@ -40,17 +38,19 @@
 %
 % \begingroup
 %    \begin{macrocode}
-%% (w)(c) 1996/1997/1998/1999/2000/2001/2002/2003/2004 Carsten Heinz
-%% and/or any other author listed elsewhere in this file.
+%% The listings package is copyright 1996--2004 Carsten Heinz, and 
+%% continued maintenance on the package is copyright 2006 Brooks Moses.
+%% The drivers are copyright 1997/1998/1999/2000/2001/2002/2003/2004 any
+%% individual author listed in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
-%% Either version 1.0 or, at your option, any later version.
+%% Either version 1.3 or, at your option, any later version.
 %%
 %% This file is completely free and comes without any warranty.
 %%
 %% Send comments and ideas on the package, error reports and additional
-%% programming languages to <cheinz@gmx.de>.
+%% programming languages to Brooks Moses at <bmoses@dpdx.net>.
 %%
 %    \end{macrocode}
 % \endgroup
@@ -1168,7 +1168,7 @@
       round,self,setelement,size,spawn,throw,time,tl,trace,trunc,%
       tuple,tuple_to_list,unlink,unregister,whereis,error,false,%
       infinity,nil,ok,true,undefined,when},%
-   otherkeywords={->,!,[,],\{,\},},%
+   otherkeywords={->,!,[,],\{,\}},%
    morecomment=[l]\%,%
    morestring=[b]",%
    morestring=[b]'%
@@ -2854,7 +2854,8 @@
       viewmtx,waitforbuttonpress,waterfall,wavread,wavwrite,what,%
       whatsnew,which,while,white,whitebg,who,whos,wilkinson,wk1read,%
       stderr,stdout,plot,set,endif,wk1write,xlabel,xor,ylabel,zeros,%
-      zlabel,zoom,endwhile,endfunction},%
+      zlabel,zoom,endwhile,endfunction,printf,case,switch,otherwise,%
+      system,lsode,endfor},%
    sensitive=f,%
    morecomment=[l]\#,%
    morecomment=[l]\#\#,%
