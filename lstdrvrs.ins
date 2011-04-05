@@ -6,7 +6,7 @@
 %%
 %% lstdrvrs.dtx  (with options: `install')
 %% 
-%% (w)(c) 1996/1997/1998/1999 Carsten Heinz and/or any other author
+%% (w)(c) 1996/1997/1998/1999/2000 Carsten Heinz and/or any other author
 %% listed elsewhere in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
@@ -33,12 +33,9 @@
 }
 
 \generate{
-    \file{lstlang1.sty}{\from{lstdrvrs.dtx}
-        {ada,c++,objective-c,c,csh,euphoria,fortran,html,idl,java,%
-         mathematica,mercury,ml,modula,pascal,perl,pov,python,sql,vhdl}}
-    \file{lstlang2.sty}{\from{lstdrvrs.dtx}
-        {algol,caml,cobol,comal,delphi,eiffel,elan,haskell,lisp,logo,%
-         make,matlab,miranda,oberon,pli,prolog,shelxl,simula,tex}}
+    \file{lstlang1.sty}{\from{lstdrvrs.dtx}{lang1}}
+    \file{lstlang2.sty}{\from{lstdrvrs.dtx}{lang2}}
+    \file{lstlang3.sty}{\from{lstdrvrs.dtx}{lang3}}
 }
 
 \ifToplevel{
