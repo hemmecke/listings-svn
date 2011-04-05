@@ -10,43 +10,24 @@
 %
 % The files  listings.dtx  and  listings.ins  and all files generated
 % from only these two files are referred to as `the listings package'
-% or simply `the package'. A `driver' is generated from  lstdrvrs.dtx.
+% or simply `the package'. lstdrvrs.dtx  and the files generated from
+% that file are `drivers'.
 %
-% Copyright.
-%   The listings package is copyright 1996--2004 Carsten Heinz. The
-%   language drivers are copyright 1997/1998/1999/2000/2001/2002/2003/
-%   2004 any individual author listed in the driver files.
+% The listings package is copyright 1996--2004 Carsten Heinz. The drivers
+% are copyright 1997/1998/1999/2000/2001/2002/2003/2004 any individual
+% author listed in the driver files.
 %
-% Distribution and warranty.
-%   The listings package as well as lstdrvrs.dtx and all drivers are
-%   distributed under the terms of the LaTeX Project Public License
-%   from CTAN archives in directory  macros/latex/base/lppl.txt.
-%   Either version 1.0 or, at your option, any later version.
+% The listings package and its drivers may be distributed and/or modified
+% under the conditions of the LaTeX Project Public License, either version
+% 1.3 of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2003/12/01 or later.
 %
-% Modification advice.
-%   Permission is granted to modify the listings package as well as
-%   lstdrvrs.dtx. You are not allowed to distribute a modified version
-%   of the package or lstdrvrs.dtx unless you change the file names and
-%   provide the original files. In any case it is better to contact the
-%   address below; other users will welcome removed bugs, new features,
-%   and additional programming languages.
+% The package has the LPPL maintenance status "maintained".
 %
-% At your option.
-%   To support further development, you might want to send me a copy of
-%   your document, relevant parts of it, or the crucial LaTeX passages.
-%   Of course, I don't need examples of normal usage.
-%
-%   If you distribute the package as part of a commercial product or
-%   if you use the package to prepare a commercial document (books,
-%   journals, and so on), I'd like to encourage you to make a donation
-%   to the LaTeX3 fund. For more information about LaTeX see
-%      http://www.latex-project.org
-%
-% Contacts.
-%   Send comments and ideas on the package, error reports and additional
-%   programming languages to
-%
-%       cheinz@gmx.de
+% The Current Maintainer is Carsten Heinz <cheinz@gmx.de>.
 %
 % end of software license
 %
@@ -60,7 +41,7 @@
 \makeindex
 
 \begin{document}
-    \DocInput{listings.dtx}
+    \DocInput{listings-1.3.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -102,6 +83,7 @@
 %   \string\lstloadaspects,\string\lstset,\string\thelstlisting,\string\lstaspectfiles,^^A
 %   inputencoding,delim,moredelim,deletedelim,upquote}
 %\lstisaspect[doc]{lstsample,lstxsample}^^A environment
+%\lstisaspect[experimental]{includerangemarker,rangebeginprefix,rangebeginsuffix,rangeendprefix,rangeendsuffix,rangeprefix,rangesuffix}
 %
 %^^A
 %^^A  The long awaited beginning of documentation
@@ -120,7 +102,7 @@
 %
 % \title{\vspace*{-2\baselineskip}The \textsf{Listings} Package}
 % \author{Copyright 1996--2004\\ Carsten Heinz \textless\lstemail\textgreater}
-% \date{2004/02/13\enspace\enspace Version 1.2\\ \box\abstractbox}
+% \date{2004/09/07\enspace\enspace Version 1.3\\ \box\abstractbox}
 % \def\lstemail{\href{mailto:cheinz@gmx.de}{\texttt{cheinz@gmx.de}}}
 % \ifhyper
 %    \hypersetup{pdfsubject=Package guide,pdfauthor=Carsten Heinz <cheinz@gmx.de>}
@@ -142,9 +124,26 @@
 % \ref{uTheNextSteps}.
 %
 % \paragraph{News and changes}
-% This is the second bugfix release; only few keys have been added, refer the
-% table---note also the new section \ref{rArbitraryLinerangeMarkers} describing
-% a new experimental feature, which might change in future.
+% This is the third bugfix release. The most noteworthy news for the
+% tortured\,---\,I mean experienced\,---\,user is a new |\output| routine,
+% which improves the compatibility to other packages. Therefore the temporary
+% key |noxoutput| has been removed.
+%
+% |texcs| became a family, i.e.~you can highlight your own control sequences
+% diffently from the already defined ones: |texcsstyle=|[|*|]\oarg{class number}\ldots\space
+% and |texcs=|\oarg{classnumber}\ldots\space
+% Note the added optional star, which also highlights the backslash in front of
+% the control sequence name. And don't forget to check page \pageref{roption:texcsstyle}
+% for a bug.
+%
+% |keywordstyle| has a small add-on (see page \pageref{roption:keywordstyle})
+% and |extendedchars| is turned on by default.
+%
+%^^A undocumented:
+%^^A   inputpath=<single, relative path>
+%^^A   useoutput=0|1|2
+%^^A      uses no (0), old (1), or new (2) output routine
+%\iffalse
 % \begin{table}[hbp]
 % \footnotesize
 % \begin{center}
@@ -188,10 +187,10 @@
 % \par\indent $^2$ Please look at section \ref{uFixedAndFlexibleColumns}.
 % \par\indent $^3$ Now frames are also moved!
 % \end{table}
-%
-% Since 2003/08/13 the following languages have been added: \texttt{bash},
-% \texttt{sh}, \texttt{Oz}, \texttt{Rexx}, \texttt{Inform}, \texttt{Ant},
-% \texttt{XSLT}.
+%\fi
+% The following languages were added: Awk (Gnu and Posix), Gnuplot, Handel-C,
+% ByteCode Java (\texttt{JVMIS}), Plasm, Promella, and RSL, refer table~ref{uPredefinedLanguages}.
+% Moreover, {\small HTML}, AspectJ, and MetaPost have been improved.
 % Thanks go to the contributers.
 %
 % \vfill
@@ -725,51 +724,27 @@
 %
 % The files \texttt{listings.dtx} and \texttt{listings.ins} and all
 % files generated from only these two files are referred to as `the
-% \packagename{listings} package' or simply `the package'. A `driver'
-% is generated from \texttt{lstdrvrs.dtx}.
+% \packagename{listings} package' or simply `the package'.
+% \texttt{lstdrvrs.dtx} and the files generated from that file are
+% `drivers'.
 %
 % \paragraph{Copyright}
 %   The \packagename{listings} package is copyright 1996--2004 Carsten Heinz.
 %   The drivers are copyright any individual author listed in the driver files.
 %
-% \paragraph{Distribution}
-%   The \packagename{listings} package as well as \texttt{lstdrvrs.dtx} and all
-%   drivers are distributed under the terms of the \LaTeX\ Project Public
-%   License from CTAN archives in directory |macros/latex/base/lppl.txt|,
-%   either version 1.0 or any later version.
-%
-% \paragraph{Modification advice}
-%   Permission is granted to modify the \packagename{listings} package as well
-%   as \texttt{lstdrvrs.dtx}. You are not allowed to distribute a modified
-%   version of the \packagename{listings} package or \texttt{lstdrvrs.dtx}
-%   unless you change the file names \emph{and} provide the original files.
-%   In any case it is better to contact the address below; other users will
-%   welcome removed bugs, new features, and additional programming languages.
-%
-% \paragraph{At your option}
-%   To support further development, you might want to send me a copy of
-%   your document, relevant parts of it, or the crucial \LaTeX{} passages.
-%   Of course, I don't need examples of normal usage.
-%
-%   If you distribute the package as part of a commercial product or
-%   if you use the package to prepare a commercial document (books,
-%   journals, and so on), I'd like to encourage you to make a donation
-%   to the \LaTeX3 fund. For more information about \LaTeX3 see
-% \href{http://www.latex-project.org}^^A
-%      {http://www.latex-project.org}.
+% \paragraph{Distribution and modification}
+%   The \packagename{listings} package and its drivers may be distributed
+%   and/or modified under the conditions of the LaTeX Project Public License,
+%   either version 1.3 of this license or (at your option) any later version.
+%   The latest version of this license is in
+%      \href{http://www.latex-project.org/lppl.txt}{http://www.latex-project.org/lppl.txt}
+%   and version 1.3 or later is part of all distributions of LaTeX version
+%  2003/12/01 or later.
 %
 % \paragraph{Contacts}
 %   Read section \lstref{uTroubleshooting} on how to submit a bug report.
 %   Send all other comments, ideas, and additional programming languages to
-%   \emph{Carsten Heinz, Tellweg 6, 42275 Wuppertal, Germany} or preferably to
 %   \lstemail\ using \texttt{listings} as part of the subject.
-%
-% \paragraph{Mailing list}
-%   This is mainly an announcement list regarding new versions, bugs, patches,
-%   and work-arounds. So I recommend it for system administrators, maintainers
-%   of \LaTeX\ installations, or people who absolutely need the latest bugs.
-%   To join the list, send an email to \lstemail\ with subject
-%   \texttt{subscribe listings}.
 %
 %
 % \subsection{Package loading}\label{uPackageLoading}
@@ -1837,27 +1812,36 @@
 %   \lstthanks{Bj{\o}rn~{\AA}dlandsvik}{bjorn@imr.no},
 %   \lstthanks{Gaurav~Aggarwal}{gaurav@ics.uci.edu},
 %   \lstthanks{Jason~Alexander}{jalex@ea.oac.uci.edu},
+%   \lstthanks{Holger~Arndt}{-},
 %   \lstthanks{Donald~Arseneau}{ASND@erich.triumf.ca},
 %   \lstthanks{David~Aspinall}{David.Aspinall@ed.ac.uk},
 %   \lstthanks{Claus~Atzenbeck}{Claus.Atzenbeck@stud.uni-regensburg.de},
+%   \lstthanks{Michael~Bachmann}{-},
+%   \lstthanks{Luca~Balzerani}{-},
 %   \lstthanks{Peter~Bartke}{bartke@inf.fu-berlin.de} (big thankyou), ^^A beta tester
+%   \lstthanks{Heiko~Bauke}{-},
 %   \lstthanks{Oliver~Baum}{oli.baum@web.de},
 %   \lstthanks{Ralph~Becket}{rbeck@microsoft.com},
 %   \lstthanks{Andres~Becerra~Sandoval}{abecerra@univalle.edu.co},
+%   \lstthanks{Kai~Below}{below@tu-harburg.de},
+%   \lstthanks{Matthias~Bethke}{-},
 %   \lstthanks{Javier~Bezos}{javier.bezos@bancoval.es},
 %   \lstthanks{Olaf~Trygve~Berglihn}{olafb@pvv.org}, ^^A {1999/11/29}{3-char comment delimiter don't work (Python)}
 %   \lstthanks{Geraint~Paul~Bevan}{geraint@users.sf.net},
 %   \lstthanks{Peter~Biechele}{peter.biechele@physik.uni-freiburg.de},
-%   \lstthanks{Kai~Below}{below@tu-harburg.de},
 %   \lstthanks{Beat~Birkhofer}{beat@birkhofer.ch},
 %   \lstthanks{Fr\'ed\'eric~Boulanger}{Frederic.Boulanger@supelec.fr},
 %   \lstthanks{Martin~Brodbeck}{Martin.Brodbeck@gmx.de},
 %   \lstthanks{Walter~E.~Brown}{WB@fnal.gov},
 %   \lstthanks{Achim~D.~Brucker}{brucker@informatik.uni-freiburg.de},
+%   \lstthanks{J\'an Bu\v{s}a}{-},
 %   \lstthanks{David~Carlisle}{davidc@nag.co.uk},
 %   \lstthanks{Bradford~Chamberlain}{brad@cs.washington.edu},
+%   \lstthanks{Brian~Christensen}{-},
+%   \lstthanks{Neil~Conway}{-},
 %   \lstthanks{Patrick~Cousot}{Patrick.Cousot@wanadoo.fr},
 %   \lstthanks{Xavier~Cr\'egut}{cregut@enseeiht.fr},
+%   \lstthanks{Christopher~Creutzig}{-},
 %   \lstthanks{Holger~Danielsson}{dani@fbg.schwerte.de},
 %   \lstthanks{Andreas~Deininger}{deininger@uni-kassel.de},
 %   \lstthanks{Robert~Denham}{Robert.Denham@dnr.qld.gov.au},
@@ -1865,13 +1849,18 @@
 %   \lstthanks{Anders~Edenbrandt}{Anders.Edenbrandt@dna.lth.se},
 %   \lstthanks{Mark~van~Eijk}{mark@luon.net},
 %   \lstthanks{Norbert~Eisinger}{Norbert.Eisinger@informatik.uni-muenchen.de},
+%   \lstthanks{Brian~Elmegaard}{-},
+%   \lstthanks{Jon~Ericson}{Jon.Ericson@jpl.nasa.gov},
 %   \lstthanks{Thomas~Esser}{te@dbs.uni-hannover.de},
 %   \lstthanks{Chris~Edwards}{edwch00p@infoscience.otago.ac.nz},
 %   \lstthanks{David~John~Evans}{Matrix.Software@dial.pipex.com},
 %   \lstthanks{Tanguy~Fautr\'e}{tfautre@pandora.be},
+%   \lstthanks{Ulrike~Fischer}{-},
 %   \lstthanks{Robert~Frank}{rf7@ukc.ac.uk},
+%   \lstthanks{Martine~Gautier}{-}
 %   \lstthanks{Daniel~Gazard}{gazard_d@epita.fr},
 %   \lstthanks{Daniel~Gerigk}{Daniel.Gerigk@ePost.de},
+%   \lstthanks{Dr.~Christoph~Giess}{-},
 %   \lstthanks{KP~Gores}{kp.gores@web.de},
 %   \lstthanks{Adam~Grabowski}{adam@mizar.org},
 %   \lstthanks{Jean-Philippe~Grivet}{grivet@cnrs-orleans.fr},
@@ -1886,21 +1875,25 @@
 %   \lstthanks{Heiko~Heil}{info@heiko-heil.de},
 %   \lstthanks{J\"urgen~Heim}{heim@astro.uni-tuebingen.de},
 %   \lstthanks{Alvaro~Herrera}{alvherre@dcc.uchile.cl},
+%   \lstthanks{Richard~Hoefter}{hoefter@gmx.de},
 %   \lstthanks{Dr.~Jobst~Hoffmann}{HOFFMANN@rz.rwth-aachen.de},
 %   \lstthanks{Torben~Hoffmann}{toho@it.dtu.dk},
-%   \lstthanks{Richard~Hoefter}{hoefter@gmx.de},
+%   \lstthanks{Morten~H\o gholm}{-},
 %   \lstthanks{Berthold~H\"ollmann}{bhoel@starship.python.net},
+%   \lstthanks{G\'erard~Huet}{-},
 %   \lstthanks{Hermann~H\"uttler}{hermann.huettler@gmx.net},
 %   \lstthanks{Ralf~Imh\"auser}{snoopy@tribal.line.org},
 %   \lstthanks{R.~Isernhagen}{R.Isernhagen@FH-Wolfenbuettel.DE},
 %   \lstthanks{Oldrich~Jedlicka}{ojedlick@students.zcu.cz},
 %   \lstthanks{Dirk~Jesko}{jesko@iti.cs.uni-magdeburg.de},
+%   \lstthanks{Lo\"\i c~Joly}{-},
 %   \lstthanks{Christian~Kaiser}{chk@combit.net},
 %   \lstthanks{Bekir~Karaoglu}{karabekirus@yahoo.com},
 %   \lstthanks{Marcin~Kasperski}{Marcin.Kasperski@softax.com.pl},
 %   \lstthanks{Christian~Kindinger}{chkind@uni-wuppertal.de},
 %   \lstthanks{Steffen~Klupsch}{steffen@vlsi.informatik.tu-darmstadt.de},
 %   \lstthanks{Peter~K\"oller}{pkoeller@metaprojekt.de} (big thankyou), ^^A beta tester
+%   \lstthanks{Reinhard~Kotucha}{Reinhard.Kotucha@web.de},
 %   \lstthanks{Stefan~Lagotzki}{info@lagotzki.de},
 %   \lstthanks{Tino~Langer}{langer@tournex.de},
 %   \lstthanks{Rene~H.~Larsen}{rhl@traceroute.dk},
@@ -1911,18 +1904,22 @@
 %   \lstthanks{Magnus~Lewis-Smith}{Magnus.Lewis-Smith@pace.co.uk},
 %   \lstthanks{Knut~Lickert}{knut.lickert@gmx.de},
 %   \lstthanks{Dan~Luecking}{luecking@uark.edu},
+%   \lstthanks{Peter~L\"offler}{-},
 %   \lstthanks{Kris~Luyten}{no email available},
 %   \lstthanks{Jos\'e~Romildo~Malaquias}{romildo@urano.iceb.ufop.br},
 %   \lstthanks{Andreas~Matthias}{amat@kabsi.at},
+%   \lstthanks{Patrick~TJ~McPhee}{ptjm@interlog.com},
+%   \lstthanks{Brooks~Moses}{-},
 %   \lstthanks{Riccardo~Murri}{riccardo.murri@gmx.it},
 %   \lstthanks{Knut~M\"uller}{knut@physik3.gwdg.de},
 %   \lstthanks{Svend~Tollak~Munkejord}{svendm@efisms.energy.sintef.no},
 %   \lstthanks{Gerd~Neugebauer}{gerd.neugebauer@gmx.de},
 %   \lstthanks{Torsten~Neuer}{tneuer@inwise.de},
-%   \lstthanks{Patrick~TJ~McPhee}{ptjm@interlog.com},
 %   \lstthanks{Michael~Niedermair}{m.g.n@gmx.de},
 %   \lstthanks{Xavier~Noria}{fxn@hashref.com},
 %   \lstthanks{Heiko~Oberdiek}{oberdiek@ruf.uni-freiburg.de},
+%   \lstthanks{Xavier~Olive}{-},
+%   \lstthanks{Alessio~Pace}{-},
 %   \lstthanks{Markus~Pahlow}{pahlowm@mar.dfo-mpo.gc.ca},
 %   \lstthanks{Morten~H~Pedersen}{mhp@dadlnet.dk},
 %   \lstthanks{Zvezdan~V.~Petkovic}{zpetkovic@acm.org},
@@ -1934,21 +1931,25 @@
 %   \lstthanks{Ralf~Quast}{rquast@hs.uni-hamburg.de},
 %   \lstthanks{Aslak~Raanes}{araanes@ifi.ntnu.no},
 %   \lstthanks{Venkatesh~Prasad~Ranganath}{vranganath@cox.net},
+%   \lstthanks{Jeffrey~Ratcliffe}{-},
 %   \lstthanks{Georg~Rehm}{Georg.Rehm@germanistik.uni-giessen.de},
 %   \lstthanks{Fermin~Reig}{reig@ics.uci.edu},
 %   \lstthanks{Detlef~Reimers}{dreimers@aol.com},
 %   \lstthanks{Stephen~Reindl}{stephen.reindl@vodafone.com},
+%   \lstthanks{Franz~Rinnerthaler}{-},
 %   \lstthanks{Peter~Ruckdeschel}{Peter.Ruckdeschel@uni-bayreuth.de},
 %   \lstthanks{Magne~Rudshaug}{magne@ife.no},
 %   \lstthanks{Jonathan~Sauer}{jonathan.sauer@gmx.de},
 %   \lstthanks{Vespe~Savikko}{vespe@cs.tut.fi},
 %   \lstthanks{Gunther~Schmidl}{gschmidl@gmx.at},
+%   \lstthanks{Andreas~Schmidt}{-},
 %   \lstthanks{Walter~Schmidt}{wschmi@arcor.de},
 %   \lstthanks{Jochen~Schneider}{jschneider@ds3.etech.haw-hamburg.de},
 %   \lstthanks{Benjamin~Schubert}{benjamin.schubert@berlin.de},
 %   \lstthanks{Uwe~Siart}{uwe.siart@ei.tum.de},
 %   \lstthanks{Axel~Sommerfeldt}{axel@sommerfeldt.net},
 %   \lstthanks{Richard~Stallman}{no address},
+%   \lstthanks{Nigel~Stanger}{nstanger@infoscience.otago.ac.nz},
 %   \lstthanks{Martin~Steffen}{ms@informatik.uni-kiel.de},
 %   \lstthanks{Andreas~Stephan}{Andreas.Stephan@victoria.de},
 %   \lstthanks{Stefan~Stoll}{stoll@phys.chem.ethz.ch},
@@ -1958,24 +1959,32 @@
 %   \lstthanks{Gabriel~Tauro}{gabriel@informatik.uni-jena.de},
 %   \lstthanks{Winfried~Theis}{theis@statistik.uni-dortmund.de},
 %   \lstthanks{Jens~T.~Berger~Thielemann}{jensthi@ifi.uio.no},
+%   \lstthanks{William~Thimbleby}{-},
 %   \lstthanks{Arnaud~Tisserand}{arnaud.tisserand@ens-lyon.fr},
+%   \lstthanks{Jens~Troeger}{-},
 %   \lstthanks{Kalle~Tuulos}{kalle.tuulos@nic.fi},
 %   \lstthanks{Gregory~Van~Vooren}{Gregory.VanVooren@rug.ac.be},
+%   \lstthanks{Timothy~Van~Zandt}{tvz@econ.insead.edu},
+%   \lstthanks{J\"org~Viermann}{-},
 %   \lstthanks{Thorsten~Vitt}{vitt@informatik.hu-berlin.de},
 %   \lstthanks{Herbert~Voss}{voss@perce.de} (big thankyou), ^^A beta tester
+%   \lstthanks{Edsko~de~Vries}{devriese@tcd.ie},
 %   \lstthanks{Herfried~Karl~Wagner}{hirf@gmx.at},
 %   \lstthanks{Dominique~de~Waleffe}{ddw@miscrit.be},
+%   \lstthanks{Bernhard~Walle}{-},
 %   \lstthanks{Jared~Warren}{warren@cs.queensu.ca},
 %   \lstthanks{Michael~Weber}{mweber@informatik.hu-berlin.de},
 %   \lstthanks{Sonja~Weidmann}{Sonja.Weidmann@gmx.de},
+%   \lstthanks{Andreas~Weidner}{-},
 %   \lstthanks{Herbert~Weinhandl}{weinhand@grz08u.unileoben.ac.at},
 %   \lstthanks{Robert~Wenner}{robert.wenner@gmx.de},
 %   \lstthanks{Michael~Wiese}{wiese@itwm.uni-kl.de},
+%	\lstthanks{James~Willans}{-},
 %   \lstthanks{J\"orn~Wilms}{wilms@rocinante.colorado.edu},
 %   \lstthanks{Kai~Wollenweber}{kai@ece.WPI.EDU},
 %   \lstthanks{Ulrich~G.~Wortmann}{uliw@erdw.ethz.ch},
-%   \lstthanks{Timothy~Van~Zandt}{tvz@econ.insead.edu}, and
-%   \lstthanks{Edsko~de~Vries}{devriese@tcd.ie}.
+%   \lstthanks{Cameron~H.G.~Wright}{-}, and
+%   \lstthanks{Andrew~Zabolotny}{-}.
 % \end{quote}
 % There are probably other people who contributed to this package.
 % If I've missed your name, send an email.
@@ -2263,13 +2272,18 @@
 %       \emph{last} token might be an one-parameter command like |\textbf| or
 %       |\underbar|.
 %
-% \item[0.11,\bfseries] \rkeyname{keywordstyle}|=|\oarg{number}\meta{style}
-% \item[0.19,keywordstyle] \rkeyname{ndkeywordstyle}|=|\meta{style}
+% \item[0.11,\bfseries,addon] \rkeyname{keywordstyle}|=|\oarg{number}[\textasteriskcentered]\meta{style}\label{roption:keywordstyle}
+% \item[0.19,keywordstyle,deprecated] \rkeyname{ndkeywordstyle}|=|\meta{style}
 %
 %       are used to print keywords and second order keywords (if defined).
 %       The optional \meta{number} argument is the class number to which the
 %       style should be applied.
-%       |ndkeywordstyle=...| is equivalent to |keywordstyle=[2]...|.
+%       |ndkeywordstyle| has the fixed class number 2.
+%
+%       Add-on: If you use the optional star after the (optional) class number, the
+%       keywords are printed uppercase\,---\,even if a language is case
+%       sensitive and defines lowercase keywords only. Maybe there should also be an
+%       option for lowercase keywords \ldots
 %
 % \item[1.0,0] \rkeyname{classoffset}|=|\meta{number}
 %
@@ -2302,12 +2316,20 @@
 % \end{lstsample}
 %
 % \begin{syntax}
-% \item[0.20,keywordstyle,optional] \rkeyname{texcsstyle}|=|\meta{style}
+% \item[0.20,keywordstyle,{addon,bug,optional}] \rkeyname{texcsstyle}|=|[|*|]\oarg{class number}\meta{style}\label{roption:texcsstyle}
 % \item[0.20,keywordstyle,optional] \rkeyname{directivestyle}|=|\meta{style}
 %
 %       determine the style of \TeX\ control sequences and directives.
 %       Note that these key are present only if you've chosen an appropriate
 %       language.
+%
+%       The optional star of |texcsstyle| also highlights the backslash in
+%       front of the control sequence name. Note that this option is set for
+%       all |texcs| lists.
+%
+%       Bug: \texttt{texcs\ldots} interferes with other keyword lists. If, for
+%       example, \texttt{emph} contains the word \texttt{foo}, then the control
+%       sequence |\foo| will show up in \texttt{emphstyle}.
 %
 % \item[0.21] \rkeyname{emph}|=|\oarg{number}\marg{identifier list}
 % \item[0.21] \rkeyname{moreemph}|=|\oarg{number}\marg{identifier list}
@@ -2351,7 +2373,7 @@
 % \subsection{Getting all characters right}
 %
 % \begin{syntax}
-% \item[0.18,false] \rkeyname{extendedchars}|=|\meta{\alternative{true,false}}\syntaxor\rkeyname{extendedchars}
+% \item[0.18,true] \rkeyname{extendedchars}|=|\meta{\alternative{true,false}}\syntaxor\rkeyname{extendedchars}
 %
 %       allows or prohibits extended characters in listings, that means
 %       (national) characters of codes 128--255. If you use extended
@@ -3112,16 +3134,16 @@
 %       Please note the keys \ikeyname{alsoletter} and \ikeyname{alsodigit}
 %       below if you use unusual charaters in keywords.
 %
-% \item[0.19] \rkeyname{ndkeywords}|=|\marg{list of keywords}
-% \item[0.19] \rkeyname{morendkeywords}|=|\marg{list of keywords}
-% \item[0.19] \rkeyname{deletendkeywords}|=|\marg{list of keywords}
+% \item[0.19,,deprecated] \rkeyname{ndkeywords}|=|\marg{list of keywords}
+% \item[0.19,,deprecated] \rkeyname{morendkeywords}|=|\marg{list of keywords}
+% \item[0.19,,deprecated] \rkeyname{deletendkeywords}|=|\marg{list of keywords}
 %
 %       define, add to or remove the keywords from keyword list 2.
-%       The use of \keyname{ndkeywords} is discouraged.
+%       The use of \keyname{ndkeywords} is strongly discouraged.
 %
-% \item[0.19,,optional] \rkeyname{texcs}|=|\marg{list of control sequences \textup(without backslashes\textup)}
-% \item[0.20,,optional] \rkeyname{moretexcs}|=|\marg{list of control sequences \textup(without backslashes\textup)}
-% \item[0.21,,optional] \rkeyname{deletetexcs}|=|\marg{list of control sequences \textup(without backslashes\textup)}
+% \item[0.19,,{addon,optional}] \rkeyname{texcs}|=|\oarg{class number}\marg{list of control sequences \textup(without backslashes\textup)}
+% \item[0.20,,{addon,optional}] \rkeyname{moretexcs}|=|\oarg{class number}\marg{list of control sequences \textup(without backslashes\textup)}
+% \item[0.21,,{addon,optional}] \rkeyname{deletetexcs}|=|\oarg{class number}\marg{list of control sequences \textup(without backslashes\textup)}
 %
 %       Ditto for control sequences in \TeX\ and \LaTeX.
 %
@@ -3681,6 +3703,7 @@
 % \end{lstsample}
 %
 %
+%\iffalse
 % \section{Forthcoming ?}
 %
 % This section is rather rudimentary. It just lists some things I don't want
@@ -3721,6 +3744,7 @@
 % \lsthelper{Andreas~Matthias}{2000/01/04}{define header/footer to print
 % the listing name}: Make the header/footer print the listing name. Some
 % people asked for continued captions.
+%\fi
 %
 %
 % \part{Tips and tricks}
@@ -3964,12 +3988,12 @@
 %
 % \subsubsection*{How to get the developer's guide}
 % In the \emph{source directory} of the listings package, i.e.~where
-% \texttt{listings.dtx} is, create the file \texttt{ltxdoc.cfg} with the
+% the \texttt{.dtx} files are, create the file \texttt{ltxdoc.cfg} with the
 % following contents.
 % \begin{verbatim}
 %    \AtBeginDocument{\AlsoImplementation}\end{verbatim}
-% Then run \texttt{listings.dtx} through \LaTeX\ twice, run Makeindex,
-% and one last time \LaTeX\ on \texttt{listings.dtx}. This creates the whole
+% Then run \texttt{\jobname.dtx} through \LaTeX\ twice, run Makeindex,
+% and one last time \LaTeX\ on \texttt{\jobname.dtx}. This creates the whole
 % documentation including User's guide, Reference guide, Developer's guide,
 % and Implementation.
 %
@@ -5372,7 +5396,7 @@
 % \part{Implementation}
 %
 %
-% \CheckSum{11384}
+% \CheckSum{11807}
 %^^A
 %^^A Don't index TeX-primitives.
 %^^A
@@ -5498,17 +5522,10 @@
 % \paragraph{Preamble}
 % All files generated from this \texttt{listings.dtx} will get a header.
 %    \begin{macrocode}
-%% Please read the software license in listings.dtx or listings.pdf.
+%% Please read the software license in listings-1.3.dtx or listings-1.3.pdf.
 %%
-%% (w)(c) 1996 -- 2004 Carsten Heinz and/or any other author
-%% listed elsewhere in this file.
-%%
-%% This file is distributed under the terms of the LaTeX Project Public
-%% License from CTAN archives in directory  macros/latex/base/lppl.txt.
-%% Either version 1.0 or, at your option, any later version.
-%%
-%% Permission is granted to modify this file. If your changes are of
-%% general interest, please contact the address below.
+%% (w)(c) 1996--2004 Carsten Heinz and/or any other author listed
+%% elsewhere in this file.
 %%
 %% Send comments and ideas on the package, error reports and additional
 %% programming languages to <cheinz@gmx.de>.
@@ -5518,15 +5535,15 @@
 % \paragraph{Identification}
 % All files will have same date and version.
 %    \begin{macrocode}
-\def\filedate{2004/02/13}
-\def\fileversion{1.2}
+\def\filedate{2004/09/07}
+\def\fileversion{1.3}
 %    \end{macrocode}
 % What we need and who we are.
 %    \begin{macrocode}
 %<*kernel>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{listings}
-             [\filedate\space\fileversion\space(Carsten Heinz)]
+\AtEndOfPackage{\ProvidesPackage{listings}
+             [\filedate\space\fileversion\space(Carsten Heinz)]}
 %    \end{macrocode}
 % \begin{macro}{\lst@CheckVersion}
 % can be used by the various driver files to guarantee the correct version.
@@ -6159,10 +6176,24 @@
 % \end{syntax}
 %
 % \begin{macro}{\lst@InsideConvert}
-% We call a submacro (similar to |\zap@space|) to preserve single spaces which
-% are replaced by active spaces.
+% If \texttt{mathescape} is not on, we call (near the end of this definition) a
+% submacro similar to |\zap@space| to replaced single spaces by active spaces.
+% Otherwise we check whether the code contains a pair |$...$| and call the
+% appropriate macro.
 %    \begin{macrocode}
-\def\lst@InsideConvert#1{\lst@InsideConvert@#1 \@empty}
+\def\lst@InsideConvert#1{%
+   \lst@ifmathescape
+      \lst@InsideConvert@e#1$\@nil
+      \lst@if
+         \lst@InsideConvert@ey#1\@nil
+      \else
+         \lst@InsideConvert@#1 \@empty
+         \expandafter\@gobbletwo
+      \fi
+      \expandafter\lst@next
+   \else
+      \lst@InsideConvert@#1 \@empty
+   \fi}
 \begingroup \lccode`\~=`\ \relax \lowercase{%
 %    \end{macrocode}
 % We make |#1| active and append these characters (plus an active space) to
@@ -6181,6 +6212,25 @@
 % Finally we end the |\lowercase| and close a group.
 %    \begin{macrocode}
 }\endgroup
+%    \end{macrocode}
+% The next definition has been used above to check for |$...$| and the following
+% one keeps the math contents from being converted. This feature was requested by
+% \lsthelper{Dr.~Jobst~Hoffmann}{}{}.
+%    \begin{macrocode}
+\def\lst@InsideConvert@e#1$#2\@nil{%
+   \ifx\@empty#2\@empty \lst@false \else \lst@true \fi}
+\def\lst@InsideConvert@ey#1$#2$#3\@nil{%
+   \lst@InsideConvert@#1 \@empty
+   \lst@lAddTo\lst@arg{%
+      \lst@ifdropinput\else
+         \lst@TrackNewLines\lst@OutputLostSpace \lst@XPrintToken
+         \setbox\@tempboxa=\hbox\bgroup$\lst@escapebegin
+         #2%
+         \lst@escapeend$\egroup \lst@CalcLostSpaceAndOutput
+         \lst@whitespacefalse
+      \fi}%
+   \def\lst@next{\lst@InsideConvert{#3}}%
+}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -6703,10 +6753,11 @@
 % contains all catcode changes for |\lstset|. The equal-sign has been added
 % after a bug report by \lsthelper{Bekir~Karaoglu}{2003/09/16}{keyval problems
 % with [turkish]{babel}}---babel's active equal sign clashes with keyval's
-% usage.
+% usage. |\catcode`\"=12\relax| has been removed after a bug report by
+% \lsthelper{Heiko~Bauke}{2004/06/27}{listings und ngerman}\,---\,hopefully
+% this introduces no other bugs.
 %    \begin{macrocode}
-\def\lst@setcatcodes{\makeatletter \catcode`\"=12\relax
-                                   \catcode`\==12\relax}
+\def\lst@setcatcodes{\makeatletter \catcode`\==12\relax}
 %    \end{macrocode}
 % \begin{TODO}
 % Change more catcodes?
@@ -8315,10 +8366,13 @@
 %    \end{macrocode}
 % There are two ways to adjust the standard table: inside the hook or with
 % |\lst@DeveloperSCT|. We use these macros and initialize the backslash if
-% necessary. 
+% necessary. |\lst@DefRange| has been moved outside the hook after a bug report
+% by \lsthelper{Michael~Bachmann}{2004/07/21}{Keine label-Referenzierung
+% m\"oglich...}.
 %    \begin{macrocode}
     \lsthk@SelectCharTable
     \lst@DeveloperSCT
+	\lst@DefRange
     \ifx\lst@Backslash\relax\else
         \lst@LetSaveDef{"5C}\lsts@backslash\lst@Backslash
     \fi}
@@ -8398,7 +8452,7 @@
 % \begin{lstkey}{extendedchars}
 % The user key to activate extended characters 128--255.
 %    \begin{macrocode}
-\lst@Key{extendedchars}{false}[t]{\lstKV@SetIf{#1}\lst@ifec}
+\lst@Key{extendedchars}{true}[t]{\lstKV@SetIf{#1}\lst@ifec}
 %    \end{macrocode}
 % \end{lstkey}
 %
@@ -8494,6 +8548,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{lstkey}{useoutput}
 % \begin{macro}{\output}
 % Another problem was first reported by \lsthelper{Marcin~Kasperski}
 % {1999/04/28}{listings spoil toc}. It is also catcode related and
@@ -8511,12 +8566,23 @@
 % the tilde was reported by \lsthelper{Thorsten~Vitt}{2001/06/25}{fancyhdr +
 % listings crossing pages ==> ~ in header, not space}.
 %
-% The solution is a local redefinition of the output routine. We interrupt the
-% current modes---in particular |\lst@Pmode| with modified catcode table---,
-% call the original output routine and reenter the mode. This must be done
-% with a little care. First we have to close the group which \TeX\ opens at
-% the beginning of the output routine. A single |\egroup| gives an `unbalanced
-% output routine' error. But |\expandafter\egroup| works. Again it was
+% We can choose between three possibilities.
+%    \begin{macrocode}
+\lst@Key{useoutput}{2}{\edef\lst@useoutput{\ifcase#10 0\or 1\else 2\fi}}
+%    \end{macrocode}
+% The first does not modify the existing output routine.
+%    \begin{macrocode}
+\lst@AddToHook{Init}
+{\edef\lst@OrgOutput{\the\output}%
+\ifcase\lst@useoutput\relax
+\or
+%    \end{macrocode}
+% The second possibility is as follows: We interrupt the current modes---in
+% particular |\lst@Pmode| with modified catcode table---, call the original
+% output routine and reenter the mode. This must be done with a little care.
+% First we have to close the group which \TeX\ opens at the beginning of the
+% output routine. A single |\egroup| gives an `unbalanced output routine'
+% error. But |\expandafter\egroup| works. Again it was
 % \lsthelper{Donald~Arseneau}{2001/01/10}{comp.text.tex Re: \output puzzle}
 % who gave the explaination: The |\expandafter| set the token type of |\bgroup|
 % to |backed_up|, which prevents \TeX's from recovering from an unbalanced
@@ -8528,8 +8594,6 @@
 % group (`output routine didn't use all of |\box| 255'), we have to save it
 % temporaryly.
 %    \begin{macrocode}
-\lst@AddToHook{Init}
-{\edef\lst@OrgOutput{\the\output}%
  \output{\global\setbox\lst@gtempboxa\box\@cclv
          \expandafter\egroup
 %    \end{macrocode}
@@ -8553,11 +8617,55 @@
 %    \begin{macrocode}
      \bgroup
      \aftergroup\pagegoal\aftergroup\vsize
-     \aftergroup\lst@ReenterModes\aftergroup\lst@RestoreToken}}
+     \aftergroup\lst@ReenterModes\aftergroup\lst@RestoreToken}%
+\else
+%    \end{macrocode}
+% The third option is to restore all catcodes and meanings inside a modified
+% output routine and to call the original routine afterwards.
+%    \begin{macrocode}
+ \output{\lst@RestoreOrigCatcodes
+         \lst@ifec \lst@RestoreOrigExtendedCatcodes \fi
+         \lst@OrgOutput}%
+\fi}
 %    \end{macrocode}
 % Note that this output routine isn't used too often. It is executed only if
 % it's possible that a listing is split on two pages: if a listing ends at
 % the bottom or begins at the top of a page, or if a listing is really split.
+% \end{macro}
+% \end{lstkey}
+%
+% \begin{macro}{\lst@GetChars}
+% \begin{macro}{\lst@ScanChars}
+% \begin{lstkey}{rescanchars}
+% To make the third |\output|-option work, we have to scan the catcodes and
+% also the meanings of active characters:
+%    \begin{macrocode}
+\def\lst@GetChars#1#2#3{%
+    \let#1\@empty
+    \@tempcnta#2\relax \@tempcntb#3\relax
+    \loop \ifnum\@tempcnta<\@tempcntb\relax
+        \lst@lExtend#1{\expandafter\catcode\the\@tempcnta=}%
+        \lst@lExtend#1{\the\catcode\@tempcnta\relax}%
+        \ifnum\the\catcode\@tempcnta=\active
+            \begingroup\lccode`\~=\@tempcnta
+            \lowercase{\endgroup
+            \lst@lExtend#1{\expandafter\let\expandafter~\csname
+                                    lstecs@\the\@tempcnta\endcsname}%
+            \expandafter\let\csname lstecs@\the\@tempcnta\endcsname~}%
+        \fi
+        \advance\@tempcnta\@ne
+    \repeat}
+\def\lst@ScanChars{%
+    \lst@GetChars\lst@RestoreOrigCatcodes\@ne {128}%
+    \lst@GetChars\lst@RestoreOrigExtendedCatcodes{128}{256}}
+%    \end{macrocode}
+% The scan can be issued by hand and at the beginning of a document.
+%    \begin{macrocode}
+\lst@Key{rescanchars}\relax{\lst@ScanChars}
+\AtBeginDocument{\lst@ScanChars}
+%    \end{macrocode}
+% \end{lstkey}
+% \end{macro}
 % \end{macro}
 %
 %
@@ -9335,6 +9443,69 @@
 % \end{aspect}
 %
 %
+% \begin{aspect}{mf}
+% For MetaFont and MetaPost we now define macros to print the input-filenames
+% in stringstyle.
+%    \begin{macrocode}
+%<*misc>
+\lst@BeginAspect{mf}
+%    \end{macrocode}
+%
+% \begin{macro}{\lst@mfinputmode}
+% \begin{macro}{\lst@String@mf}
+%    \begin{macrocode}
+\lst@AddTo\lst@stringtypes{,mf}
+\lst@NewMode\lst@mfinputmode
+%    \end{macrocode}
+%    \begin{macrocode}
+\gdef\lst@String@mf#1\@empty#2#3#4{%
+  \lst@CArg #1\relax\lst@DefDelimB
+       {}{}{\lst@ifletter \expandafter\@gobblethree \fi}%
+       \lst@BeginStringMFinput\lst@mfinputmode{#4\lst@Lmodetrue}%
+  \@ifundefined{lsts@semicolon}%
+  {\lst@DefSaveDef{`\;}\lsts@semicolon{% ; and space end the filename
+      \ifnum\lst@mode=\lst@mfinputmode
+          \lst@XPrintToken
+          \expandafter\lst@LeaveMode
+      \fi
+      \lsts@semicolon}%
+   \lst@DefSaveDef{`\ }\lsts@space{%
+      \ifnum\lst@mode=\lst@mfinputmode
+          \lst@XPrintToken
+          \expandafter\lst@LeaveMode
+      \fi
+      \lsts@space}%
+  }{}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\lst@BeginStringMFinput}
+% It remains to define this macro. In contrast to |\lst@PrintDelim|, we don't
+% use |\lst@modetrue| to allow keyword detection here.
+%    \begin{macrocode}
+\gdef\lst@BeginStringMFinput#1#2#3\@empty{%
+    \lst@TrackNewLines \lst@XPrintToken
+      \begingroup
+        \lst@mode\lst@nomode
+        #3\lst@XPrintToken
+      \endgroup
+      \lst@ResetToken
+    \lst@EnterMode{#1}{\def\lst@currstyle#2}%
+    \lst@ifshowstringspaces
+         \lst@keepspacestrue
+         \let\lst@outputspace\lst@visiblespace
+    \fi}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\lst@EndAspect
+%</misc>
+%    \end{macrocode}
+% \end{aspect}
+%
+%
 % \subsubsection{Comments}
 %
 % \begin{aspect}{comments}
@@ -9728,27 +9899,41 @@
 %
 % \begin{lstkey}{literate}
 % \lsthelper{Jason~Alexander}{1999/03/10}{literate programming} asked for
-% something like that. The key simply saves the argument.
+% something like that. The key looks for a star and saves the argument.
 %    \begin{macrocode}
-\lst@Key{literate}{}{\def\lst@literate{#1}}
+\def\lst@Literatekey#1\@nil@{\let\lst@ifxliterate\lst@if
+                             \def\lst@literate{#1}}
+\lst@Key{literate}{}{\@ifstar{\lst@true \lst@Literatekey}
+                             {\lst@false\lst@Literatekey}#1\@nil@}
 \lst@AddToHook{SelectCharTable}
     {\ifx\lst@literate\@empty\else
          \expandafter\lst@Literate\lst@literate{}\relax\z@
      \fi}
 %    \end{macrocode}
-% Internally we make use of the `replace input' feature.
-% We print the preceding text, assign token and length, and output it.
+% Internally we don't make use of the `replace input' feature any more.
+%^^A We print the preceding text, assign token and length, and output it.
 %    \begin{macrocode}
 \def\lst@Literate#1#2#3{%
     \ifx\relax#2\@empty\else
-        \lst@ReplaceInput{#1}%
-            {\ifx\lst@OutputBox\@gobble\else
-               \lst@XPrintToken \let\lst@scanmode\lst@scan@m
-               \lst@token{#2}\lst@length#3\relax
-               \lst@XPrintToken
-             \fi}%
+        \lst@CArgX #1\relax\lst@CDef
+            {}
+            {\let\lst@next\@empty
+             \lst@ifxliterate
+                \lst@ifmode \let\lst@next\lst@CArgEmpty \fi
+             \fi
+             \ifx\lst@next\@empty
+                 \ifx\lst@OutputBox\@gobble\else
+                   \lst@XPrintToken \let\lst@scanmode\lst@scan@m
+                   \lst@token{#2}\lst@length#3\relax
+                   \lst@XPrintToken
+                 \fi
+                 \let\lst@next\lst@CArgEmptyGobble
+             \fi
+             \lst@next}%
+            \@empty
         \expandafter\lst@Literate
     \fi}
+\def\lst@CArgEmptyGobble#1\@empty{}
 %    \end{macrocode}
 % Note that we check |\lst@OutputBox| for being |\@gobble|. This is due to
 % a bug report by \lsthelper{Jared~Warren}{2003/07/10}{literate replacement
@@ -10217,15 +10402,18 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 \lst@AddToHook{Init}{\lsthk@TrackKeywords\lsthk@PostTrackKeywords}
-\lst@AddToHook{TrackKeywords}{}% init
-\lst@AddToHook{PostTrackKeywords}{}% init
+\lst@AddToHook{TrackKeywords}
+    {\global\let\lst@DoDefineKeywords\@empty}% init
+\lst@AddToHook{PostTrackKeywords}
+    {\lst@DoDefineKeywords
+     \global\let\lst@DoDefineKeywords\@empty}% init
 %    \end{macrocode}
 % We have to detect the keywords somewhere.
 %    \begin{macrocode}
 \lst@AddToHook{Output}{\lst@ifkeywords \lsthk@DetectKeywords \fi}
 \lst@AddToHook{DetectKeywords}{}% init
 \lst@AddToHook{ModeTrue}{\let\lst@ifkeywords\iffalse}
-\lst@AddToHook{Init}{\let\lst@ifkeywords\iftrue}
+\lst@AddToHookExe{Init}{\let\lst@ifkeywords\iftrue}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -10304,39 +10492,42 @@
 % \item |\lst@|\meta{id}
 % \item |\lst@g|\meta{id}
 % \end{macroargs}
+% Thanks to \lsthelper{Holger~Arndt}{2004/05/27}{bad \lst@UndefineKeywords
+% \lst@DefineKeywords sequence if keyword crosses orders in two languages}
+% the definition of keywords is now delayed via |\lst@DoDefineKeywords|.
 %    \begin{macrocode}
 \gdef\lst@TK@#1#2#3#4{%
-    \ifx\lst@ifsensitive\lst@ifsensitivedefed
-        \ifx#3#4\else
-            \lst@true
-            \lst@ifsavemem\else
-                \lst@UndefineKeywords{#1}#4#2%
-                \lst@DefineKeywords{#1}#3#2%
-            \fi
-        \fi
-    \else
-        \ifx#3\relax\else
-            \lst@true
-            \lst@ifsavemem\else
-                \lst@UndefineKeywords{#1}#4#2%
-                \lst@DefineKeywords{#1}#3#2%
-            \fi
-        \fi
+  \ifx\lst@ifsensitive\lst@ifsensitivedefed
+    \ifx#3#4\else
+      \lst@true
+      \lst@ifsavemem\else
+          \lst@UndefineKeywords{#1}#4#2%
+          \lst@AddTo\lst@DoDefineKeywords{\lst@DefineKeywords{#1}#3#2}%
+      \fi
     \fi
+  \else
+    \ifx#3\relax\else
+      \lst@true
+      \lst@ifsavemem\else
+          \lst@UndefineKeywords{#1}#4#2%
+          \lst@AddTo\lst@DoDefineKeywords{\lst@DefineKeywords{#1}#3#2}%
+      \fi
+    \fi
+  \fi
 %    \end{macrocode}
 % We don't define and undefine keywords if we try to save memory. But we
 % possibly need to make them upper case, which again wastes some memory.
 %    \begin{macrocode}
-    \lst@ifsavemem \ifx#3\relax\else
-        \lst@ifsensitive\else \lst@MakeMacroUppercase#3\fi
-    \fi \fi
+  \lst@ifsavemem \ifx#3\relax\else
+      \lst@ifsensitive\else \lst@MakeMacroUppercase#3\fi
+  \fi \fi
 %    \end{macrocode}
 % Reaching the end of the class list, we end the loop.
 %    \begin{macrocode}
-    \ifx#3\relax
-        \expandafter\@gobblethree
-    \fi
-    \lst@TK@{#1}#2}
+  \ifx#3\relax
+      \expandafter\@gobblethree
+  \fi
+  \lst@TK@{#1}#2}
 %    \end{macrocode}
 % Here now we undefine the out-dated keywords. While not reaching the end of
 % the global list, we look whether the keyword class |#4#5| is still in use or
@@ -10675,6 +10866,22 @@
 %    \begin{macrocode}
 \lst@InstallFamily k{keywords}{keywordstyle}\bfseries{keywordstyle}{}ld
 %    \end{macrocode}
+% The following macro sets a keywordstyle, which \ldots
+%    \begin{macrocode}
+\gdef\lst@DefKeywordstyle#1#2\@nil@{%
+   \@namedef{lst@keywordstyle\ifnum\@tempcnta=\@ne\else\the\@tempcnta
+                             \fi}{#1#2}}%
+%    \end{macrocode}
+% \ldots\space is put together here. If we detect a star after the class
+% number, we insert code to make the keyword uppercase.
+%    \begin{macrocode}
+\lst@Key{keywordstyle}{\bfseries}{\lstKV@OptArg[\@ne]{#1}%
+  {\@tempcnta\lst@classoffset \advance\@tempcnta##1\relax
+   \@ifstar{\lst@DefKeywordstyle{\uppercase\expandafter{%
+                                 \expandafter\lst@token
+                                 \expandafter{\the\lst@token}}}}%
+           {\lst@DefKeywordstyle{}}##2\@nil@}}
+%    \end{macrocode}
 % \end{lstkey}
 %
 % \begin{lstkey}{ndkeywords}
@@ -10740,7 +10947,9 @@
 %
 % \begin{macro}{\lst@PrintOtherKeyword}
 % print preceding characters, prepare the output and typeset the argument in
-% keyword style.
+% keyword style. \lsthelper{James~Willans}{2004/07/23}{problem: otherkeywords}
+% reported problems when the output routine is invoked within |\begingroup| and
+% |\endgroup|. Now the definition is restructured.
 %    \begin{macrocode}
 \gdef\lst@PrintOtherKeyword#1\@empty{%
     \lst@XPrintToken
@@ -10749,11 +10958,18 @@
       \let\lst@ProcessDigit\lst@ProcessLetter
       \let\lst@ProcessOther\lst@ProcessLetter
       \lst@lettertrue
-      \lst@gkeywords@sty{#1\lst@XPrintToken}%
-    \endgroup}
+      #1%
+	  \lst@SaveToken
+    \endgroup
+	\lst@RestoreToken
+	\global\let\lst@savedcurrstyle\lst@currstyle
+	\let\lst@currstyle\lst@gkeywords@sty
+    \lst@Output
+	\let\lst@currstyle\lst@savedcurrstyle}
 %    \end{macrocode}
 % \begin{TODO}
-% Which part of \hookname{TextStyle} hook is required?
+% Which part of \hookname{TextStyle} hook is required? Is it required anymore,
+% i.e.after the restruction? Need to move it elsewhere?
 % \end{TODO}
 % \end{macro}
 %
@@ -10787,11 +11003,41 @@
 \lst@BeginAspect[keywords]{tex}
 %    \end{macrocode}
 %    \begin{macrocode}
-\lst@InstallKeywords{cs}{texcs}{texcsstyle}\relax{keywordstyle}
+\lst@InstallFamily {cs}{texcs}{texcsstyle}\relax{keywordstyle}
     {\ifx\lst@lastother\lstum@backslash
-         \let\lst@thestyle\lst@texcsstyle
+         \expandafter\let\expandafter\lst@thestyle
+                         \csname lst@texcsstyle#1\endcsname
      \fi}
     ld
+%    \end{macrocode}
+% The style-key checks for the optional star (which must be in front of
+% the optional class argument).
+%    \begin{macrocode}
+\lst@Key{texcsstyle}\relax
+  {\@ifstar{\lst@true\lst@DefTexcsstyle}%
+           {\lst@false\lst@DefTexcsstyle}#1\@nil@}
+\gdef\lst@DefTexcsstyle#1\@nil@{%
+    \let\lst@iftexcsincludebs\lst@if
+    \lstKV@OptArg[\@ne]{#1}%
+    {\@tempcnta\lst@classoffset \advance\@tempcnta##1\relax
+     \@namedef{lst@texcsstyle\ifnum\@tempcnta=\@ne\else
+                                   \the\@tempcnta \fi}{##2}}}%
+\global\let\lst@iftexcsincludebs\iffalse
+%    \end{macrocode}
+% To make the backslash belong to the control sequence, it is merged with
+% the following token. This option was suggested by \lsthelper{Morten~H\o gholm}
+% {2004/07/16}{defining new (colored) texcs}.
+%    \begin{macrocode}
+\let\lst@iftexcsincludebs\iffalse
+\lst@AddToHook{SelectCharTable}
+{\lst@iftexcsincludebs \ifx\@empty\lst@texcs\else
+     \lst@DefSaveDef{`\\}\lsts@texcsbs
+     {\ifx\lst@lastother\lstum@backslash
+          \lsts@texcsbs\lst@XPrintToken
+      \else
+          \lst@Merge\lsts@texcsbs
+      \fi}%
+ \fi \fi}
 %    \end{macrocode}
 %    \begin{macrocode}
 \lst@EndAspect
@@ -11212,9 +11458,13 @@
 % |\lsta@|\meta{language}|$|\meta{dialect} and |\lsta@|\meta{language} contain
 % the aliases of a particular dialect respectively a complete language.
 % We'll use a |$|-character to separate a language name from its dialect.
+% Thanks to \lsthelper{Walter~E.~Brown}{2004/02/25}{\lstalias
+% (+\lstdefinelanguage) fails} for reporting a problem with the argument
+% delimiter `[' in a previous definition of |\lstalias@|.
 %    \begin{macrocode}
 \lst@UserCommand\lstalias{\@ifnextchar[\lstalias@\lstalias@@}
-\gdef\lstalias@[#1]#2[#3]#4{\lst@NormedNameDef{lsta@#2$#1}{#4$#3}}
+\gdef\lstalias@[#1]#2{\lstalias@b #2$#1}
+\gdef\lstalias@b#1[#2]#3{\lst@NormedNameDef{lsta@#1}{#3$#2}}
 \gdef\lstalias@@#1#2{\lst@NormedNameDef{lsta@#1}{#2}}
 %    \end{macrocode}
 % \end{macro}
@@ -11699,14 +11949,14 @@
 \gdef\lst@gfmt@wp{%
     \begingroup \let\lst@UM\@empty
     \let\lst@PrintToken\@empty
-    \csname\lst@ @fmt$\the\lst@token\endcsname
+    \csname\@lst @fmt$\the\lst@token\endcsname
     \endgroup}
 %    \end{macrocode}
 % This control sequence is probably defined as `working identifier'.
 %    \begin{macrocode}
 \gdef\lst@fmtIdentifier#1#2#3#4{%
     \lst@DefOther\lst@fmta{#2}\edef\lst@fmt{\lst@fmt,\lst@fmta}%
-    \@namedef{\lst@ @fmt$\lst@fmta}{#3#4}}
+    \@namedef{\@lst @fmt$\lst@fmta}{#3#4}}
 %    \end{macrocode}
 % |\lst@fmt$|\meta{identifier} expands to a |\lst@fmtPre|/|\lst@fmtPost|
 % sequence defined by |#2| and |#3|.
@@ -12040,13 +12290,16 @@
 % \begin{lstkey}{postbreak}
 % As usual we have no problems in announcing more keys.
 % \keyname{breakatwhitespace} is due to \lsthelper{Javier~Bezos}{2003/09/23}
-% {breaklines breaks at odd places}.
+% {breaklines breaks at odd places}. Unfortunately a previous definition of
+% that key was wrong as \lsthelper{Franz~Rinnerthaler}{2004/03/12}
+% {breakatwhitespace has no effect} and \lsthelper{Ulrike~Fischer}{2004/07/11}
+% {breakatwhitespace has no effect} reported.
 %    \begin{macrocode}
 \lst@Key{breaklines}{false}[t]{\lstKV@SetIf{#1}\lst@ifbreaklines}
 \lst@Key{breakindent}{20pt}{\def\lst@breakindent{#1}}
 \lst@Key{breakautoindent}{t}[t]{\lstKV@SetIf{#1}\lst@ifbreakautoindent}
 \lst@Key{breakatwhitespace}{false}[t]%
-    {\lstKV@SetIf{##1}\lst@ifbreakatwhitespace}
+    {\lstKV@SetIf{#1}\lst@ifbreakatwhitespace}
 \lst@Key{prebreak}{}{\def\lst@prebreak{#1}}
 \lst@Key{postbreak}{}{\def\lst@postbreak{#1}}
 %    \end{macrocode}
@@ -12055,8 +12308,14 @@
 %    \begin{macrocode}
 \lst@AddToHook{Init}
     {\lst@ifbreaklines
-         \hbadness\@M \pretolerance\@M \raggedright
+         \hbadness\@M \pretolerance\@M 
+         \@rightskip\@flushglue \rightskip\@rightskip % \raggedright
+         \leftskip\z@skip \parindent\z@
 %    \end{macrocode}
+% A |\raggedright| above has been replaced by setting the values by hand after
+% a bug report from \lsthelper{Morten~H\o gholm}{2004/09/06}{ltugboat.cls and
+% listings}.
+%
 % We use the normal parshape and the calculated |\lst@breakshape| (see below).
 %    \begin{macrocode}
          \def\lst@parshape{\parshape\tw@ \@totalleftmargin\linewidth
@@ -12968,12 +13227,18 @@
   \lstlistingname
   \ifx\lst@@caption\@empty\else~\thelstlisting\fi}%
 %    \end{macrocode}
+% Captions are set only for display style listings -- thanks to
+% \lsthelper{Peter~L\"offler}{2004/04/24}{pdfTeX warning (dest): name{figure.1}
+% has been referenced but does not exist} for reporting the bug and to
+% \lsthelper{Axel~Sommerfeldt}{2004/02/27}{Re: caption + listings + hyperref}
+% for analyzing the bug.
 % We |\refstepcounter| the listing counter if and only if |\lst@@caption| is
 % not empty. Otherwise we ensure correct hyper-references,
 % see |\lst@HRefStepCounter| below. We do this once a listing, namely at the
 % top.
 %    \begin{macrocode}
 \def\lst@MakeCaption#1{%
+  \lst@ifdisplaystyle
     \ifx #1t%
         \ifx\lst@@caption\@empty\expandafter\lst@HRefStepCounter \else
                                 \expandafter\refstepcounter
@@ -13028,7 +13293,8 @@
              \fi
              \ifx #1b\allowbreak \fi
              \endgroup}{}%
-    \fi}
+    \fi
+  \fi}
 %    \end{macrocode}
 % I've inserted |\normalsize| after a bug report from
 % \lsthelper{Andreas~Matthias}{2000/01/04}{caption affected by basicstyle}
@@ -13131,6 +13397,17 @@
 \lst@AddToHook{PreSet}{\let\lst@float\lst@floatdefault}
 \lst@AddToHook{TextStyle}{\let\lst@float\relax}
 \let\lst@floatdefault\relax % init
+%    \end{macrocode}
+% |\lst@doendpe| is set according to |\lst@float| -- thanks to
+% \lsthelper{Andreas~Schmidt}{2004/05/15}{wrong spacing when a floating listing
+% follows \section} and \lsthelper{Heiko~Oberdiek}{2004/05/18}{dito}.
+%    \begin{macrocode}
+\lst@AddToHook{DeInit}{%
+    \ifx\lst@float\relax
+        \global\let\lst@doendpe\@doendpe
+    \else
+        \global\let\lst@doendpe\@empty
+    \fi}
 %    \end{macrocode}
 % The float type |\ftype@lstlisting| is set according to whether the
 % \packagename{float} package is loaded and whether \texttt{figure} and
@@ -13280,7 +13557,9 @@
 % The |\everypar| has been put behind |\lsthk@ExitVars| after a bug report by
 % \lsthelper{Michael~Niedermair}{2002/05/14}{listings.sty und caption} and
 % I've added |\normalbaselines| after a bug report by \lsthelper{Georg~Rehm}
-% {2002/05/14}{listings.sty und lange captions}.
+% {2002/05/14}{listings.sty und lange captions} and |\normalcolor| after a
+% report by \lsthelper{Walter~E.~Brown}{2004/03/01}{captions at bottom of
+% listings inherit color from basicstyle}.
 %    \begin{macrocode}
 \def\lst@DeInit{%
     \lst@XPrintToken \lst@EOLUpdate
@@ -13291,7 +13570,7 @@
         \setbox\@tempboxa\vbox{\lst@DoNewLines}%
     \fi
     \lst@ifdisplaystyle \par\removelastskip \fi
-    \lsthk@ExitVars\everypar{}\lsthk@DeInit\normalbaselines
+    \lsthk@ExitVars\everypar{}\lsthk@DeInit\normalbaselines\normalcolor
 %    \end{macrocode}
 % Place the bottom caption.
 %    \begin{macrocode}
@@ -13603,12 +13882,28 @@
     \lccode`\~=`\ \lowercase{\lst@lAddTo\lst@arg~}%
     \lst@InlineGJ#1}
 %    \end{macrocode}
-%    \begin{macrocode}
-%    \end{macrocode}
 % \end{macro}
 %
 %
 % \subsection{The input command}\label{iTheInputCommand}
+%
+% \begin{macro}{\lst@MakePath}
+% \begin{lstkey}{inputpath}
+% The macro appends a slash to a path if necessary.
+%    \begin{macrocode}
+\def\lst@MakePath#1{\ifx\@empty#1\@empty\else\lst@MakePath@#1/\@nil/\fi}
+\def\lst@MakePath@#1/{#1/\lst@MakePath@@}
+\def\lst@MakePath@@#1/{%
+    \ifx\@nil#1\expandafter\@gobble
+         \else \ifx\@empty#1\else #1/\fi \fi
+    \lst@MakePath@@}
+%    \end{macrocode}
+% Now we can empty the path or use |\lst@MakePath|.
+%    \begin{macrocode}
+\lst@Key{inputpath}{}{\edef\lst@inputpath{\lst@MakePath{#1}}}
+%    \end{macrocode}
+% \end{lstkey}
+% \end{macro}
 %
 % \begin{macro}{\lstinputlisting}
 % inputs the listing or asks the user for a new file name.
@@ -13618,16 +13913,16 @@
 \newcommand\lst@inputlisting[2][]{%
     \endgroup
     \def\lst@set{#1}%
-    \IfFileExists{#2}%
-        {\lst@InputListing{#2}}%
-        {\filename@parse{#2}%
+    \IfFileExists{\lst@inputpath#2}%
+        {\expandafter\lst@InputListing\expandafter{\lst@inputpath#2}}%
+        {\filename@parse{\lst@inputpath#2}%
          \edef\reserved@a{\noexpand\lst@MissingFileError
              {\filename@area\filename@base}%
              {\ifx\filename@ext\relax tex\else\filename@ext\fi}}%
          \reserved@a}%
-    \@doendpe \@newlistfalse \ignorespaces}
+    \lst@doendpe \@newlistfalse \ignorespaces}
 %    \end{macrocode}
-% We use |\@doendpe| to remove indention at the beginning of the next
+% We use |\lst@doendpe| to remove indention at the beginning of the next
 % line---except there is an empty line after |\lstinputlisting|. Bug was
 % reported by \lsthelper{David~John~Evans}{1999/06/08}{indention after
 % listings} and \lsthelper{David~Carlisle}{1999/06/08}{LaTeX `display
@@ -13916,9 +14211,9 @@
 % Note that the redefinition also works inside a \TeX\ comment line.
 %    \begin{macrocode}
          \@namedef{end##2}{\lst@DeInit ##5\endgroup
-                          \@doendpe \@ignoretrue}%
+                          \lst@doendpe \@ignoretrue}%
 %    \end{macrocode}
-% |\@doendpe| again removes the indention problem.
+% |\lst@doendpe| again removes the indention problem.
 %
 % Finally we start the processing. The |\lst@EndProcessListing| assignment
 % has been moved in front of |\lst@Init| after a bug report by
@@ -14102,11 +14397,18 @@
 %    \begin{macrocode}
 %<*doc>
 \let\lstdoc@currversion\fileversion
-\RequirePackage[writefile]{listings}[2002/04/01]
+\RequirePackage[writefile]{listings}[2004/09/07]
 \newif\iffancyvrb \IfFileExists{fancyvrb.sty}{\fancyvrbtrue}{}
 \newif\ifcolor \IfFileExists{color.sty}{\colortrue}{}
-\newif\ifhyper \@ifundefined{pdfoutput}{}
-    {\IfFileExists{hyperref.sty}{\hypertrue}{}}
+\lst@false
+\newif\ifhyper
+\@ifundefined{pdfoutput}
+    {}
+    {\ifnum\pdfoutput>\z@ \lst@true \fi}
+\@ifundefined{VTeXversion}
+    {}
+    {\ifnum\OpMode>\z@ \lst@true \fi}
+\lst@if \IfFileExists{hyperref.sty}{\hypertrue}{}\fi
 \newif\ifalgorithmic \IfFileExists{algorithmic.sty}{\algorithmictrue}{}
 \newif\iflgrind \IfFileExists{lgrind.sty}{\lgrindtrue}{}
 \iffancyvrb \RequirePackage{fancyvrb}\fi
@@ -15618,6 +15920,8 @@
 %   \item bugfix-release with some new keys
 % \item[1.2] 2004/02/13
 %   \item bugfix-release with two new keys and new section \ref{rArbitraryLinerangeMarkers}
+% \item[1.3] 2004/09/07
+%   \item another bugfix-release with LPPL-1.3-compliance
 % \end{itemize}
 % \endgroup
 %

@@ -1,11 +1,9 @@
 %%
 %% This is file `lstpatch.sty', generated manually.
 %%
-%% Please read the software license in listings.dtx or listings.dvi.
+%% (w)(c) 2004 Carsten Heinz
 %%
-%% (w)(c) 2003,2004 Carsten Heinz
-%%
-%% This file is distributed under the terms of the LaTeX Project Public
+%% This file may be distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
 %% Either version 1.0 or, at your option, any later version.
 %%
@@ -17,15 +15,21 @@
 %% version, a short description of the problem, and the reason for the bug
 %% in parenthesis.
 %%
-%%  1) Carsten Heinz, 2004/02/18, 1.1b (2004/02/18)
+%%  1) Frank Atanassow, 2004/10/07, 1.3b
 %%
-%%     Bad default for noxoutput
-%%     (`true' should be `false')
+%%     space after mathescape is not preserved
+%%     (\lst@newlines>0)
+%%
+%%  2) Benjamin Lings, 2004/10/15, 1.3b (2004/10/17)
+%%
+%%     \usepackage{xy,listings} yields:
+%%     "Forbidden control sequence found while scanning use of \lst@lExtend"
+%%     (xy-pic correctly resets catcode of ^^L (to active), which is \outer)
 %%
 %%
 %% The following features are added to the base package.
 %%
-%% 1.2a (2004/02/10)
+%% 1.3a (2004/09/07)
 %%
 %%  a) H I G H L Y   E X P E R I M E N T A L
 %%
@@ -52,22 +56,70 @@
 %%        includerangemarker=true|false
 %%     to show or hide the range markers in the output.
 %%
-%%  b) noxoutput=true|false (not a permanent key!)
+%% 1.3b (2004/10/17)
 %%
-%%     enables or disables the special output routine
+%%  b) multicols=<number> (requires loaded multicol package)
 %%
 %%
-\ProvidesFile{lstpatch.sty}[2004/02/18 1.2b (Carsten Heinz)]
-\lst@CheckVersion{1.2}
+\lst@CheckVersion{1.3}
 {\typeout{^^J%
     ***^^J%
-    *** This is a patch for listings 1.2, but you're using^^J%
+    *** This is a patch for listings 1.3, but you're using^^J%
     *** version \lst@version.^^J%
     ***^^J
     *** Patch file not loaded.^^J%
     ***^^J}%
     \endinput
 }
+\def\fileversion{1.3b}
+\def\filedate{2004/10/17}
+\ProvidesFile{lstpatch.sty}[\filedate\space\fileversion\space (Carsten Heinz)]
+%
+% 0) Insert % after #1.
+\def\@@xbitor #1{\@tempcntb \count#1%
+   \ifnum \@tempcnta =\z@
+   \else
+     \divide\@tempcntb\@tempcnta
+     \ifodd\@tempcntb \@testtrue\fi
+   \fi}
+%
+% 1) Reset \lst@newlines at end of escape.
+\def\lstpatch@escape{%
+\gdef\lst@Escape##1##2##3##4{%
+    \lst@CArgX ##1\relax\lst@CDefX
+        {}%
+        {\lst@ifdropinput\else
+         \lst@TrackNewLines\lst@OutputLostSpace \lst@XPrintToken
+         \lst@InterruptModes
+         \lst@EnterMode{\lst@TeXmode}{\lst@modetrue}%
+         \ifx\^^M##2%
+             \lst@CArg ##2\relax\lst@ActiveCDefX
+                 {}%
+                 {\lst@escapeend ##4\lst@LeaveAllModes\lst@ReenterModes}%
+                 {\lst@MProcessListing}%
+         \else
+             \lst@CArg ##2\relax\lst@ActiveCDefX
+                 {}%
+                 {\lst@escapeend ##4\lst@LeaveAllModes\lst@ReenterModes
+                  \lst@newlines\z@ \lst@whitespacefalse}%
+                 {}%
+         \fi
+         ##3\lst@escapebegin
+         \fi}%
+        {}}%
+}
+%
+% 2) Deactivate \outer definition of ^^L temporarily (inside and outside
+%    of \lst@ScanChars) and restore \catcode at end of package.
+\begingroup \catcode12=\active\let^^L\@empty
+\gdef\lst@ScanChars{%
+  \let\lsts@ssL^^L%
+  \def^^L{\par}%
+    \lst@GetChars\lst@RestoreOrigCatcodes\@ne {128}%
+  \let^^L\lsts@ssL
+    \lst@GetChars\lst@RestoreOrigExtendedCatcodes{128}{256}}
+\endgroup
+\lst@lAddTo\lst@RestoreCatcodes{\catcode12\active}
 %
 % a) Let's start with the options:
 \lst@Key{rangeprefix}\relax{\def\lst@rangebeginprefix{#1}%
@@ -119,9 +171,18 @@
      \fi
 %    The following definition will be executed in the SelectCharTable hook
 %    and here right now if we are already processing a listing.
-     \def\lst@DefRange{\expandafter\lst@CArgX\lst@rangebegin\relax\lst@DefRangeB}%
+     \global\def\lst@DefRange{\expandafter\lst@CArgX\lst@rangebegin\relax\lst@DefRangeB}%
      \ifnum\lst@mode=\lst@Pmode \expandafter\lst@DefRange \fi}}
-\lst@AddToHook{SelectCharTable}{\lst@DefRange}
+%    \lst@DefRange is not inserted via a hook anymore. Instead it is now called
+%    directly from \lst@SelectCharTable. This was necessary to get rid of an
+%    interference with the escape-to-LaTeX-feature. The bug was reported by
+%    \lsthelper{Michael~Bachmann}{2004/07/21}{Keine label-Referenzierung
+%    m\"oglich...}. Another chance is due to the same bug: \lst@DefRange is
+%    redefined globally when the begin of code is found, see below. The bug was
+%    reported by \lsthelper{Tobias~Rapp}{2004/04/06}{undetected end of range if
+%    listing crosses page break} \lsthelper{Markus~Luisser}{2004/08/13}{Bug mit
+%    'linerangemarker' in umgebrochenen listings}
+%\lst@AddToHook{SelectCharTable}{\lst@DefRange}
 \lst@AddToHookExe{DeInit}{\global\let\lst@DefRange\@empty}
 %
 %    Actually defining the marker (via \lst@GLI@, \lst@DefRange, \lst@CArgX as
@@ -134,16 +195,42 @@
          \lst@LeaveMode
          \let#1#4%
          \lst@DefRangeEnd
-         \global\c@lstnumber\lst@lineno
-         \global\advance\c@lstnumber-\lst@advancelstnum
+         \lst@InitLstNumber
      \else
          \@tempcnta\lst@lineno \advance\@tempcnta\@ne
          \edef\lst@firstline{\the\@tempcnta\relax}%
          \gdef\lst@OnceAtEOL{\let#1#4\lst@DefRangeEnd}%
-         \global\c@lstnumber\lst@lineno
+         \lst@InitLstNumber
      \fi
+	 \global\let\lst@DefRange\lst@DefRangeEnd
      \lst@CArgEmpty}%
     \@empty}
+%
+% Modify labels and define |\lst@InitLstNumber| used above.
+% \lsthelper{Omair-Inam~Abdul-Matin}{2004/05/10}{experimental linerange
+% feature does not work with firstnumber}
+\def\lstpatch@labels{%
+\gdef\lst@SetFirstNumber{%
+    \ifx\lst@firstnumber\@undefined
+        \@tempcnta 0\csname\@lst no@\lst@intname\endcsname\relax
+        \ifnum\@tempcnta=\z@ \else
+            \lst@nololtrue
+            \advance\@tempcnta\lst@advancenumber
+            \edef\lst@firstnumber{\the\@tempcnta\relax}%
+        \fi
+    \fi}%
+}
+\lst@AddToAtTop\lsthk@PreInit
+    {\ifx\lst@firstnumber\@undefined
+         \def\lst@firstnumber{\lst@lineno}%
+     \fi}
+\def\lst@InitLstNumber{%
+     \global\c@lstnumber\lst@firstnumber
+     \global\advance\c@lstnumber\lst@advancenumber
+     \global\advance\c@lstnumber-\lst@advancelstnum
+     \ifx \lst@firstnumber\c@lstnumber
+         \global\advance\c@lstnumber-\lst@advancelstnum
+     \fi}
 %
 %    The end-marker is defined if and only if it's not empty. The definition is
 %    similar to \lst@DefDelimE---with the above exceptions and except that we
@@ -183,6 +270,7 @@
     \ifnum \lst@lineno=\lst@firstline
         \def\lst@next{\lst@LeaveMode \global\lst@newlines\z@
         \lst@OnceAtEOL \global\let\lst@OnceAtEOL\@empty
+        \lst@InitLstNumber % Added to work with modified \lsthk@PreInit.
         \lsthk@InitVarsBOL
         \lst@BOLGobble}%
         \expandafter\lst@next
@@ -211,13 +299,94 @@
         \let\lst@next\@firstoftwo
     \fi\fi}
 %
-% b) Disable redefinition of output routine if necessary.
-% 1) Switched from true to false as default.
-\lst@Key{noxoutput}{false}[t]{\lstKV@SetIf{#1}\lst@ifnoxoutput}
-\lst@AddToHook{Init}
-{\lst@ifnoxoutput
-     \expandafter\output\expandafter{\lst@OrgOutput}%
- \fi}
+% b) The following is known to fail with some keys.
+\lst@Key{multicols}{}{\@tempcnta=0#1\relax\def\lst@multicols{#1}}
+\def\lst@Init#1{%
+    \begingroup
+    \ifx\lst@float\relax\else
+        \edef\@tempa{\noexpand\lst@beginfloat{lstlisting}[\lst@float]}%
+        \expandafter\@tempa
+    \fi
+% chmod begin
+    \ifx\lst@multicols\@empty\else
+        \edef\lst@next{\noexpand\multicols{\lst@multicols}}
+        \expandafter\lst@next
+    \fi
+% chmod end
+    \ifhmode\ifinner \lst@boxtrue \fi\fi
+    \lst@ifbox
+        \lsthk@BoxUnsafe
+        \hbox to\z@\bgroup
+             $\if t\lst@boxpos \vtop
+        \else \if b\lst@boxpos \vbox
+        \else \vcenter \fi\fi
+        \bgroup \par\noindent
+    \else
+        \lst@ifdisplaystyle
+            \lst@EveryDisplay
+            \par\penalty-50\relax
+            \vspace\lst@aboveskip
+        \fi
+    \fi
+    \normalbaselines
+    \abovecaptionskip\lst@abovecaption\relax
+    \belowcaptionskip\lst@belowcaption\relax
+    \lst@MakeCaption t%
+    \lsthk@PreInit \lsthk@Init
+    \lst@ifdisplaystyle
+        \global\let\lst@ltxlabel\@empty
+        \if@inlabel
+            \lst@ifresetmargins
+                \leavevmode
+            \else
+                \xdef\lst@ltxlabel{\the\everypar}%
+                \lst@AddTo\lst@ltxlabel{%
+                    \global\let\lst@ltxlabel\@empty
+                    \everypar{\lsthk@EveryLine\lsthk@EveryPar}}%
+            \fi
+        \fi
+        \everypar\expandafter{\lst@ltxlabel
+                              \lsthk@EveryLine\lsthk@EveryPar}%
+    \else
+        \everypar{}\let\lst@NewLine\@empty
+    \fi
+    \lsthk@InitVars \lsthk@InitVarsBOL
+    \lst@Let{13}\lst@MProcessListing
+    \let\lst@Backslash#1%
+    \lst@EnterMode{\lst@Pmode}{\lst@SelectCharTable}%
+    \lst@InitFinalize}
+\def\lst@DeInit{%
+    \lst@XPrintToken \lst@EOLUpdate
+    \global\advance\lst@newlines\m@ne
+    \lst@ifshowlines
+        \lst@DoNewLines
+    \else
+        \setbox\@tempboxa\vbox{\lst@DoNewLines}%
+    \fi
+    \lst@ifdisplaystyle \par\removelastskip \fi
+    \lsthk@ExitVars\everypar{}\lsthk@DeInit\normalbaselines\normalcolor
+    \lst@MakeCaption b%
+    \lst@ifbox
+        \egroup $\hss \egroup
+        \vrule\@width\lst@maxwidth\@height\z@\@depth\z@
+    \else
+        \lst@ifdisplaystyle
+            \par\penalty-50\vspace\lst@belowskip
+        \fi
+    \fi
+% chmod begin
+    \ifx\lst@multicols\@empty\else
+        \def\lst@next{\global\let\@checkend\@gobble
+                      \endmulticols
+                      \global\let\@checkend\lst@@checkend}
+        \expandafter\lst@next
+    \fi
+% chmod end
+    \ifx\lst@float\relax\else
+        \expandafter\lst@endfloat
+    \fi
+    \endgroup}
+\let\lst@@checkend\@checkend
 %%
 \endinput
 %%

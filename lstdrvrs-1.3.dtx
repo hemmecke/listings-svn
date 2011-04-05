@@ -7,7 +7,7 @@
 \CodelineIndex
 
 \begin{document}
-    \DocInput{lstdrvrs.dtx}
+    \DocInput{lstdrvrs-1.3.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -22,7 +22,7 @@
 % \DoNotIndex{\undefined}
 %
 %
-% \title{Language, Style and Format drivers\\ for \textsf{Listings 1.2}\\ {\large by Carsten Heinz and individual authors:}}
+% \title{Language, Style and Format drivers\\ for \textsf{Listings 1.3}\\ {\large by Carsten Heinz and individual authors:}}
 % \author{\InputIfFileExists{lstdrvrs.tmp}{}{}}
 % \date{}
 %
@@ -70,9 +70,9 @@
 
 
 \generate{
-    \file{lstlang1.sty}{\from{lstdrvrs.dtx}{lang1}}
-    \file{lstlang2.sty}{\from{lstdrvrs.dtx}{lang2}}
-    \file{lstlang3.sty}{\from{lstdrvrs.dtx}{lang3}}
+    \file{lstlang1.sty}{\from{lstdrvrs-1.3.dtx}{lang1}}
+    \file{lstlang2.sty}{\from{lstdrvrs-1.3.dtx}{lang2}}
+    \file{lstlang3.sty}{\from{lstdrvrs-1.3.dtx}{lang3}}
 }
 
 
@@ -97,7 +97,7 @@
 % \endgroup
 % We mainly define default dialects.
 %    \begin{macrocode}
-\ProvidesFile{listings.cfg}[2004/02/13 1.2 listings configuration]
+\ProvidesFile{listings.cfg}[2004/09/05 1.3 listings configuration]
 \def\lstlanguagefiles
     {lstlang0.sty,lstlang1.sty,lstlang2.sty,lstlang3.sty}
 \lstset{defaultdialect=[R/3 6.10]ABAP,
@@ -137,7 +137,7 @@
 %<+lang1>\ProvidesFile{lstlang1.sty}
 %<+lang2>\ProvidesFile{lstlang2.sty}
 %<+lang3>\ProvidesFile{lstlang3.sty}
-%<-config>    [2004/02/13 1.2 listings language file]
+%<-config>    [2004/09/05 1.3 listings language file]
 %    \end{macrocode}
 %
 %
@@ -357,7 +357,7 @@
 %
 % \subsection{Assembler}
 %
-% Credits go to \lstthanks{Andrew Zabolotny}{zap@cobra.ru}{2002/07/05}.
+% Credits go to \lstthanks{Andrew~Zabolotny}{zap@cobra.ru}{2002/07/05}.
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
@@ -649,7 +649,7 @@
    morecomment=[l]//,%
    morecomment=[s]{/*}{*/},%
    morestring=[b]"%
-  }[keywords,comments,strings]%
+  }[keywords,comments,strings,directives]%
 %</lang2>
 %    \end{macrocode}
 % \endgroup
@@ -717,6 +717,30 @@
 %    \end{macrocode}
 % \endgroup
 %
+%
+% \lstthanks{J\"org~Viermann}{}{2004/07/17} provided the keywords for Handel-C.
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% Handel-C definition, refer http://www.celoxica.com
+%%
+\lst@definelanguage[Handel]{C}[ANSI]{C}
+  {morekeywords={assert,chan,chanin,chanout,clock,delay,expr,external,%
+      external_divide,family,ifselect,in,inline,interface,internal,%
+      internal_divid,intwidth,let,macro,mpram,par,part,prialt,proc,ram,%
+      releasesema,reset,rom,select,sema,set,seq,shared,signal,try,%
+      reset,trysema,typeof,undefined,width,with,wom},%
+  }%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang1>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
@@ -759,7 +783,8 @@
       namespace,new,null,object,operator,out,override,params,private,%
       protected,public,readonly,ref,return,sbyte,sealed,short,sizeof,%
       static,string,struct,switch,this,throw,true,try,typeof,uint,%
-      ulong,unchecked,unsafe,ushort,using,virtual,void,while},%
+      ulong,unchecked,unsafe,ushort,using,virtual,void,while,%
+      as,volatile,stackalloc},% Kai K\"ohne
    sensitive,%
    morecomment=[s]{/*}{*/},%
    morecomment=[l]//,%
@@ -1432,24 +1457,36 @@
 %
 % \subsection{HTML}
 %
-% I'm quite the opposite of a HTML wizard.
-% In particular this is true for the defined keywords.
+% I'm quite the opposite of a HTML wizard. In particular this is true for the
+% defined keywords. \lstthanks{Matthias~Bethke}{-}{2003/09/01} helped me out
+% and extended the list.
 % \begingroup
 %    \begin{macrocode}
 %<*lang1>
 %    \end{macrocode}
 %    \begin{macrocode}
 \lst@definelanguage{HTML}%
-  {morekeywords={A,ADDRESS,APPLET,B,BASE,BASEFONT,BIG,BLOCKQUOTE,BODY,%
-      BR,CENTER,CITE,CODE,DFN,DIR,DIV,DOCTYPE,EM,FONT,FORM,HEAD,HR,%
-      H1,H2,H3,H4,H5,H6,HTML,I,IMG,INPUT,ISINDEX,KBD,LI,LINK,LISTING,%
-      MAP,META,MENU,P,PLAINTEXT,PRE,OL,SAMP,SCRIPT,SELECT,SMALL,STRIKE,%
-      STRING,SUB,SUP,STYLE,TABLE,TEXTAREA,TITLE,TT,U,UL,VAR,XMP,%
-      action,align,alink,alt,background,bgcolor,border,cellpadding,%
-      cellspacing,checked,code,codebase,color,cols,colspan,entype,%
-      height,href,hspace,ismap,link,maxlength,method,multiple,name,%
-      noshade,nowrap,rel,rev,rows,rowspan,selected,shape,size,src,text,%
-      title,type,usemap,valign,value,vlink,vspace,width},%
+  {morekeywords={A,ABBR,ACRONYM,ADDRESS,APPLET,AREA,B,BASE,BASEFONT,%
+      BDO,BIG,BLOCKQUOTE,BODY,BR,BUTTON,CAPTION,CENTER,CITE,CODE,COL,%
+      COLGROUP,DD,DEL,DFN,DIR,DIV,DL,DOCTYPE,DT,EM,FIELDSET,FONT,FORM,%
+      FRAME,FRAMESET,HEAD,HR,H1,H2,H3,H4,H5,H6,HTML,I,IFRAME,IMG,INPUT,%
+      INS,ISINDEX,KBD,LABEL,LEGEND,LH,LI,LINK,LISTING,MAP,META,MENU,%
+      NOFRAMES,NOSCRIPT,OBJECT,OPTGROUP,OPTION,P,PARAM,PLAINTEXT,PRE,%
+      OL,Q,S,SAMP,SCRIPT,SELECT,SMALL,SPAN,STRIKE,STRING,STRONG,STYLE,%
+      SUB,SUP,TABLE,TBODY,TD,TEXTAREA,TFOOT,TH,THEAD,TITLE,TR,TT,U,UL,%
+      VAR,XMP,%
+      accesskey,action,align,alink,alt,archive,axis,background,bgcolor,%
+      border,cellpadding,cellspacing,charset,checked,cite,class,classid,%
+      code,codebase,codetype,color,cols,colspan,content,coords,data,%
+      datetime,defer,disabled,dir,event,error,for,frameborder,headers,%
+      height,href,hreflang,hspace,http-equiv,id,ismap,label,lang,link,%
+      longdesc,marginwidth,marginheight,maxlength,media,method,multiple,%
+      name,nohref,noresize,noshade,nowrap,onblur,onchange,onclick,%
+      ondblclick,onfocus,onkeydown,onkeypress,onkeyup,onload,onmousedown,%
+      profile,readonly,onmousemove,onmouseout,onmouseover,onmouseup,%
+      onselect,onunload,rel,rev,rows,rowspan,scheme,scope,scrolling,%
+      selected,shape,size,src,standby,style,tabindex,text,title,type,%
+      units,usemap,valign,value,valuetype,vlink,vspace,width,xmlns},%
    tag=**[s]<>,%
    sensitive=f,%
    morestring=[d]",% ??? doubled
@@ -1511,7 +1548,9 @@
 % \subsection{Inform}
 %
 % Thanks to \lstthanks{Jonathan~Sauer}{jonathan.sauer@gmx.de}{2003/11/10}
-% for this language definition.
+% for this language definition. \lsthelper{Ulrike Fischer}{-}{2004/04/21}
+% {Bug in listings.sty} pointed out that |\lstdefinelanguage| should be
+% |\lst@definelanguage|.
 % \begingroup
 %    \begin{macrocode}
 %<*lang2>
@@ -1520,7 +1559,7 @@
 %%
 %% Inform definition (c) 2003 Jonathan Sauer
 %%
-\lstdefinelanguage{inform}{%
+\lst@definelanguage{inform}{%
     % Language keywords
     morekeywords={breakdo,else,false,for,has,hasnt,if,%
                 in,indirect,jump,notin,nothing,NULL,objectloop,ofclass,%
@@ -1618,6 +1657,7 @@
 %    \begin{macrocode}
 %<*lang1>
 %    \end{macrocode}
+%    \begin{macrocode}
 %%
 %% AspectJ definition (c) Robert Wenner
 %%
@@ -1631,7 +1671,27 @@
       percflow,percflowbelow,perthis,pertarget,preinitialization,%
       privileged,proceed,returning,set,staticinitialization,strictfp,%
       target,this,thisEnclosingJoinPoint,thisJoinPoint,throwing,%
-      within,withincode}%
+      within,withincode},%
+   MoreSelectCharTable=%
+     \lst@DefSaveDef{`.}\lst@umdot{\lst@umdot\global\let\lst@derefop\@empty}%
+     \ifx\lst@derefinstalled\@empty\else
+        \global\let\lst@derefinstalled\@empty
+\lst@AddToHook{Output}%
+{\lst@ifkeywords
+    \ifx\lst@derefop\@empty
+       \global\let\lst@derefop\relax
+       \ifx\lst@thestyle\lst@gkeywords@sty
+          \ifx\lst@currstyle\relax
+             \let\lst@thestyle\lst@identifierstyle
+          \else
+             \let\lst@thestyle\lst@currstyle
+          \fi
+       \fi
+    \fi
+ \fi}
+\lst@AddToHook{BOL}{\global\let\lst@derefop\relax}%
+\lst@AddTo\lst@ProcessSpace{\global\let\lst@derefop\relax}%
+     \fi
   }%
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -1661,6 +1721,49 @@
 %    \end{macrocode}
 % \lsthelper{Herbert Voss}{Herbert.Voss@alumni.TU-Berlin.de}{2002/07/30}
 % {missing keyword label} added the keyword \texttt{label}.
+%    \begin{macrocode}
+%</lang1>
+%    \end{macrocode}
+% \endgroup
+%
+% \lstthanks{Martine~Gautier}{Martine.Gautier@loria.fr}{2004/03/30} made the
+% following contribution.
+% \begingroup
+%    \begin{macrocode}
+%<*lang1>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% ByteCodeJava definition (c) 2004 Martine Gautier
+%%
+\lst@definelanguage{JVMIS}%
+  {morekeywords={aaload,astore,aconst_null,aload,aload_0,aload_1,%
+      aload_2,aload_3,anewarray,areturn,arraylength,astore,astore_0,%
+      astore_1,astore_2,astore_3,athrow,baload,bastore,bipush,caload,%
+      castore,checkcast,d2f,d2i,d2l,dadd,daload,dastore,dcmpg,dcmpl,%
+      dconst_0,dconst_1,ddiv,dload,dload_0,dload_1,dload_2,dload_3,%
+      dmul,dneg,drem,dreturn,dstore,dstore_0,dstore_1,dstore_2,%
+      dstore_3,dsub,dup,dup_x1,dup_x2,dup2,dup2_x1,dup2_x2,f2d,%
+      f2i,f2l,fadd,faload,fastore,fcmpg,fcmpl,fconst_0,fconst_1,%
+      fconst_2,fdiv,fload,fload_0,fload_1,fload_2,fload_3,fmul,%
+      fneg,frem,freturn,fstore,fstore_0,fstore_1,fstore_2,fstore_3,%
+      fsub,getfield,getstatic,goto,goto_w,i2b,i2c,i2d,i2f,i2l,i2s,%
+      iadd,iaload,iand,iastore,iconst_0,iconst_1,iconst_2,iconst_3,%
+      iconst_4,iconst_5,idiv,if_acmpeq,if_acmpne,if_icmpeq,if_icmpne,%
+      if_icmplt,if_cmpge,if_cmpgt,if_cmple,ifeq,ifne,iflt,ifge,ifgt,%
+      ifle,ifnonnull,ifnull,iinc,iload,iload_0,iload_1,iload_2,%
+      iload_3,imul,ineg,instanceof,invokeinterface,invokespecial,%
+      invokestatic,invokevirtual,ior,irem,ireturn,ishl,ishr,istore,%
+      istore_0,istore_1,istore_2,istore_3,isub,iushr,ixor,jsr,jsr_w,%
+      l2d,l2f,l2i,ladd,laload,land,lastore,lcmp,lconst_0,lconst_1,%
+      ldc,ldc_w,ldc2_w,ldiv,lload,lload_0,lload_1,lload_2,lload_3,%
+      lmul,lneg,lookupswitch,lor,lrem,lreturn,lshl,lshr,lstore,%
+      lstore_0,lstore_1,lstore_2,lstore_3,lsub,lushr,lxor,%
+      monitorenter,monitorexit,multianewarray,new,newarray,nop,pop,%
+      pop2,putfield,putstatic,ret,return,saload,sastore,sipush,swap,%
+      tableswitch,wide,limit,locals,stack},%
+  }[keywords]%
+%    \end{macrocode}
 %    \begin{macrocode}
 %</lang1>
 %    \end{macrocode}
@@ -2278,57 +2381,76 @@
 % \subsection{MetaPost}
 %
 % \lstthanks{Uwe~Siart}{uwe.siart@ei.tum.de}{2003/03/28} provided the
-% keywords.
+% keywords for a previous version. The current language definition comes
+% from \lstthanks{Brooks~Moses}{}{2004/08/07}.
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
 %    \end{macrocode}
 %    \begin{macrocode}
 %%
-%% MetaPost definition (c) 2003 Uwe Siart
+%% MetaPost definition (c) 2004 Brooks Moses
+%%   This definition is based on the language specifications
+%%   contained in the _User's Manual for Metapost_, with the core
+%%   language enhancements that are described in the _Drawing
+%%   Graphs with MetaPost_ documentation.
 %%
 \lst@definelanguage{MetaPost}%
-  {morekeywords={abs,addto,ahangle,ahlength,and,angle,arclength,%
-      arctime,background,bbox,bboxmargin,beginfig,begingroup,beveled,%
-      black,blue,bluepart,boolean,bot,boxit,boxjoin,bpath,btex,%
-      buildcycle,butt,cc,ceiling,char,charcode,circleit,circmargin,%
-      clip,cm,color,controls,cosd,curl,currentpen,currentpicture,%
-      cutafter,cutbefore,cutdraw,cuttings,cycle,dashed,dashpattern,%
-      day,dd,decimal,decr,def,defaultdx,defaultdy,defaultfont,%
-      defaultpen,defaultscale,dir,direction,directionpoint,%
-      directiontime,ditto,div,dotlabel,dotlabels,dotprod,down,downto,%
-      draw,drawarrow,drawboxed,drawboxes,drawdblarrow,drawoptions,%
-      drawshadowed,drawunboxed,else,elseif,end,enddef,endfig,endfor,%
-      endgroup,epsilon,etex,evenly,exitif,exitunless,expr,extra,fi,%
-      fill,filldraw,fixpos,fixsize,floor,fontsize,for,forever,%
-      forsuffixes,fullcircle,getmid,green,greenpart,halfcircle,hex,%
-      hide,identity,if,in,incr,infinity,infont,input,interim,%
-      intersectionpoint,intersectiontimes,inverse,joinup,known,label,%
-      labeloffset,labels,left,length,let,lft,linecap,linejoin,llcorner,%
-      llft,loggingall,lrcorner,lrt,makepath,makepen,mark,max,mexp,%
-      mfplain,middlepoint,midpoint,min,mitered,miterlimit,mlog,mod,%
-      month,mp,mpx,mpxbreak,newinternal,normaldeviate,not,nullpicture,%
-      numeric,oct,odd,or,origin,pair,path,pausing,pen,pencircle,%
-      penoffset,pensquare,pic,pickup,picture,point,postcontrol,%
-      precontrol,primarydef,prologues,quartercircle,red,redpart,%
-      reflectedabout,reverse,right,rotated,rotatedaround,round,rounded,%
-      rt,save,scaled,secondarydef,self,setbounds,shifted,shipout,show,%
-      showdependencies,showstopping,showtoken,showvariable,sind,%
-      slanted,special,sqrt,squared,step,str,string,subpath,substring,%
-      tertiarydef,text,thelabel,time,top,tracingall,tracingcapsules,%
-      tracingchoices,tracingcommands,tracingequations,tracinglostchars,%
-      tracingmacros,tracingnone,tracingonline,tracingoutput,%
-      tracingrestores,tracingspecs,tracingstats,tracingtitles,%
-      transform,transformed,true,truecorners,ulcorner,ulft,undraw,%
-      unfill,unfilldraw,uniformdeviate,unitsquare,unitvector,unknown,%
-      until,up,upto,urcorner,urt,vardef,verbatimtex,whatever,white,%
-      withcolor,withdots,withpen,xpart,xscaled,xxpart,xypart,year,%
-      yscaled,yxpart,yypart,zscaled},%
-   sensitive,%
+  {% keywords[1] = MetaPost primitives (not found in following tables)
+   morekeywords={end,begingroup,endgroup,beginfig,endfig,def,vardef,%
+      primary,secondary,tertiary,primarydef,secondarydef,tertiarydef,%
+      expr,suffix,text,enddef,if,fi,else,elseif,for,forsuffixes,%
+      forever,endfor,upto,downto,stop,until,tension,controls,on,off,%
+      btex,etex,within,input},
+   % keywords[2] = Operators (Tables 6-9 in MetaPost User's manual)
+   morekeywords=[2]{abs,and,angle,arclength,arctime,ASCII,bbox,bluepart,%
+      boolean,bot,ceiling,center,char,color,cosd,cutafter,cutbefore,%
+      cycle,decimal,dir,direction,directionpoint,directiontime,div,%
+      dotprod,floor,fontsize,greenpart,hex,infont,intersectionpoint,%
+      intersectiontimes,inverse,known,length,lft,llcorner,lrcorner,%
+      makepath,makepen,mexp,mlog,mod,normaldeviate,not,numeric,oct,%
+      odd,or,pair,path,pen,penoffset,picture,point,postcontrol,%
+      precontrol,redpart,reverse,rotated,round,rt,scaled,shifted,%
+      sind,slanted,sqrt,str,string,subpath,substring,top,transform,%
+      transformed,ulcorner,uniformdeviate,unitvector,unknown,%
+      urcorner,whatever,xpart,xscaled,xxpart,xypart,ypart,yscaled,%
+      yxpart,yypart,zscaled,of,reflectedabout,rotatedaround,ulft,urt,%
+      llft,lrt,readfrom,write,stroked,filled,textual,clipped,bounded,%
+      pathpart,penpart,dashpart,textpart,fontpart},%
+   % keywords[3] = Commands (Table 10)
+   morekeywords=[3]{addto,clip,cutdraw,draw,drawarrow,drawdblarrow,%
+      fill,filldraw,interim,let,loggingall,newinternal,pickup,%
+      save,setbounds,shipout,show,showdependencies,showtoken,%
+      showvariable,special,tracingall,tracingnone,undraw,unfill,%
+      unfilldraw,to,also,contour,doublepath,withcolor,withpen,%
+      dashed,randomseed},%
+   % keywords[4] = Function-Like Macros (Table 11)
+   morekeywords=[4]{boxit,boxjoin,bpath,buildcycle,circleit,dashpattern,%
+      decr,dotlabel,dotlabels,drawboxed,drawboxes,drawoptions,%
+      drawunboxed,fixpos,fixsize,incr,interpath,label,labels,max,min,pic,%
+      thelabel,z,image},%
+   % keywords[5] = Internal and Predefined Variables (Tables 3, 4)
+   morekeywords=[5]{ahangle,ahlength,bboxmargin,charcode,circmargin,%
+      day,defaultdx,defaultdy,defaultpen,defaultscale,labeloffset,%
+      linecap,linejoin,miterlimit,month,pausing,prologues,showstopping,%
+      time,tracingcapsules,tracingchoices,tracingcommands,%
+      tracingequations,tracinglostchars,tracingmacros,tracingonline,%
+      tracingoutput,tracingrestores,tracingspecs,tracingstats,%
+      tracingtitles,truecorners,warningcheck,year},
+   morekeywords=[5]{background,currentpen,currentpicture,cuttings,%
+      defaultfont},%
+   % keywords[6] = Predefined Constants (Table 5)
+   morekeywords=[6]{beveled,black,blue,bp,butt,cc,cm,dd,ditto,down,%
+      epsilon,evenly,false,fullcircle,green,halfcircle,identity,%
+      in,infinity,left,mitered,mm,nullpicture,origin,pc,pencircle,%
+      pt,quartercircle,red,right,rounded,squared,true,unitsquare,%
+      up,white,withdots},
+   sensitive=false,%
    alsoother={0123456789$},%
    morecomment=[l]\%,%
-   morestring=[s]"%
-  }[keywords,comments,strings]%
+   morestring=[mf]{input\ },%
+   morestring=[b]"%
+  }[keywords,comments,strings,mf]%
 %    \end{macrocode}
 %    \begin{macrocode}
 %</lang3>
@@ -2484,13 +2606,15 @@
 % \subsection{MuPAD}
 %
 % This definition was provided by \lstthanks{Christopher~Creutzig}
-% {ccr@mupad.de}{2002/10/15}.
+% {ccr@mupad.de}{2002/10/15}. Again thanks to \lsthelper{Ulrike Fischer}
+% {-}{2004/04/23}{Re: Bug in listings.sty} for pointing to a missing |@|
+% in |\lstdefinelanguage|.
 % \begingroup
 %    \begin{macrocode}
 %<*lang3>
 %    \end{macrocode}
 %    \begin{macrocode}
-\lstdefinelanguage{MuPAD}{%
+\lst@definelanguage{MuPAD}{%
    morekeywords={end,next,break,if,then,elif,else,end_if,case,end_case,%
       otherwise,for,from,to,step,downto,in,end_for,while,end_while,%
       repeat,until,end_repeat,or,and,not,xor,div,mod,union,minus,%
@@ -3506,6 +3630,96 @@
 % \endgroup
 %
 %
+% \subsection{Plasm}
+%
+% \lstthanks{Alessio~Pace}{}{2004/09/01} provided the following definition.
+%
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{Plasm}%
+  {sensitive=false,%
+   morekeywords={aa,abs,ac,acolor,acos,actor,al,alias,align,and,%
+      animation,animation,appearance,apply,ar,arc,as,asin,assoc,atan,%
+      axialcamera,axialcameras,basehermite,bbox,bbox,bernstein,%
+      bernsteinbasis,bezier,beziercurve,beziermanifold,bezierstripe,%
+      beziersurface,bigger,biggest,bilinearsurface,binormal,%
+      biquadraticsurface,black,blend,blue,bottom,box,brown,bspize,%
+      bspline,bsplinebasis,c,cabinet,camera,cart,case,cat,catch,ceil,%
+      centeredcameras,centralcavalier,char,charseq,choose,circle,%
+      circumference,class,cmap,color,comp,computecoords,cone,%
+      conicalsurface,cons,control,convexcoords,convexhull,coonspatch,%
+      copy,cos,cosh,crease,crosspolytope,cube,cubiccardinal,%
+      cubiccardinalbasis,cubichermite,cubicubspline,cubicubsplinebasis,%
+      cuboid,curl,curvature,curve2cspath,curve2mapvect,cyan,cylinder,%
+      cylindricalsurface,d,deboor,def,depol,depth_sort,depth_test,%
+      derbernstein,derbernsteinbase,derbezier,determinant,difference,%
+      differencepr,dim,dimetric,dirproject,displaygraph,displaynubspline,%
+      displaynurbspline,distl,distr,div,divergence,dodecahedron,dot,down,%
+      dp,drawedges,drawforks,drawtree,ds,dsphere,dump,dumprep,ellipse,%
+      embed,end,eq,ex,exp,explode,export,extract_bodies,extract_polygons,%
+      extract_wires,extrude,extrusion,fact,false,feature,ff,fillcolor,%
+      filter,finitecone,first,flash,flashani,floor,fontcolor,fontheight,%
+      fontspacing,fontwidth,fractalsimplex,frame,frame,frameflash,fromto,%
+      gausscurvature,ge,grad,gradient,gradmap,gray,green,gt,help,hermite,%
+      hermitebasis,hermitesurface,hexahedron,icosahedron,id,idnt,if,in,%
+      inarcs,innerprod,inset,insl,insr,intersection,intersectionpr,%
+      intervals,intmax,intmin,intsto,inv,isa,isanimpol,isbool,ischar,%
+      isclosedshape,iscloseto,isempty,iseven,isfun,isfunvect,isge,isgt,%
+      isint,isintneg,isinto,isintpos,isle,islt,ismat,ismatof,isnat,%
+      isnull,isnum,isnumneg,isnumpos,isodd,isometric,isorthoshape,ispair,%
+      ispoint,ispointseq,ispol,ispoldim,ispolytope,ispurepol,isreal,%
+      isrealneg,isrealpos,isrealvect,isseq,isseqof,isshape,issimplex,%
+      issqrmat,isstring,isvect,iszero,jacobian,join,joints,k,last,le,%
+      left,leftcavalier,len,less,lesseq,lex,lift,light,linecolor,%
+      linesize,list,ln,load,loadlib,loop,lt,lxmy,magenta,map,mapshapes,%
+      markersize,mat,matdotprod,material,mathom,max,mean,meanpoint,med,%
+      merge,mesh,min,minkowski,mirror,mixedprod,mk,mkframe,mkpol,%
+      mkvector,mkversork,mod,model,move,mul,multextrude,mxby,mxmy,mxty,%
+      myfont,n,nat2string,neq,ngon,norm2,normalmap,not,nu_grid,nubspline,%
+      nubsplineknots,nurbspline,nurbsplineknots,octahedron,offset,%
+      onepoint,open,optimize,or,orange,ord,ortho,orthoproject,orthox,%
+      orthoy,orthoz,outarcs,outerloop,outerwarp,pairdiff,parallel,%
+      pascaltriangle,pdiff,pdifference,permutahedron,permutations,%
+      perspective,perspective,pi,pivotop,plane,planemapping,pmap,%
+      points2shape,polar,polyline,polymarker,polypoint,power,powerset,%
+      presort,principalnormal,print,prism,profileprodsurface,%
+      progressivesum,project,projection,purple,pyramid,q,quadarray,%
+      quadmesh,quote,r,raise,range,rationalbezier,rationalblend,%
+      rationalbspline,rationalize,red,rev,reverse,rgbacolor,right,%
+      rightcavalier,ring,rn,rotatedtext,rotationalsurface,rotn,rtail,%
+      ruledsurface,rxmy,s,save,scalarmatprod,scalarvectprod,schlegel2d,%
+      schlegel3d,sdifference,sdifferencepr,segment,sel,setand,setdiff,%
+      setfontcolor,setor,setxor,sex,shape_0,shape_1,shape2points,%
+      shape2pol,shapeclosed,shapecomb,shapediff,shapedist,%
+      shapeinbetweening,shapeinf,shapejoin,shapelen,shapenorm,%
+      shapenormal,shapeprod,shaperot,shapesum,shapesup,shapezero,shift,%
+      showprop,sign,signal,simplex,simplexpile,sin,sinh,size,skeleton,%
+      skew,smaller,smallest,solidifier,solidify,sort,sphere,spline,%
+      splinesampling,splitcells,splitpols,sqr,sqrt,star,string,%
+      stringtokens,struct,sub,svg,sweep,t,tail,tan,tangent,tanh,%
+      tensorprodsurface,tetrahedron,text,texture,textwithattributes,%
+      thinsolid,threepoints,time,tmax,tmin,top,torus,torusmap,trace,%
+      trans,tree,trianglefan,trianglestripe,trimetric,true,truncone,tt,%
+      tube,twopoints,uk,ukpol,ukpolf,union,unionpr,unitvect,unprune,up,%
+      vect2dtoangle,vect2mat,vectdiff,vectnorm,vectprod,vectsum,view,%
+      viewmodel,viewmodel,vrml,warp,warp,where,white,with,xcavalier,xor,%
+      xquadarray,xx,ycavalier,yellow},%
+   moredirectives={loadlib},%
+   otherkeywords={-,+,*,**,/,~,|,..,^,\&,\&\&,\#,\#\#},%
+   morecomment=[s]{\%}{\%},%
+   morestring=[b]',%
+   literate={~}{{$\sim$}}{1} {^}{$\wedge$}{1},%
+  }[keywords,directives,comments,strings]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{PL/I}
 %
 % Found the data in
@@ -3659,6 +3873,36 @@
 % \endgroup
 %
 %
+% \subsection{Promela}
+%
+% Thanks to \lstthanks{William~Thimbleby}{-}{1997/11/24}{Promela} for this
+% language definition.
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% Promela definition (c) 2004 William Thimbleby
+%%
+\lst@definelanguage{Promela}
+  {morekeywords={active,assert,atomic,bit,bool,break,byte,chan,d_step,%
+      Dproctype,do,else,empty,enabled,fi,full,goto,hidden,if,init,int,%
+      len,mtype,nempty,never,nfull,od,of,pcvalue,printf,priority,%
+      proctype,provided,run,short,skip,timeout,typedef,unless,unsigned,%
+      xr,xs,true,false,inline,eval},%
+   moredirectives={define,ifdef,ifndef,if,if,else,endif,undef,include},%
+   moredelim=*[directive]\#,%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]"%
+  }[keywords,comments,strings,directives]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
 % \subsection{Python}
 %
 % \lstthanks{Michael~Weber}{mweber@informatik.hu-berlin.de}{1998/12/21} sent me
@@ -3721,36 +3965,6 @@
    morestring=[d]{"},%
   }[keywords,comments,strings]%
 %    \end{macrocode}
-%    \begin{macrocode}
-%</lang2>
-%    \end{macrocode}
-% \endgroup
-%
-%
-% \subsection{Ruby}
-%
-% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided this
-% definition. \lstthanks{Xavier~Noria}{fxn@hashref.com}{2004/01/11} replaced
-% the keywords with the keywords from the at the time of writing current
-% stable Ruby version.
-% \begingroup
-%    \begin{macrocode}
-%<*lang2>
-%    \end{macrocode}
-%    \begin{macrocode}
-\lst@definelanguage{Ruby}%
-  {morekeywords={__FILE__,__LINE__,BEGIN,END,alias,and,begin,break,%
-      case,class,def,defined?,do,else,elsif,end,ensure,false,for,%
-      if,in,module,next,nil,not,or,redo,rescue,retry,return,self,%
-      super,then,true,undef,unless,until,when,while,yield},%
-   sensitive=true,%
-   morecomment=[l]\#,%
-   morecomment=[l]\#\#,%
-   morecomment=[s]{=BEGIN}{=END},%
-   morestring=[b]',%
-   morestring=[b]",%
-   morestring=[b]/%
-  }[keywords,comments,strings]%
 %    \begin{macrocode}
 %</lang2>
 %    \end{macrocode}
@@ -3823,6 +4037,153 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{RSL}
+%
+% Thanks go to \lstthanks{Brian~Christensen}{}{2004/02/15}.
+% \begingroup
+%    \begin{macrocode}
+%<*lang3>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%
+%% RSL definition (c) 2004 Brian Christensen
+%%
+\lst@definelanguage{RSL}%
+  {morekeywords={Bool,Char,devt_relation,Int,Nat,Real,Text,Unit,abs,any,%
+      as,axiom,card,case,channel,chaos,class,do,dom,elems,else,elsif,end,%
+      extend,false,for,hd,hide,if,in,inds,initialise,int,len,let,local,%
+      object,of,out,post,pre,read,real,rng,scheme,skip,stop,swap,%
+      test_case,theory,then,tl,true,type,until,use,value,variable,while,%
+      with,write},%
+literate=%
+{<}{$<$}{1}%
+{>}{$>$}{1}%
+{[}{$[$}{1}%%
+{]}{$]$}{1}%%
+{^}{{\mbox{$\widehat{\;}$}}}{1}%%
+{'}{{\raisebox{1ex}[1ex][0ex]{\protect\scriptsize$\prime$}}}{1}%%
+{||}{{\mbox{$\parallel$}}}{2}%%
+{|-}{$\vdash$}{1}%%
+{|=|}{{\mbox{$\lceil\!\rceil\!\!\!\!\!\!\;\lfloor\!\rfloor$}}}{1}%%
+{**}{$\uparrow$}{1}%
+{/\\}{$\wedge$}{1}%%
+{inter}{$\cap$}{1}%%
+{-\\}{$\lambda$}{1}%%
+{->}{$\rightarrow$}{1}%%
+{-m->}{{\mbox{$\rightarrow \hspace{-2.5\lst@width} _{m}\;$}}}{1}%
+{-~m->}{{\mbox{$\stackrel{\sim}{\mbox{$\rightarrow\hspace{-2.5\lst@width} _{m}\;$}}$}}}{1}%
+{-~->}{{\mbox{$\stackrel{\sim}{\rightarrow}$}}}{1}%%
+{-set}{\bf{-set}}{4}%%
+{-list}{{$^{\ast}$}}{1}%%
+{-inflist}{$^\omega$}{1}%
+{-infset}{{\mbox{{\bf -infset}}}}{7}%
+{\#}{$\circ$}{1}%
+{:-}{{\raisebox{.4ex}{\tiny $\bullet$}}}{1}%%
+{=}{$=$}{1}%%
+{==}{$==$}{2}%%
+{=>}{$\Rightarrow$}{1}%%
+{\ is\protect\^^M}{{$\;\equiv$}}{2}%
+{\ is\ }{{$\equiv$}}{3}%%
+{\ isin\protect\^^M}{$\;\in$}{2}%%
+{~}{$\sim$}{1}%%
+{~=}{$\neq$}{1}%%
+{~isin}{$\notin$}{1}%%
+{+>}{$\mapsto$}{1}%%
+{++}{}{1}%
+{|^|}{{\mbox{$\lceil\!\rceil$}}}{1}%%
+{\\/}{$\vee$}{1}%%
+{exists}{$\exists$}{1}%%
+{union}{$\cup$}{1}%%
+{>=}{$\geq$}{1}%%
+{><}{$\times$}{1}%%
+{>>}{$\supset$}{1}%
+{>>=}{$\supseteq$}{1}%%
+{<=}{$\leq$}{1}%%
+{<<}{$\subset$}{1}%
+{<.}{$\langle$}{1}%%
+{<<=}{$\subseteq$}{1}%%
+{<->}{$\leftrightarrow$}{1}%%
+{[=}{$\sqsubseteq$}{1}%%
+{\{=}{$\preceq$}{1}%%
+{\ all\protect\^^M}{$\forall$}{2}%%
+{\ all\ }{$\forall$}{3}%%
+{!!}{$\dagger$}{1}%%
+{always}{$\Box$}{1}%%
+{.>}{$\rangle$}{1}%%
+{`alpha}{$\alpha$}{1}%
+{`beta}{$\beta$}{1}%
+{`gamma}{$\gamma$}{1}%
+{`delta}{$\delta$}{1}%
+{`epsilon}{$\epsilon$}{1}%
+{`zeta}{$\zeta$}{1}%
+{`eta}{$\eta$}{1}%
+{`theta}{$\theta$}{1}%
+{`iota}{$\iota$}{1}%
+{`kappa}{$\kappa$}{1}%
+{`mu}{$\mu$}{1}%
+{`nu}{$\nu$}{1}%
+{`xi}{$\xi$}{1}%
+{`pi}{$\pi$}{1}%
+{`rho}{$\rho$}{1}%
+{`sigma}{$\sigma$}{1}%
+{`tau}{$\tau$}{1}%
+{`upsilon}{$\upsilon$}{1}%
+{`phi}{$\phi$}{1}%
+{`chi}{$\chi$}{1}%
+{`psi}{$\psi$}{1}%
+{`omega}{$\omega$}{1}%
+{`Gamma}{$\Gamma$}{1}%
+{`Delta}{$\Delta$}{1}%
+{`Theta}{$\Theta$}{1}%
+{`Lambda}{$\Lambda$}{1}%
+{`Xi}{$\Xi$}{1}%
+{`Pi}{$\Pi$}{1}%
+{`Sigma}{$\Sigma$}{1}%
+{`Upsilon}{$\Upsilon$}{1}%
+{`Phi}{$\Phi$}{1}%
+{`Psi}{$\Psi$}{1}%
+{`Omega}{$\Omega$}{1},%
+   sensitive=true,%
+   morecomment=[l]{--},%
+   morecomment=[s]{/*}{*/}%
+  }[keywords,comments]%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</lang3>
+%    \end{macrocode}
+% \endgroup
+%
+%
+% \subsection{Ruby}
+%
+% \lstthanks{Christian~Kaiser}{chk@combit.net}{2003/02/05} provided this
+% definition. \lstthanks{Xavier~Noria}{fxn@hashref.com}{2004/01/11} replaced
+% the keywords with the keywords from the at the time of writing current
+% stable Ruby version.
+% \begingroup
+%    \begin{macrocode}
+%<*lang2>
+%    \end{macrocode}
+%    \begin{macrocode}
+\lst@definelanguage{Ruby}%
+  {morekeywords={__FILE__,__LINE__,BEGIN,END,alias,and,begin,break,%
+      case,class,def,defined?,do,else,elsif,end,ensure,false,for,%
+      if,in,module,next,nil,not,or,redo,rescue,retry,return,self,%
+      super,then,true,undef,unless,until,when,while,yield},%
+   sensitive=true,%
+   morecomment=[l]\#,%
+   morecomment=[l]\#\#,%
+   morecomment=[s]{=BEGIN}{=END},%
+   morestring=[b]',%
+   morestring=[b]",%
+   morestring=[b]/%
+  }[keywords,comments,strings]%
+%    \begin{macrocode}
+%</lang2>
 %    \end{macrocode}
 % \endgroup
 %
@@ -4883,7 +5244,7 @@
   }%
 %    \end{macrocode}
 %    \begin{macrocode}
-\lstdefinelanguage{Ant}[]{XML}%
+\lst@definelanguage{Ant}[]{XML}%
   {morekeywords={%
      project,target,patternset,include,exclude,excludesfile,includesfile,filterset,%
      filter,filtersfile,libfileset,custom,classpath,fileset,none,depend,mapper,%
